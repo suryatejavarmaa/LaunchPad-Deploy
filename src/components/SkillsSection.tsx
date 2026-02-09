@@ -82,13 +82,36 @@ export function SkillsSection() {
     return (
         <section
             id="skills"
-            className="relative overflow-hidden"
+            className="relative overflow-hidden bg-[#020617]"
         >
+            {/* Background Gradients */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
+
+            <div className="relative z-10 container mx-auto px-4 pt-20 pb-0">
+                <motion.div
+                    className="text-center max-w-3xl mx-auto mb-12 lg:mb-0"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <span className="inline-block py-1 px-3 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-widest uppercase mb-4">
+                        Curriculum
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        What Students <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Actually Learn</span>
+                    </h2>
+                    <p className="text-slate-400 text-lg leading-relaxed">
+                        Beyond theory, we focus on the high-impact skills that drive real-world success in both entrepreneurial ventures and corporate careers.
+                    </p>
+                </motion.div>
+            </div>
+
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
             >
                 <RadialOrbitalTimeline
                     timelineData={timelineData}

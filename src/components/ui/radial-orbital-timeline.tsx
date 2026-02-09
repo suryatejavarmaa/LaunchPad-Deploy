@@ -520,71 +520,89 @@ export default function RadialOrbitalTimeline({
         className="relative flex items-center justify-start px-4 lg:px-8"
         style={{ width: isMobile ? '50%' : '50%', minHeight: '100vh' }}
       >
+        {/* ===== GLOWING BACKDROP FOR CONTENT CARD - MOVED OUTSIDE FOR PERSISTENCE ===== */}
+        {activeItem && (
+          <>
+            {/* Large icon watermark - persistent */}
+            <motion.div
+              className="absolute pointer-events-none flex items-center justify-center"
+              style={{
+                right: isMobile ? '20px' : '40px',
+                top: '50%',
+                opacity: 0.12,
+                zIndex: 0,
+              }}
+              // Removed initial opacity: 0 to prevent vanishing on switch
+              initial={{ scale: 0.8, opacity: 0, y: '-50%' }}
+              animate={{
+                scale: 1,
+                opacity: 0.12,
+                y: ['-50%', '-55%', '-50%'],
+                rotate: [0, 5, 0]
+              }}
+              // Only animate entry once, then loop floating
+              transition={{
+                y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                rotate: { duration: 7, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 0.5 },
+                opacity: { duration: 0.5 }
+              }}
+              // Add key to force icon switch transition if desired, or remove to just swap icon
+              key="watermark-icon"
+            >
+              <activeItem.icon size={isMobile ? 120 : 160} style={{ color: getStatusColor(activeItem.status).text }} />
+            </motion.div>
+
+            {/* Animated glow rings - persistent */}
+            <motion.div
+              className="absolute pointer-events-none rounded-full"
+              style={{
+                left: isMobile ? '-100px' : '-150px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: isMobile ? '250px' : '350px',
+                height: isMobile ? '250px' : '350px',
+                border: `2px solid ${getStatusColor(activeItem.status).text}`,
+                opacity: 0.15,
+                zIndex: 0
+              }}
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.1, 0.2, 0.1],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute pointer-events-none rounded-full"
+              style={{
+                left: isMobile ? '-60px' : '-100px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: isMobile ? '170px' : '250px',
+                height: isMobile ? '170px' : '250px',
+                border: `1px solid ${getStatusColor(activeItem.status).text}`,
+                opacity: 0.2,
+                zIndex: 0
+              }}
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.15, 0.25, 0.15],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            />
+          </>
+        )}
+
         <AnimatePresence mode="wait">
           {activeItem ? (
             <motion.div
               key={activeItem.id}
-              className="w-full max-w-md"
-              initial={{ opacity: 0, x: 30 }}
+              className="relative w-full max-w-md z-10"
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.3 }}
             >
-              {/* ===== GLOWING BACKDROP FOR CONTENT CARD ===== */}
-              {/* Large icon watermark - centered between card and right edge */}
-              <motion.div
-                className="absolute pointer-events-none flex items-center justify-center"
-                style={{
-                  right: isMobile ? '20px' : '40px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  opacity: 0.12,
-                  zIndex: 0,
-                }}
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 0.12 }}
-                transition={{ duration: 0.6 }}
-              >
-                <activeItem.icon size={isMobile ? 120 : 160} style={{ color: getStatusColor(activeItem.status).text }} />
-              </motion.div>
-
-              {/* Animated glow rings */}
-              <motion.div
-                className="absolute pointer-events-none rounded-full"
-                style={{
-                  left: isMobile ? '-100px' : '-150px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: isMobile ? '250px' : '350px',
-                  height: isMobile ? '250px' : '350px',
-                  border: `2px solid ${getStatusColor(activeItem.status).text}`,
-                  opacity: 0.15,
-                }}
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.1, 0.2, 0.1],
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="absolute pointer-events-none rounded-full"
-                style={{
-                  left: isMobile ? '-60px' : '-100px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: isMobile ? '170px' : '250px',
-                  height: isMobile ? '170px' : '250px',
-                  border: `1px solid ${getStatusColor(activeItem.status).text}`,
-                  opacity: 0.2,
-                }}
-                animate={{
-                  scale: [1, 1.15, 1],
-                  opacity: [0.15, 0.25, 0.15],
-                }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-              />
-
-              {/* Status color spotlight glow */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -595,111 +613,141 @@ export default function RadialOrbitalTimeline({
                   height: '300px',
                   background: `radial-gradient(ellipse at center, ${getStatusColor(activeItem.status).text}30 0%, transparent 70%)`,
                   filter: 'blur(40px)',
+                  zIndex: -1,
                 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               />
 
-              {/* Header */}
-              <div className="flex items-center gap-3 mb-4 relative z-10">
+              {/* Header with Icon */}
+              <div className="flex items-center gap-4 mb-6 relative z-10 pl-2">
                 <motion.div
-                  className="rounded-full flex items-center justify-center"
+                  className="rounded-2xl flex items-center justify-center"
                   style={{
-                    width: isMobile ? '44px' : '52px',
-                    height: isMobile ? '44px' : '52px',
-                    background: getStatusColor(activeItem.status).bg,
-                    boxShadow: `0 0 20px ${getStatusColor(activeItem.status).text}50`,
+                    width: isMobile ? '48px' : '56px',
+                    height: isMobile ? '48px' : '56px',
+                    background: `linear-gradient(135deg, ${getStatusColor(activeItem.status).text}20, transparent)`,
+                    border: `1px solid ${getStatusColor(activeItem.status).text}40`,
+                    boxShadow: `0 0 30px ${getStatusColor(activeItem.status).text}30`,
                   }}
                   animate={{
                     boxShadow: [
-                      `0 0 15px ${getStatusColor(activeItem.status).text}40`,
-                      `0 0 30px ${getStatusColor(activeItem.status).text}60`,
-                      `0 0 15px ${getStatusColor(activeItem.status).text}40`,
+                      `0 0 20px ${getStatusColor(activeItem.status).text}20`,
+                      `0 0 40px ${getStatusColor(activeItem.status).text}40`,
+                      `0 0 20px ${getStatusColor(activeItem.status).text}20`,
                     ],
                   }}
-                  transition={{ duration: 2.5, repeat: Infinity }}
+                  transition={{ duration: 3, repeat: Infinity }}
                 >
-                  <activeItem.icon size={isMobile ? 18 : 22} className="text-white" />
+                  <activeItem.icon size={isMobile ? 24 : 28} style={{ color: getStatusColor(activeItem.status).text }} />
                 </motion.div>
-                <h3 className="font-bold" style={{ fontSize: isMobile ? '18px' : '24px', color: getStatusColor(activeItem.status).text }}>
-                  {activeItem.title}
-                </h3>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-bold tracking-widest uppercase py-0.5 px-2 rounded-md"
+                      style={{
+                        background: `${getStatusColor(activeItem.status).text}15`,
+                        color: getStatusColor(activeItem.status).text,
+                        border: `1px solid ${getStatusColor(activeItem.status).text}30`
+                      }}>
+                      {getStatusColor(activeItem.status).label}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-white leading-tight" style={{ fontSize: isMobile ? '20px' : '28px' }}>
+                    {activeItem.title}
+                  </h3>
+                </div>
               </div>
 
               {/* Content Card */}
               <motion.div
-                className="rounded-2xl overflow-hidden relative z-10"
+                className="rounded-3xl overflow-hidden relative z-10 backdrop-blur-xl"
                 style={{
-                  background: 'rgba(10, 20, 40, 0.9)',
-                  border: `1px solid ${getStatusColor(activeItem.status).text}30`,
-                  backdropFilter: 'blur(16px)',
-                  boxShadow: `0 0 50px ${getStatusColor(activeItem.status).text}15, 0 20px 60px rgba(0,0,0,0.4)`,
+                  background: 'rgba(8, 12, 22, 0.6)',
+                  borderTop: `1px solid ${getStatusColor(activeItem.status).text}40`,
+                  borderLeft: `1px solid ${getStatusColor(activeItem.status).text}20`,
+                  borderBottom: `1px solid ${getStatusColor(activeItem.status).text}10`,
+                  borderRight: `1px solid ${getStatusColor(activeItem.status).text}10`,
+                  boxShadow: `0 20px 80px -20px rgba(0,0,0,0.8), inset 0 0 60px ${getStatusColor(activeItem.status).text}05`,
                 }}
               >
-                <div className="h-[3px]" style={{ background: `linear-gradient(90deg, transparent, ${getStatusColor(activeItem.status).text}, ${getStatusColor(activeItem.status).text}, transparent)` }} />
+                <div className="relative p-6 lg:p-8">
+                  {/* Subtle top light effect */}
+                  <div className="absolute top-0 left-0 right-0 h-[1px]"
+                    style={{ background: `linear-gradient(90deg, transparent, ${getStatusColor(activeItem.status).text}80, transparent)` }} />
 
-                <div className="p-5 lg:p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <span
-                      className="px-3 py-1 rounded-full text-xs font-bold"
-                      style={{ background: getStatusColor(activeItem.status).bg }}
-                    >
-                      {getStatusColor(activeItem.status).label}
-                    </span>
-                    <span className="text-xs font-mono" style={{ color: '#64748B' }}>
-                      {activeItem.date}
-                    </span>
+                  <div className="mb-6">
+                    <p className="leading-relaxed font-light" style={{ color: '#94A3B8', fontSize: '15px', lineHeight: '1.7' }}>
+                      {activeItem.content}
+                    </p>
                   </div>
 
-                  <h4 className="text-lg font-bold text-white mb-3">{activeItem.title}</h4>
-                  <p className="leading-relaxed mb-5" style={{ color: '#A8B8CC', fontSize: '14px' }}>
-                    {activeItem.content}
-                  </p>
-
-                  {/* Impact Level */}
-                  <div className="mb-5">
-                    <div className="flex justify-between items-center text-xs mb-2">
-                      <span className="flex items-center gap-1.5" style={{ color: '#FF5E63' }}>
-                        <Zap size={12} /> Impact Level:
+                  {/* Impact Level - Premium Design */}
+                  <div className="mb-8 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div className="flex justify-between items-end mb-3">
+                      <div>
+                        <span className="block text-[10px] font-bold tracking-wider text-slate-400 uppercase mb-1">Mastery Potential</span>
+                        <div className="flex items-center gap-2">
+                          <Zap size={14} style={{ color: getStatusColor(activeItem.status).text }} />
+                          <span className="text-sm font-bold text-white">Impact Level</span>
+                        </div>
+                      </div>
+                      <span className="text-xl font-bold font-mono" style={{ color: getStatusColor(activeItem.status).text }}>
+                        {activeItem.energy}%
                       </span>
-                      <span className="font-mono font-bold" style={{ color: '#4AD4FF' }}>{activeItem.energy}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(30, 41, 59, 0.8)' }}>
+
+                    {/* Glowing Progress Bar */}
+                    <div className="h-2 rounded-full overflow-hidden relative" style={{ background: 'rgba(0,0,0,0.4)' }}>
                       <motion.div
-                        className="h-full rounded-full"
-                        style={{ background: 'linear-gradient(90deg, #B1122C, #FF3A4A)' }}
+                        className="h-full rounded-full absolute top-0 left-0"
+                        style={{
+                          background: `linear-gradient(90deg, ${getStatusColor(activeItem.status).text}40, ${getStatusColor(activeItem.status).text})`,
+                          boxShadow: `0 0 20px ${getStatusColor(activeItem.status).text}`
+                        }}
                         initial={{ width: 0 }}
                         animate={{ width: `${activeItem.energy}%` }}
-                        transition={{ duration: 1 }}
+                        transition={{ duration: 1.2, ease: "easeOut" }}
+                      />
+                      {/* Scanline effect */}
+                      <motion.div
+                        className="absolute top-0 bottom-0 w-[20px] z-10"
+                        style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)' }}
+                        animate={{ left: ['0%', '100%'] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: 1 }}
                       />
                     </div>
                   </div>
 
                   {/* Related Tracks */}
                   {activeItem.relatedIds.length > 0 && (
-                    <div className="pt-4" style={{ borderTop: '1px solid rgba(0, 169, 255, 0.12)' }}>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Link size={12} style={{ color: '#64748B' }} />
-                        <span className="text-xs" style={{ color: '#64748B' }}>Related Tracks:</span>
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Suggested Connections</span>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {activeItem.relatedIds.map((relatedId) => {
                           const relatedItem = timelineData.find(i => i.id === relatedId);
                           return relatedItem ? (
-                            <Button
+                            <motion.button
                               key={relatedId}
-                              variant="outline"
-                              size="sm"
-                              className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-md border-cyan-500/30 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20"
+                              whileHover={{ scale: 1.02, y: -2 }}
+                              whileTap={{ scale: 0.98 }}
+                              className="group flex items-center gap-2 px-3 py-2 text-xs rounded-lg transition-all"
+                              style={{
+                                background: 'rgba(255,255,255,0.03)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                color: '#CBD5E1'
+                              }}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 toggleItem(relatedId, true);
                               }}
                             >
-                              {relatedItem.title}
-                              <ArrowRight size={12} className="text-cyan-400" />
-                            </Button>
+                              <Link size={10} className="text-slate-500 group-hover:text-white transition-colors" />
+                              <span className="group-hover:text-white transition-colors">{relatedItem.title}</span>
+                              <ArrowRight size={10} style={{ color: getStatusColor(activeItem.status).text, opacity: 0.7 }} />
+                            </motion.button>
                           ) : null;
                         })}
                       </div>
