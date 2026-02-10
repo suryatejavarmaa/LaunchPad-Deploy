@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { RegistrationForm } from './RegistrationForm';
 import ElectricBorder from './ui/electric-border';
 import { CheckCircle, Zap, Users, DollarSign, Award, Smartphone, ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
 import QRCode from 'react-qr-code';

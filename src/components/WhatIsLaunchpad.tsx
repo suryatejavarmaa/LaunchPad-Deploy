@@ -1,6 +1,59 @@
 import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
+
+const FONTS = [
+    // Original modern fonts
+    { family: "'Syne', sans-serif", style: "normal" },
+    { family: "'Rubik Mono One', monospace", style: "normal" },
+    { family: "'Playfair Display', serif", style: "italic" },
+    { family: "'Bebas Neue', sans-serif", style: "normal" },
+    { family: "'Unbounded', sans-serif", style: "normal" },
+    { family: "'Abril Fatface', serif", style: "normal" },
+
+    // Slanted & Script fonts
+    { family: "'Lobster Two', cursive", style: "italic" },
+    { family: "'Pacifico', cursive", style: "normal" },
+    { family: "'Caveat', cursive", style: "normal" },
+
+    // Playful & Fun fonts
+    { family: "'Bangers', system-ui", style: "normal" },
+    { family: "'Fredoka One', system-ui", style: "normal" },
+    { family: "'Righteous', system-ui", style: "normal" },
+    { family: "'Permanent Marker', cursive", style: "normal" },
+
+    // Futuristic & Tech fonts
+    { family: "'Orbitron', sans-serif", style: "normal" },
+    { family: "'Audiowide', system-ui", style: "normal" },
+    { family: "'Monoton', system-ui", style: "normal" },
+
+    // Bold Display fonts
+    { family: "'Bungee', system-ui", style: "normal" },
+    { family: "'Russo One', sans-serif", style: "normal" },
+    { family: "'Oswald', sans-serif", style: "normal" },
+    { family: "'Raleway', sans-serif", style: "normal" }
+];
 
 export function WhatIsLaunchpad() {
+    const launchpadRef = useRef<HTMLSpanElement>(null);
+
+    useEffect(() => {
+        const title = launchpadRef.current;
+        if (!title) return;
+
+        // Set initial font
+        title.style.setProperty('font-family', FONTS[0].family, 'important');
+        title.style.setProperty('font-style', FONTS[0].style, 'important');
+
+        let i = 0;
+        const interval = setInterval(() => {
+            i = (i + 1) % FONTS.length;
+            title.style.setProperty('font-family', FONTS[i].family, 'important');
+            title.style.setProperty('font-style', FONTS[i].style, 'important');
+        }, 300);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section
             id="what-is-launchpad"
@@ -28,7 +81,7 @@ export function WhatIsLaunchpad() {
                 >
                     {/* Section Header */}
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-white">
-                        What is <span className="lp-text-gradient">Launchpad</span>?
+                        What is <span ref={launchpadRef} className="lp-text-gradient inline-block min-w-[280px]">Launchpad</span>?
                     </h2>
 
                     {/* Main Explanation - Glassmorphic Card */}

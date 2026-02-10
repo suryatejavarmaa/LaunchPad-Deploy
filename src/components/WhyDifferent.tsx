@@ -3,24 +3,35 @@ import styles from './WhyDifferent.module.css';
 import HorizontalScrollSection from './HorizontalScrollSection';
 
 const FONTS = [
+    // Original modern fonts
     { family: "'Syne', sans-serif", style: "normal" },
-    { family: "'Unbounded', sans-serif", style: "normal" },
     { family: "'Rubik Mono One', monospace", style: "normal" },
-    { family: "'Bebas Neue', sans-serif", style: "normal" },
-    { family: "'Archivo Black', sans-serif", style: "normal" },
     { family: "'Playfair Display', serif", style: "italic" },
-    { family: "'Fraunces', serif", style: "italic" },
-    { family: "'IBM Plex Serif', serif", style: "italic" },
-    { family: "'Space Grotesk', sans-serif", style: "italic" },
+    { family: "'Bebas Neue', sans-serif", style: "normal" },
+    { family: "'Unbounded', sans-serif", style: "normal" },
     { family: "'Abril Fatface', serif", style: "normal" },
-    { family: "'Bodoni Moda', serif", style: "normal" },
-    { family: "'Outfit', sans-serif", style: "normal" },
-    { family: "'Plus Jakarta Sans', sans-serif", style: "normal" },
-    { family: "'Manrope', sans-serif", style: "normal" },
-    { family: "'DM Sans', sans-serif", style: "normal" },
-    { family: "'Inter', sans-serif", style: "normal" },
-    { family: "'Poppins', sans-serif", style: "normal" },
-    { family: "'Montserrat', sans-serif", style: "normal" }
+
+    // Slanted & Script fonts
+    { family: "'Lobster Two', cursive", style: "italic" },
+    { family: "'Pacifico', cursive", style: "normal" },
+    { family: "'Caveat', cursive", style: "normal" },
+
+    // Playful & Fun fonts
+    { family: "'Bangers', system-ui", style: "normal" },
+    { family: "'Fredoka One', system-ui", style: "normal" },
+    { family: "'Righteous', system-ui", style: "normal" },
+    { family: "'Permanent Marker', cursive", style: "normal" },
+
+    // Futuristic & Tech fonts
+    { family: "'Orbitron', sans-serif", style: "normal" },
+    { family: "'Audiowide', system-ui", style: "normal" },
+    { family: "'Monoton', system-ui", style: "normal" },
+
+    // Bold Display fonts
+    { family: "'Bungee', system-ui", style: "normal" },
+    { family: "'Russo One', sans-serif", style: "normal" },
+    { family: "'Oswald', sans-serif", style: "normal" },
+    { family: "'Raleway', sans-serif", style: "normal" }
 ];
 
 // --- Sub-Components (Panels) ---
@@ -30,16 +41,31 @@ function HeroPanel() {
 
     useEffect(() => {
         const title = titleRef.current;
-        if (!title) return;
+        if (!title) {
+            console.log('❌ titleRef.current is null');
+            return;
+        }
+
+        console.log('✅ Font animation started');
+
+        // Set initial font with !important to override CSS
+        title.style.setProperty('font-family', FONTS[0].family, 'important');
+        title.style.setProperty('font-style', FONTS[0].style, 'important');
+        console.log('Initial font set to:', FONTS[0].family);
 
         let i = 0;
         const interval = setInterval(() => {
             i = (i + 1) % FONTS.length;
-            title.style.fontFamily = FONTS[i].family;
-            title.style.fontStyle = FONTS[i].style;
-        }, 180);
+            // Use setProperty with 'important' to override any CSS rules
+            title.style.setProperty('font-family', FONTS[i].family, 'important');
+            title.style.setProperty('font-style', FONTS[i].style, 'important');
+            console.log(`Font changed to [${i}]:`, FONTS[i].family, FONTS[i].style);
+        }, 300);
 
-        return () => clearInterval(interval);
+        return () => {
+            console.log('Font animation cleanup');
+            clearInterval(interval);
+        };
     }, []);
 
     return (
