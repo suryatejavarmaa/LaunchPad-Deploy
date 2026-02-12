@@ -1,169 +1,130 @@
-import { motion } from 'motion/react';
-import { Layers, Rocket, Crown } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import styles from './JourneySection.module.css';
+import ElectricBorder from './ui/ElectricBorder';
 
 export function JourneySection() {
-    const phases = [
-        {
-            number: "01",
-            title: "Foundation",
-            icon: Layers,
-            color: "#4AD4FF",
-            items: [
-                "Strong core skills",
-                "AI tool mastery",
-                "Professional mindset",
-                "Department basics"
-            ]
-        },
-        {
-            number: "02",
-            title: "Execution",
-            icon: Rocket,
-            color: "#A855F7",
-            items: [
-                "Work on real projects",
-                "Handle real responsibility",
-                "Collaborate in teams",
-                "Deliver real outcomes"
-            ]
-        },
-        {
-            number: "03",
-            title: "Leadership",
-            icon: Crown,
-            color: "#FF3A4A",
-            items: [
-                "Build systems",
-                "Create SOPs",
-                "Pitch ideas",
-                "Lead operations"
-            ]
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+
+        if (!isPaused) {
+            interval = setInterval(() => {
+                setActiveIndex((current) => (current + 1) % 3);
+            }, 2000);
         }
-    ];
+
+        return () => clearInterval(interval);
+    }, [isPaused]);
+
+    const handleMouseEnter = (index: number) => {
+        setIsPaused(true);
+        setActiveIndex(index);
+    };
+
+    const handleMouseLeave = () => {
+        setIsPaused(false);
+    };
 
     return (
-        <section
-            id="journey"
-            className="py-16 md:py-24 relative overflow-hidden"
-            style={{ backgroundColor: 'var(--lp-bg-solid)' }}
-        >
-            {/* Background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div
-                    className="absolute top-0 left-1/4 w-[600px] h-[600px]"
-                    style={{
-                        background: 'radial-gradient(ellipse, rgba(168, 85, 247, 0.08) 0%, transparent 60%)',
-                        filter: 'blur(100px)',
-                    }}
-                />
+        <section className={styles.section} id="journey">
+            <div className={styles.header}>
+                <h1>The 90-Day Transformation</h1>
+                <p>Three phases. One complete transformation.</p>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="text-center mb-12"
+            <div className={styles.timeline}>
+                {/* Card 1: Foundation (Ice Theme) */}
+                <ElectricBorder
+                    color="#00A9FF"
+                    borderRadius={22}
+                    className={`${styles.card} ${styles.foundation} ${activeIndex === 0 ? styles.active : ''}`}
+                    onMouseEnter={() => handleMouseEnter(0)}
+                    onMouseLeave={handleMouseLeave}
+                    active={activeIndex === 0}
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
-                        The <span className="lp-text-gradient">90-Day</span> Transformation
-                    </h2>
-                    <p className="text-lg sm:text-xl text-slate-300">
-                        Three phases. One complete transformation.
-                    </p>
-                </motion.div>
+                    <div className={styles.cardContent}>
+                        <div className={styles.phase}>
+                            <div className={styles.badge}>01</div>
+                            <strong>Foundation</strong>
+                        </div>
+                        <h3>Build the Core</h3>
+                        <ul>
+                            <li>Strong core skills</li>
+                            <li>AI tool mastery</li>
+                            <li>Professional mindset</li>
+                            <li>Department basics</li>
+                        </ul>
+                    </div>
+                    <div className={styles.hoverContent}>
+                        <p>Day 1–30: Skill & mindset reset</p>
+                        <span>Focus on fundamentals, clarity, and professional habits.</span>
+                    </div>
+                </ElectricBorder>
 
-                {/* Phases Grid */}
-                <div className="grid md:grid-cols-3 gap-6 mb-10">
-                    {phases.map((phase, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.15 }}
-                            className="rounded-2xl p-6 relative overflow-hidden"
-                            style={{
-                                background: `linear-gradient(135deg, ${phase.color}10 0%, ${phase.color}05 100%)`,
-                                border: `1px solid ${phase.color}25`,
-                            }}
-                        >
-                            {/* Phase Number */}
-                            <div
-                                className="absolute -top-2 -right-2 text-7xl font-black opacity-10"
-                                style={{ color: phase.color }}
-                            >
-                                {phase.number}
-                            </div>
-
-                            {/* Icon & Title */}
-                            <div className="flex items-center gap-3 mb-5 relative z-10">
-                                <div
-                                    className="w-10 h-10 rounded-lg flex items-center justify-center"
-                                    style={{
-                                        background: `${phase.color}20`,
-                                        border: `1px solid ${phase.color}40`,
-                                        boxShadow: `0 0 15px ${phase.color}30`,
-                                    }}
-                                >
-                                    <phase.icon className="w-5 h-5" style={{ color: phase.color }} />
-                                </div>
-                                <div>
-                                    <p className="text-xs text-slate-500 uppercase tracking-wider">Phase {phase.number}</p>
-                                    <h3 className="text-lg font-bold" style={{ color: phase.color }}>
-                                        {phase.title}
-                                    </h3>
-                                </div>
-                            </div>
-
-                            {/* Items */}
-                            <div className="space-y-3 relative z-10">
-                                {phase.items.map((item, i) => (
-                                    <div
-                                        key={i}
-                                        className="flex items-center gap-2 text-sm text-slate-300"
-                                    >
-                                        <div
-                                            className="w-1.5 h-1.5 rounded-full"
-                                            style={{ background: phase.color }}
-                                        />
-                                        {item}
-                                    </div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {/* Timeline connector for desktop */}
-                <div className="hidden md:flex justify-center items-center gap-4 mb-8">
-                    <div className="h-1 w-16 rounded-full" style={{ background: '#4AD4FF' }} />
-                    <span className="text-slate-500">→</span>
-                    <div className="h-1 w-16 rounded-full" style={{ background: '#A855F7' }} />
-                    <span className="text-slate-500">→</span>
-                    <div className="h-1 w-16 rounded-full" style={{ background: '#FF3A4A' }} />
-                </div>
-
-                {/* End Message */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="text-center space-y-3"
+                {/* Card 2: Execution (Dual Theme) */}
+                <ElectricBorder
+                    color="#B1122C" // Fallback
+                    gradientColors={['#B1122C', '#00A9FF']}
+                    borderRadius={22}
+                    className={`${styles.card} ${styles.execution} ${activeIndex === 1 ? styles.active : ''}`}
+                    onMouseEnter={() => handleMouseEnter(1)}
+                    onMouseLeave={handleMouseLeave}
+                    active={activeIndex === 1}
                 >
-                    <p className="text-lg md:text-xl text-slate-300">
-                        By Day 90, students are no longer learners.
-                    </p>
-                    <p className="text-xl md:text-2xl font-semibold text-white">
-                        They are <span className="lp-text-gradient">leaders</span> in training.
-                    </p>
-                    <p className="text-slate-300 text-sm mt-4">
-                        No confusion. No half-learning. <span className="text-white font-medium">One clear outcome.</span>
-                    </p>
-                </motion.div>
+                    <div className={styles.cardContent}>
+                        <div className={styles.phase}>
+                            <div className={styles.badge}>02</div>
+                            <strong>Execution</strong>
+                        </div>
+                        <h3>Do Real Work</h3>
+                        <ul>
+                            <li>Work on real projects</li>
+                            <li>Handle real responsibility</li>
+                            <li>Collaborate in teams</li>
+                            <li>Deliver real outcomes</li>
+                        </ul>
+                    </div>
+                    <div className={styles.hoverContent}>
+                        <p>Day 31–60: Real pressure zone</p>
+                        <span>Execution under constraints. Real teams. Real output.</span>
+                    </div>
+                </ElectricBorder>
+
+                {/* Card 3: Leadership (Fire Theme) */}
+                <ElectricBorder
+                    color="#FF3A4A"
+                    borderRadius={22}
+                    className={`${styles.card} ${styles.leadership} ${activeIndex === 2 ? styles.active : ''}`}
+                    onMouseEnter={() => handleMouseEnter(2)}
+                    onMouseLeave={handleMouseLeave}
+                    active={activeIndex === 2}
+                >
+                    <div className={styles.cardContent}>
+                        <div className={styles.phase}>
+                            <div className={styles.badge}>03</div>
+                            <strong>Leadership</strong>
+                        </div>
+                        <h3>Lead Systems</h3>
+                        <ul>
+                            <li>Build systems</li>
+                            <li>Create SOPs</li>
+                            <li>Pitch ideas</li>
+                            <li>Lead operations</li>
+                        </ul>
+                    </div>
+                    <div className={styles.hoverContent}>
+                        <p>Day 61–90: Ownership mode</p>
+                        <span>Systems thinking, decisions, and leadership mindset.</span>
+                    </div>
+                </ElectricBorder>
+            </div>
+
+            <div className={styles.outcome}>
+                <p className={styles.outcomeLine}>By Day 90, students are no longer learners.</p>
+                <p className={styles.outcomeHighlight}>They are <span>leaders in training</span>.</p>
+                <p className={styles.outcomeSub}>No confusion. No half-learning. One clear outcome.</p>
             </div>
         </section>
     );
