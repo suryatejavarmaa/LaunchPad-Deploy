@@ -61,12 +61,13 @@ export function JourneySection() {
                         <p>Day 1–30: Skill & mindset reset</p>
                         <span>Focus on fundamentals, clarity, and professional habits.</span>
                     </div>
+                    <div className={styles.cardBorder} />
                 </ElectricBorder>
 
                 {/* Card 2: Execution (Dual Theme) */}
                 <ElectricBorder
                     color="#B1122C" // Fallback
-                    gradientColors={['#B1122C', '#00A9FF']}
+                    gradientColors={['#B1122C', '#B1122C', '#FF3A4A', '#00A9FF', '#00A9FF']}
                     borderRadius={22}
                     className={`${styles.card} ${styles.execution} ${activeIndex === 1 ? styles.active : ''}`}
                     onMouseEnter={() => handleMouseEnter(1)}
@@ -90,6 +91,7 @@ export function JourneySection() {
                         <p>Day 31–60: Real pressure zone</p>
                         <span>Execution under constraints. Real teams. Real output.</span>
                     </div>
+                    <div className={styles.cardBorder} />
                 </ElectricBorder>
 
                 {/* Card 3: Leadership (Fire Theme) */}
@@ -118,6 +120,7 @@ export function JourneySection() {
                         <p>Day 61–90: Ownership mode</p>
                         <span>Systems thinking, decisions, and leadership mindset.</span>
                     </div>
+                    <div className={styles.cardBorder} />
                 </ElectricBorder>
             </div>
 
