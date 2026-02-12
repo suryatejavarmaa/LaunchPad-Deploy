@@ -17,5 +17,6 @@ declare const styles: {
     readonly founders: string;
     readonly execs: string;
     readonly finalNote: string;
+    readonly pm: string;
 };
 export default styles;

@@ -67,7 +67,7 @@ export function JourneySection() {
                 {/* Card 2: Execution (Dual Theme) */}
                 <ElectricBorder
                     color="#B1122C" // Fallback
-                    gradientColors={['#B1122C', '#B1122C', '#FF3A4A', '#00A9FF', '#00A9FF']}
+                    gradientColors={['#B1122C', '#FF3A4A', '#00A9FF']}
                     borderRadius={22}
                     className={`${styles.card} ${styles.execution} ${activeIndex === 1 ? styles.active : ''}`}
                     onMouseEnter={() => handleMouseEnter(1)}

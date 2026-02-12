@@ -9,7 +9,7 @@
 
 .header {
     text-align: center;
-    max-width: 760px;
+    max-width: 900px;
     margin: 0 auto 48px;
     position: relative;
     z-index: 1;
@@ -28,7 +28,7 @@
 }
 
 .grad {
-    background: linear-gradient(135deg, #FF3A4A, #00A9FF);
+    background: linear-gradient(135deg, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -37,7 +37,7 @@
 .whyBg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(60% 40% at 50% 0%, rgba(255, 58, 74, .08), transparent 70%), radial-gradient(50% 40% at 50% 100%, rgba(0, 169, 255, .08), transparent 70%);
+    background: radial-gradient(60% 40% at 50% 0%, rgba(177, 18, 44, .12), transparent 70%), radial-gradient(50% 40% at 50% 100%, rgba(0, 169, 255, .08), transparent 70%);
     z-index: 0;
 }
 
@@ -87,11 +87,11 @@
     content: "–";
     position: absolute;
     left: 0;
-    color: #FF3A4A;
+    color: #B1122C;
 }
 
 .positive {
-    background: linear-gradient(135deg, rgba(255, 58, 74, 0.15), rgba(0, 169, 255, 0.15));
+    background: linear-gradient(135deg, rgba(177, 18, 44, 0.15) 0%, rgba(255, 58, 74, 0.15) 45%, rgba(0, 169, 255, 0.15) 100%);
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -106,7 +106,7 @@
     display: grid;
     place-items: center;
     font-weight: 700;
-    background: linear-gradient(135deg, #FF3A4A, #00A9FF);
+    background: linear-gradient(135deg, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
     color: #fff;
     z-index: 2;
 }
@@ -132,7 +132,7 @@
 }
 
 .lineBold span {
-    background: linear-gradient(135deg, #FF3A4A, #00A9FF);
+    background: linear-gradient(135deg, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

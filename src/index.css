@@ -148,10 +148,10 @@
 
     /* Gradients */
     --lp-gradient-dual: linear-gradient(135deg, #7F0B1E 0%, #B1122C 30%, #FF3A4A 55%, #00A9FF 80%, #00A9FF 100%);
-    --lp-gradient-border-dual: linear-gradient(135deg, #B1122C 0%, #00A9FF 100%);
+    --lp-gradient-border-dual: linear-gradient(135deg, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
     --lp-gradient-fire: linear-gradient(135deg, #4A040F 0%, #7F0B1E 50%, #B1122C 100%);
     --lp-gradient-ice: linear-gradient(135deg, #00A9FF 0%, #4AD4FF 100%);
-    --lp-gradient-branding: linear-gradient(135deg, #FF3A4A 0%, #00A9FF 100%);
+    --lp-gradient-branding: linear-gradient(135deg, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
 
     /* Backgrounds */
     --lp-bg-glass: rgba(255, 255, 255, 0.05);

@@ -61,10 +61,11 @@ export function OutcomesSection() {
                     <h3 className={styles.colTitle}>Possible Growth Roles</h3>
 
                     <div className={styles.growthMap}>
-                        <div className={`${styles.growthItem} ${styles.heads}`}><span className={styles.growthIcon}>👥</span>Department Heads</div>
-                        <div className={`${styles.growthItem} ${styles.leaders}`}><span className={styles.growthIcon}>🎯</span>Strategic Leaders</div>
-                        <div className={`${styles.growthItem} ${styles.founders}`}><span className={styles.growthIcon}>🚀</span>Startup Founders</div>
-                        <div className={`${styles.growthItem} ${styles.execs}`}><span className={styles.growthIcon}>👑</span>Early-stage Executives</div>
+                        <div className={`${styles.growthItem} ${styles.heads}`}><span className={styles.growthIcon}>👥</span><div><strong>Department Heads</strong><p>Lead teams and execute strategies aligned with company goals.</p></div></div>
+                        <div className={`${styles.growthItem} ${styles.leaders}`}><span className={styles.growthIcon}>🎯</span><div><strong>Strategic Leaders</strong><p>Drive long-term vision and high-impact decision making.</p></div></div>
+                        <div className={`${styles.growthItem} ${styles.founders}`}><span className={styles.growthIcon}>🚀</span><div><strong>Startup Founders</strong><p>Build and scale your own ventures with full-stack competence.</p></div></div>
+                        <div className={`${styles.growthItem} ${styles.execs}`}><span className={styles.growthIcon}>👑</span><div><strong>Early-stage Executives</strong><p>Take ownership of core business functions.</p></div></div>
+                        <div className={`${styles.growthItem} ${styles.pm}`}><span className={styles.growthIcon}>📈</span><div><strong>Global Product Managers</strong><p>Bridge engineering, design, and business to launch products.</p></div></div>
                     </div>
                 </div>
             </div>
