@@ -1,0 +1,124 @@
+.gamificationSection {
+    padding: 100px 6vw;
+    background: linear-gradient(180deg, #060812 0%, #0a0d1c 100%);
+    color: #fff;
+    font-family: Poppins, sans-serif;
+}
+
+.gamiContainer {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.gamiHeader {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.gamiHeader h2 {
+    display: inline-block;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #B1122C, #FF3A4A, #00A9FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.gamiHeader p {
+    margin-top: 16px;
+    color: #94A3B8;
+    font-size: 18px;
+}
+
+.gamiGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+}
+
+.gamiCard {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 26px;
+    padding: 36px 28px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease;
+}
+
+.gamiCard:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, .8);
+}
+
+.gamiIcon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 22px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+}
+
+.gamiCard h4 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.gamiCard p {
+    font-size: 15px;
+    color: #CBD5E1;
+    line-height: 1.6;
+}
+
+/* Icon color themes */
+.gamiCard.gold .gamiIcon {
+    background: linear-gradient(135deg, rgba(234, 179, 8, .35), rgba(250, 204, 21, .35));
+    color: #FACC15;
+}
+
+.gamiCard.red .gamiIcon {
+    background: linear-gradient(135deg, rgba(255, 58, 74, .35), rgba(255, 94, 99, .35));
+    color: #FF5E63;
+}
+
+.gamiCard.blue .gamiIcon {
+    background: linear-gradient(135deg, rgba(0, 169, 255, .35), rgba(74, 212, 255, .35));
+    color: #4AD4FF;
+}
+
+.gamiCard.purple .gamiIcon {
+    background: linear-gradient(135deg, rgba(168, 85, 247, .35), rgba(192, 132, 252, .35));
+    color: #C084FC;
+}
+
+.gamiFooter {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 20px;
+}
+
+.gamiFooter p {
+    margin-bottom: 12px;
+}
+
+.gamiFooter strong {
+    font-weight: 700;
+}
+
+/* Responsive */
+@media(max-width: 1024px) {
+    .gamiGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 640px) {
+    .gamiGrid {
+        grid-template-columns: 1fr;
+    }
+}

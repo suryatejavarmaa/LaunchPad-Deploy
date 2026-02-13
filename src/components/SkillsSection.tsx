@@ -106,7 +106,7 @@ export function SkillsSection() {
     return (
         <section
             id="skills"
-            className="relative overflow-hidden bg-[#020617] py-10"
+            className="relative z-20 overflow-hidden bg-[#020617] py-10"
         >
             {/* Background Gradients */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />

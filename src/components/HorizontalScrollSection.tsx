@@ -33,12 +33,14 @@ export default function HorizontalScrollSection({ panels }: HorizontalScrollSect
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
-                    // Short intro phase (35% of viewport height) + horizontal scroll
-                    end: () => `+=${window.innerHeight * 0.35 + window.innerWidth * panels.length}`,
-                    scrub: 1,
+                    // Reduced distance: Just the width of panels for a tighter feel
+                    end: () => `+=${window.innerWidth * panels.length}`,
+                    scrub: 0.5,
                     pin: true,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
+                    preventOverlaps: true,
+                    fastScrollEnd: true,
                 }
             });
 
