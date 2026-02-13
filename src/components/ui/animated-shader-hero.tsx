@@ -118,7 +118,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.primary && (
                 <button
                   onClick={buttons.primary.onClick}
-                  className="px-8 py-4 rounded-full text-lg font-semibold text-white transition-all duration-300 hover:scale-105 backdrop-blur-xl"
+                  className="px-8 py-4 rounded-full text-lg font-bold text-white transition-all duration-300 hover:scale-105 backdrop-blur-xl"
                   style={{
                     background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.25)',

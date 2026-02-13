@@ -22,36 +22,31 @@ export function CareerOverview() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="px-4">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold text-white">
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl mb-4 text-white tracking-tight"
+              style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
+            >
               Your Path <span className="text-glow-blue">Forward</span>
             </h2>
-            <p className="text-lg sm:text-xl px-2 text-slate-400">
+            <p className="text-lg sm:text-xl px-2 text-slate-400 font-bold tracking-tight">
               Two paths. One beginning. Choose your direction with Launchpad.
             </p>
           </div>
         </div>
 
-        <div className="mb-16 text-center cursor-default min-h-[100px] flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-          <VariableProximity
-            label="Fear Nothing."
-            className="text-4xl md:text-6xl font-black tracking-tight"
-            fromFontVariationSettings="'wght' 400, 'opsz' 9"
-            toFontVariationSettings="'wght' 1000, 'opsz' 40"
-            containerRef={containerRef as React.RefObject<HTMLElement>}
-            radius={100}
-            falloff="gaussian"
-            style={{ color: 'var(--lp-red)' }}
-          />
-          <VariableProximity
-            label="Build Everything."
-            className="text-4xl md:text-6xl font-black tracking-tight"
-            fromFontVariationSettings="'wght' 400, 'opsz' 9"
-            toFontVariationSettings="'wght' 1000, 'opsz' 40"
-            containerRef={containerRef as React.RefObject<HTMLElement>}
-            radius={100}
-            falloff="gaussian"
-            style={{ color: 'var(--lp-blue)' }}
-          />
+        <div className="mb-16 text-center flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+          <span
+            className="text-4xl md:text-6xl tracking-tight"
+            style={{ color: 'var(--lp-red)', fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
+          >
+            Fear Nothing.
+          </span>
+          <span
+            className="text-4xl md:text-6xl tracking-tight"
+            style={{ color: 'var(--lp-blue)', fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontStyle: 'italic' }}
+          >
+            Build Everything.
+          </span>
         </div>
 
         {/* Cards - side by side */}

@@ -27,7 +27,10 @@ export function WhatIsLaunchpad() {
                     className="text-center"
                 >
                     {/* Section Header */}
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-white">
+                    <h2
+                        className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-8 text-white"
+                        style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
+                    >
                         What is <span className="lp-text-gradient inline-block">Launchpad</span>?
                     </h2>
 

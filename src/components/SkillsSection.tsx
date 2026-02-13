@@ -105,7 +105,7 @@ export function SkillsSection() {
 
     return (
         <section
-            id="skills"
+            id="curriculum"
             className="relative z-20 overflow-hidden bg-[#020617] py-10"
         >
             {/* Background Gradients */}
@@ -127,9 +127,15 @@ export function SkillsSection() {
                         <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase">Interactive Curriculum</span>
                     </div>
 
-                    <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                    <h2
+                        className="text-5xl md:text-7xl text-white mb-6 tracking-tight"
+                        style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
+                    >
                         What Students <br />
-                        <span className="block mt-2 lp-text-gradient font-extrabold pb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        <span
+                            className="block mt-2 lp-text-gradient pb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                            style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
+                        >
                             Actually Learn
                         </span>
                     </h2>

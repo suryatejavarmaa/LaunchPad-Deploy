@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Menu, X, Home, Calendar, Star, Users, Briefcase, Sparkles, Layers, FileCheck } from 'lucide-react';
+import { Menu, X, Home, Calendar, Trophy, Users, Compass, Sparkles, Map, Send, Zap, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export function NavigationBar() {
@@ -13,7 +13,7 @@ export function NavigationBar() {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
-            const sections = ['application', 'team', 'stories', 'events', 'overview', 'innovation', 'platform'];
+            const sections = ['home', 'what-is-launchpad', 'overview', 'why-different', 'curriculum', 'journey', 'outcomes', 'belief', 'gamification', 'application'];
             const scrollPosition = window.scrollY + 200;
 
             for (const sectionId of sections) {
@@ -40,21 +40,21 @@ export function NavigationBar() {
     }, []);
 
     const navLinks = [
+        { label: 'About', href: '#what-is-launchpad' },
         { label: 'Program', href: '#overview' },
-        { label: 'Events', href: '#events' },
-        { label: 'Success Stories', href: '#stories' },
-        { label: 'Team', href: '#team' },
+        { label: 'Curriculum', href: '#curriculum' },
+        { label: 'Outcomes', href: '#outcomes' },
     ];
 
     const dockItems = [
-        { id: 'home', sectionId: 'home', icon: Home, label: 'Home', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-        { id: 'platform', sectionId: 'platform', icon: Sparkles, label: 'Platform', onClick: () => document.getElementById('platform')?.scrollIntoView({ behavior: 'smooth' }) },
-        { id: 'innovation', sectionId: 'innovation', icon: Layers, label: 'Innovation', onClick: () => document.getElementById('innovation')?.scrollIntoView({ behavior: 'smooth' }) },
-        { id: 'program', sectionId: 'overview', icon: Briefcase, label: 'Program', onClick: () => document.getElementById('overview')?.scrollIntoView({ behavior: 'smooth' }) },
-        { id: 'events', sectionId: 'events', icon: Calendar, label: 'Events', onClick: () => document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' }) },
-        { id: 'stories', sectionId: 'stories', icon: Star, label: 'Stories', onClick: () => document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth' }) },
-        { id: 'team', sectionId: 'team', icon: Users, label: 'Team', onClick: () => document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' }) },
-        { id: 'apply', sectionId: 'application', icon: FileCheck, label: 'Apply', onClick: () => document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'home', sectionId: 'home', icon: Home, label: 'Home', onClick: () => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'about', sectionId: 'what-is-launchpad', icon: Sparkles, label: 'About', onClick: () => document.getElementById('what-is-launchpad')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'paths', sectionId: 'overview', icon: Compass, label: 'Paths', onClick: () => document.getElementById('overview')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'diff', sectionId: 'why-different', icon: Zap, label: 'Why Us', onClick: () => document.getElementById('why-different')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'skills', sectionId: 'curriculum', icon: Cpu, label: 'Skills', onClick: () => document.getElementById('curriculum')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'journey', sectionId: 'journey', icon: Map, label: 'Journey', onClick: () => document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'results', sectionId: 'outcomes', icon: Trophy, label: 'Results', onClick: () => document.getElementById('outcomes')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'apply', sectionId: 'application', icon: Send, label: 'Apply', onClick: () => document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' }) },
     ];
 
     return (

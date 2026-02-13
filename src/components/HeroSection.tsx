@@ -18,7 +18,7 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative min-h-screen lp-dual-energy" style={{ backgroundColor: 'var(--lp-bg-solid)' }}>
+    <div id="home" className="relative min-h-screen lp-dual-energy" style={{ backgroundColor: 'var(--lp-bg-solid)' }}>
       {/* Flow Field Particle Background - dashboard/control-room feel */}
       <div className="absolute inset-0 w-full h-full z-0">
         <FlowFieldBackground

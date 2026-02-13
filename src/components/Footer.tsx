@@ -70,9 +70,9 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8 md:gap-10 mb-8 md:mb-10">
           <div>
             {/* Logo - ONLY gradient text */}
-            <h3 className="text-2xl font-bold lp-text-gradient mb-4">Launchpad</h3>
+            <h3 className="text-2xl font-black tracking-tight lp-text-gradient mb-4">Launchpad</h3>
             <p className="text-slate-400 text-sm">
-              <span className="font-medium text-white">One Life. One Story.</span> Your journey from Student to Founder in 90 days starts here.
+              <span className="font-bold text-white">One Life. One Story.</span> Your journey from Student to Founder in 90 days starts here.
             </p>
           </div>
 
@@ -103,13 +103,13 @@ export function Footer() {
                   {section.links && section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
                       {section.title === 'Our Address' ? (
-                        <span className="text-slate-400 text-sm">
+                        <span className="text-slate-400 text-sm font-bold">
                           {link}
                         </span>
                       ) : (
                         <a
                           href="#"
-                          className="text-slate-400 hover:text-white transition-colors text-sm"
+                          className="text-slate-400 hover:text-white transition-colors text-sm font-bold"
                         >
                           {link}
                         </a>
@@ -126,14 +126,14 @@ export function Footer() {
           className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
           style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}
         >
-          <p className="text-slate-500 text-sm">
-            © 2025 Launchpad. All rights reserved.
+          <p className="text-white text-sm font-bold">
+            © 2026 Launchpad. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-slate-500 hover:text-slate-300 transition-colors text-sm">
+            <a href="#" className="text-white hover:text-slate-300 transition-colors text-sm font-bold">
               Privacy Policy
             </a>
-            <a href="#" className="text-slate-500 hover:text-slate-300 transition-colors text-sm">
+            <a href="#" className="text-white hover:text-slate-300 transition-colors text-sm font-bold">
               Terms of Service
             </a>
           </div>

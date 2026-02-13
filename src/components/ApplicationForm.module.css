@@ -25,11 +25,12 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
-    background: linear-gradient(135deg, #FF3A4A 0%, #00A9FF 100%);
+    background: linear-gradient(to right, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;
+    display: inline-block;
 }
 
 .subheading {

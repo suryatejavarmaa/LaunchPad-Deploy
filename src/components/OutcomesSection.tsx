@@ -2,7 +2,7 @@ import styles from './OutcomesSection.module.css';
 
 export function OutcomesSection() {
     return (
-        <section className={`${styles.section} ${styles.sectionAlt}`}>
+        <section className={`${styles.section} ${styles.sectionAlt}`} id="outcomes">
             <div className={styles.header}>
                 <h1>Real <span className={styles.grad}>Outcomes</span> for Students</h1>
                 <p>What do you get after this program?</p>

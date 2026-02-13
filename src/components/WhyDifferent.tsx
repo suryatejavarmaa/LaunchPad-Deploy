@@ -184,7 +184,12 @@ function OutcomePanel() {
                         Launchpad is not preparation for the real world.<br />
                         <strong>It is the real world.</strong>
                     </p>
-                    <button className={styles.ctaButton}>Apply to Launchpad →</button>
+                    <button
+                        className={styles.ctaButton}
+                        onClick={() => document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                        Apply to Launchpad →
+                    </button>
                 </div>
             </div>
         </div>
@@ -195,8 +200,10 @@ function OutcomePanel() {
 
 export function WhyDifferent() {
     return (
-        <HorizontalScrollSection
-            panels={[HeroPanel, OldWayPanel, NewSystemPanel, OutcomePanel]}
-        />
+        <div id="why-different">
+            <HorizontalScrollSection
+                panels={[HeroPanel, OldWayPanel, NewSystemPanel, OutcomePanel]}
+            />
+        </div>
     );
 }

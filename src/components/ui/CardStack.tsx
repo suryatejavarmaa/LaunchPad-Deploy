@@ -192,6 +192,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             display: 'flex',
                             flexDirection: 'column',
                             padding: '32px 40px',
+                            pointerEvents: flipped ? 'none' : 'auto',
                         }}
                         onClick={onFlip}
                     >
@@ -279,6 +280,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                                 ))}
                             </div>
                         </div>
+
                     </div>
 
                     {/* BACK FACE */}
@@ -291,7 +293,9 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             alignItems: 'center',
                             justifyContent: 'center',
                             padding: '32px 40px',
+                            pointerEvents: flipped ? 'auto' : 'none',
                         }}
+                        onClick={(e) => e.stopPropagation()}
                     >
                         {/* Grid pattern overlay */}
                         <div
@@ -319,6 +323,10 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             </div>
 
                             <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
                                 style={{
                                     padding: '20px 40px',
                                     borderRadius: '16px',

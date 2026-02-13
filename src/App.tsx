@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { NavigationBar } from './components/NavigationBar';
 import { ChatAssistant } from './components/ChatAssistant';
-import { ParticleTextSection } from './components/ParticleTextSection';
+// import { ParticleTextSection } from './components/ParticleTextSection';
 import { CareerOverview } from './components/CareerOverview';
 import { ApplicationForm } from './components/ApplicationForm';
 import { Footer } from './components/Footer';
@@ -17,6 +17,8 @@ import { BeliefSection } from './components/BeliefSection';
 
 // Lazy load heavy components to prevent timeout issues
 const HeroSection = lazy(() => import('./components/HeroSection'));
+
+import { RevealOnScroll } from './components/ui/RevealOnScroll';
 
 export default function App() {
   return (
@@ -34,41 +36,59 @@ export default function App() {
         {/* ===== CEO's Content Structure ===== */}
 
         {/* 1. What Is Launchpad - Explanation */}
-        {/* 1. What Is Launchpad - Explanation */}
-        <WhatIsLaunchpad />
+        <RevealOnScroll>
+          <WhatIsLaunchpad />
+        </RevealOnScroll>
 
         {/* 2. Two Clear Paths */}
-        <CareerOverview />
+        <RevealOnScroll>
+          <CareerOverview />
+        </RevealOnScroll>
 
         {/* 3. Why Launchpad Is Different */}
+        {/* WhyDifferent has its own internal scroll logic, skipping wrapper to avoid conflicts */}
         <WhyDifferent />
 
         {/* 4. What Students Learn - Skills */}
-        <SkillsSection />
+        <RevealOnScroll>
+          <SkillsSection />
+        </RevealOnScroll>
 
         {/* 5. 90-Day Transformation Journey */}
-        <JourneySection />
+        <RevealOnScroll>
+          <JourneySection />
+        </RevealOnScroll>
 
         {/* 6. Real Outcomes */}
-        <OutcomesSection />
+        <RevealOnScroll>
+          <OutcomesSection />
+        </RevealOnScroll>
 
         {/* 7. Why This Matters - Belief */}
-        <BeliefSection />
+        <RevealOnScroll>
+          <BeliefSection />
+        </RevealOnScroll>
 
         {/* 8. Gamification & Competition */}
-        <GamificationSection />
+        <RevealOnScroll>
+          <GamificationSection />
+        </RevealOnScroll>
 
         {/* 9. Final CTA */}
-        <ApplicationForm />
+        <RevealOnScroll>
+          <ApplicationForm />
+        </RevealOnScroll>
 
         {/* Footer */}
-        <Footer />
+        <RevealOnScroll>
+          <Footer />
+        </RevealOnScroll>
 
         {/* Chat Assistant - Floating */}
         <ChatAssistant />
 
         {/* ===== Legacy Sections (Kept After Footer) ===== */}
-        <ParticleTextSection />
+        {/* <ParticleTextSection /> */}
       </div>
     </ErrorBoundary>
   );
