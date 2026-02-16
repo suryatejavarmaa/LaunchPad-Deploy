@@ -577,6 +577,58 @@
     container: card-header / inline-size;
   }
 
+  /* 🚀 Launchpad Brand Logo Styles */
+  .brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    /* Responsive font size */
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .brand-launch {
+    background: linear-gradient(90deg, #B1122C, #FF3A4A, #00A9FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Gradient text */
+    display: inline-flex;
+    /* improved alignment */
+    align-items: center;
+    text-shadow: 0 4px 30px rgba(255, 255, 255, 0.2);
+    font-size: 1.2em;
+  }
+
+  /* Rocket Icon Styles */
+  /* Rocket Icon Styles */
+  .rocket-icon {
+    display: inline-block;
+    height: 0.65em;
+    width: 0.65em;
+    /* Aspect ratio roughly 1:1 or matched to image */
+
+    /* Matches the Purple/Blue gradient at the second 'A' position */
+    background: linear-gradient(90deg, #7A72C2, #4096EE);
+
+    /* Masking to show the rocket shape */
+    -webkit-mask-image: url('./assets/space-rocket-launch.png');
+    mask-image: url('./assets/space-rocket-launch.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    vertical-align: middle;
+    margin: 0 -0.01em;
+
+    /* Rotates the rocket 45 degrees counter-clockwise */
+    transform: rotate(-45deg) translateY(-5%);
+  }
+
   .pointer-events-none {
     pointer-events: none;
   }

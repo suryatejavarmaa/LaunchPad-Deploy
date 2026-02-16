@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export function Footer() {
   const sections = [
     {
@@ -70,8 +71,11 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8 md:gap-10 mb-8 md:mb-10">
           <div>
             {/* Logo - ONLY gradient text */}
-            <h3 className="text-2xl font-black tracking-tight lp-text-gradient mb-4">Launchpad</h3>
-            <p className="text-slate-400 text-sm">
+            <h3 className="brand-name mb-4">
+              <span className="brand-launch text-2xl lg:text-3xl">
+                LAUNCHP<span className="rocket-icon" aria-label="A"></span>D
+              </span>
+            </h3>            <p className="text-slate-400 text-sm">
               <span className="font-bold text-white">One Life. One Story.</span> Your journey from Student to Founder in 90 days starts here.
             </p>
           </div>

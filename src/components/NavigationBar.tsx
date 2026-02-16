@@ -3,7 +3,9 @@ import { Button } from './ui/button';
 import { Menu, X, Home, Calendar, Trophy, Users, Compass, Sparkles, Map, Send, Zap, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+
 export function NavigationBar() {
+
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
@@ -72,12 +74,17 @@ export function NavigationBar() {
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
                     <motion.div
-                        className="flex items-center"
+                        className="flex items-center cursor-pointer"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5 }}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
-                        <span className="text-2xl font-bold lp-text-gradient">Launchpad</span>
+                        <h1 className="brand-name flex items-center">
+                            <span className="brand-launch text-2xl lg:text-3xl">
+                                LAUNCHP<span className="rocket-icon" aria-label="A"></span>D
+                            </span>
+                        </h1>
                     </motion.div>
 
                     {/* Desktop Navigation - Premium Glassmorphism Dock */}
