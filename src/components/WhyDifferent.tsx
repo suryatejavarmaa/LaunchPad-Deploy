@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { ShieldAlert, BookOpen } from 'lucide-react';
+import { ShieldAlert, BookOpen, TrendingUp, Zap, Target, Rocket } from 'lucide-react';
+import { motion } from 'framer-motion';
 import styles from './WhyDifferent.module.css';
 import HorizontalScrollSection from './HorizontalScrollSection';
 
@@ -173,6 +174,8 @@ function NewSystemPanel() {
 function OutcomePanel() {
     return (
         <div className={`${styles.outcome}`}>
+
+
             <div className={styles.outcomeContent}>
                 <div className={styles.cta}>
                     <h2>REAL PRESSURE.<br />REAL OUTCOMES.</h2>
