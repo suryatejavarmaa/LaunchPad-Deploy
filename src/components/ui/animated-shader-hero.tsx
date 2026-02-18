@@ -3,9 +3,10 @@ import React from 'react';
 // Types for component props
 interface HeadlineLine {
   text: React.ReactNode;
-  colorClass?: string; // CSS class for coloring
+  colorClass?: string;
   style?: React.CSSProperties;
-  isSmall?: boolean; // For smaller text like "This is"
+  isSmall?: boolean;
+  isCustomAnimated?: boolean; // If true, omits the standard animate-fade-in-up class
 }
 
 interface HeroProps {
@@ -29,6 +30,7 @@ interface HeroProps {
     };
   };
   className?: string;
+  triggerAnimation?: boolean; // Prop to sync animations
 }
 
 // Hero Component with multi-line headline support
@@ -38,7 +40,8 @@ const Hero: React.FC<HeroProps> = ({
   tagline,
   subtitle,
   buttons,
-  className = ""
+  className = "",
+  triggerAnimation = true
 }) => {
   return (
     <div className={`relative w-full h-screen overflow-hidden ${className}`}>
@@ -79,26 +82,35 @@ const Hero: React.FC<HeroProps> = ({
         <div className="text-center space-y-6 max-w-5xl mx-auto px-4">
           {/* Main Headlines - Multi-line with individual colors */}
           <div className="space-y-1">
-            {headline.lines.map((line, index) => (
-              <h1
-                key={index}
-                className={`${line.isSmall
-                  ? 'text-xl md:text-2xl lg:text-3xl font-normal'
-                  : 'text-4xl md:text-6xl lg:text-7xl font-bold'
-                  } animate-fade-in-up ${line.colorClass || ''}`}
-                style={{
-                  animationDelay: `${600 + index * 200}ms`, // Pushed back and spaced out
-                  ...line.style
-                }}
-              >
-                {line.text}
-              </h1>
-            ))}
+            {headline.lines.map((line, index) => {
+              const delay = index === 3 ? 2000 : 1000 + index * 200;
+              const animationClass = line.isCustomAnimated ? "" : "animate-fade-in-up";
+
+              return (
+                <h1
+                  key={index}
+                  className={`${line.isSmall
+                    ? 'text-xl md:text-2xl lg:text-3xl font-normal'
+                    : 'text-4xl md:text-6xl lg:text-7xl font-bold'
+                    } ${animationClass} ${line.colorClass || ''}`}
+                  style={{
+                    animationDelay: `${delay}ms`,
+                    // Hide custom animated elements until they are triggered to prevent static appearance
+                    opacity: line.isCustomAnimated ? (triggerAnimation ? 1 : 0) : undefined,
+                    ...line.style
+                  }}
+                >
+                  {React.isValidElement(line.text)
+                    ? React.cloneElement(line.text as React.ReactElement<any>, { trigger: triggerAnimation })
+                    : line.text}
+                </h1>
+              );
+            })}
           </div>
 
           {/* Tagline - Neutral Color */}
           {tagline && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '1200ms' }}>
+            <div className="animate-fade-in-up" style={{ animationDelay: '2800ms' }}>
               <p className="text-lg md:text-xl font-medium tracking-widest uppercase text-slate-400">
                 {tagline}
               </p>
@@ -106,7 +118,7 @@ const Hero: React.FC<HeroProps> = ({
           )}
 
           {/* Subtitle - Neutral Color */}
-          <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '1400ms' }}>
+          <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '3200ms' }}>
             <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-slate-300">
               {subtitle}
             </p>
@@ -114,7 +126,7 @@ const Hero: React.FC<HeroProps> = ({
 
           {/* CTA Buttons */}
           {buttons && (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 animate-fade-in-up" style={{ animationDelay: '1600ms' }}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 animate-fade-in-up" style={{ animationDelay: '3600ms' }}>
               {buttons.primary && (
                 <button
                   onClick={buttons.primary.onClick}

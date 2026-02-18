@@ -6,34 +6,39 @@ interface RejouiceTextProps {
     className?: string;
     colorClass?: string;
     style?: React.CSSProperties;
+    trigger?: boolean; // When flipped to true, starts the drooping animation
 }
 
-const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", colorClass = "", style }) => {
+const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", colorClass = "", style, trigger }) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const animationRef = useRef<gsap.core.Timeline | null>(null);
     const letters = text.split("");
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || !trigger) return;
 
-        // 1. Entrance Animation (Drooping from above)
+        // Kill any existing animation
+        if (animationRef.current) {
+            animationRef.current.kill();
+        }
+
         const letterElements = containerRef.current.querySelectorAll('.letter-inner');
 
-        gsap.fromTo(letterElements,
-            {
-                y: "-110%",
-                opacity: 0
-            },
+        // Butter smooth drooping entrance
+        animationRef.current = gsap.timeline();
+        animationRef.current.fromTo(
+            letterElements,
+            { y: "-110%", opacity: 0 },
             {
                 y: "0%",
                 opacity: 1,
-                stagger: 0.1, // Slightly slower stagger for more fluidity
-                duration: 1.5, // Increased duration for a smoother feel
-                ease: "power3.out",
-                delay: 0.4, // Initial delay to let the page settle
-                force3D: true // GPU acceleration
+                stagger: 0.05,
+                duration: 1.4,
+                ease: "expo.out",
+                force3D: true
             }
         );
-    }, []);
+    }, [trigger]);
 
     const totalLetters = letters.length;
     const gradientString = 'linear-gradient(90deg, #B1122C 0%, #FF3A4A 50%, #00A9FF 100%)';
@@ -49,8 +54,6 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
             }}
         >
             {letters.map((char, index) => {
-                // Calculate the background position for each letter to make the gradient continuous
-                // 100% / (totalLetters - 1) * index
                 const backgroundPositionX = totalLetters > 1
                     ? (100 / (totalLetters - 1)) * index
                     : 0;
@@ -61,7 +64,6 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
                         className="letter-wrapper relative inline-block overflow-hidden"
                         style={{ height: '1.2em' }}
                     >
-                        {/* Animated Letter - each has its own segment of the same gradient */}
                         <span
                             className="letter-inner inline-block whitespace-pre"
                             style={{
@@ -72,6 +74,7 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
                                 backgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                                 color: 'transparent',
+                                opacity: 0, // Hidden by default — GSAP animates to 1
                             }}
                         >
                             {char === " " ? "\u00A0" : char}

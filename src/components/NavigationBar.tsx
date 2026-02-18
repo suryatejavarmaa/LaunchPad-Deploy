@@ -20,7 +20,7 @@ export function NavigationBar() {
 
         const observerOptions = {
             root: null,
-            rootMargin: '-20% 0px -70% 0px', // Trigger when section is in upper-middle of viewport
+            rootMargin: '-10% 0px -40% 0px', // Wider margin for better tracking
             threshold: 0
         };
 
@@ -34,10 +34,28 @@ export function NavigationBar() {
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-        sections.forEach((id) => {
-            const element = document.getElementById(id);
-            if (element) observer.observe(element);
-        });
+        // Resilient Observation: Retry until all sections are found
+        let observedCount = 0;
+        const observedIds = new Set();
+
+        const observeSections = () => {
+            sections.forEach((id) => {
+                if (observedIds.has(id)) return;
+                const element = document.getElementById(id);
+                if (element) {
+                    observer.observe(element);
+                    observedIds.add(id);
+                    observedCount++;
+                }
+            });
+
+            if (observedCount >= sections.length) {
+                clearInterval(retryInterval);
+            }
+        };
+
+        const retryInterval = setInterval(observeSections, 1000);
+        observeSections(); // Initial attempt
 
         // Special case for home section at the very top
         const handleInitialPosition = () => {
@@ -56,6 +74,7 @@ export function NavigationBar() {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('scroll', handleInitialPosition);
             observer.disconnect();
+            clearInterval(retryInterval);
         };
     }, []);
 

@@ -26,52 +26,72 @@ export default function App() {
             <div className="lp-text-gradient text-xl font-medium">Loading Launchpad...</div>
           </div>
         }>
-          <HeroSection />
+          <div id="home">
+            <HeroSection />
+          </div>
 
           {/* ===== CEO's Content Structure ===== */}
 
           {/* 1. What Is Launchpad - Explanation */}
-          <RevealOnScroll>
-            <WhatIsLaunchpad />
-          </RevealOnScroll>
+          <div id="what-is-launchpad">
+            <RevealOnScroll>
+              <WhatIsLaunchpad />
+            </RevealOnScroll>
+          </div>
 
           {/* 2. Two Clear Paths */}
-          <RevealOnScroll>
-            <CareerOverview />
-          </RevealOnScroll>
+          <div id="overview">
+            <RevealOnScroll>
+              <CareerOverview />
+            </RevealOnScroll>
+          </div>
 
           {/* 3. Why Launchpad Is Different */}
-          <WhyDifferent />
+          <div id="why-different">
+            <WhyDifferent />
+          </div>
 
           {/* 4. What Students Learn - Skills */}
-          <RevealOnScroll>
-            <SkillsSection />
-          </RevealOnScroll>
+          <div id="curriculum">
+            <RevealOnScroll>
+              <SkillsSection />
+            </RevealOnScroll>
+          </div>
 
           {/* 5. 90-Day Transformation Journey */}
-          <RevealOnScroll>
-            <JourneySection />
-          </RevealOnScroll>
+          <div id="journey">
+            <RevealOnScroll>
+              <JourneySection />
+            </RevealOnScroll>
+          </div>
 
           {/* 6. Real Outcomes */}
-          <RevealOnScroll>
-            <OutcomesSection />
-          </RevealOnScroll>
+          <div id="outcomes">
+            <RevealOnScroll>
+              <OutcomesSection />
+            </RevealOnScroll>
+          </div>
 
           {/* 7. Why This Matters - Belief */}
-          <RevealOnScroll>
-            <BeliefSection />
-          </RevealOnScroll>
+          <div id="belief">
+            <RevealOnScroll>
+              <BeliefSection />
+            </RevealOnScroll>
+          </div>
 
           {/* 8. Gamification & Competition */}
-          <RevealOnScroll>
-            <GamificationSection />
-          </RevealOnScroll>
+          <div id="gamification">
+            <RevealOnScroll>
+              <GamificationSection />
+            </RevealOnScroll>
+          </div>
 
           {/* 9. Final CTA */}
-          <RevealOnScroll>
-            <ApplicationForm />
-          </RevealOnScroll>
+          <div id="application">
+            <RevealOnScroll>
+              <ApplicationForm />
+            </RevealOnScroll>
+          </div>
 
           {/* Footer */}
           <RevealOnScroll>

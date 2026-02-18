@@ -13,7 +13,7 @@ export default function FlowFieldBackground({
     className,
     color = "#6366f1",
     trailOpacity = 0.15,
-    particleCount = 450,
+    particleCount = 500,
     speed = 1,
 }: FlowFieldBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,13 +24,12 @@ export default function FlowFieldBackground({
         const container = containerRef.current;
         if (!canvas || !container) return;
 
-        const ctx = canvas.getContext("2d", { alpha: false }); // Optimization for non-transparent canvas
+        const ctx = canvas.getContext("2d", { alpha: false });
         if (!ctx) return;
 
         let width = container.clientWidth;
         let height = container.clientHeight;
         let animationFrameId: number;
-        let lastTime = 0;
 
         // Pre-allocated TypedArrays for smooth performance
         const px = new Float32Array(particleCount);
@@ -39,6 +38,7 @@ export default function FlowFieldBackground({
         const vy = new Float32Array(particleCount);
         const age = new Float32Array(particleCount);
         const life = new Float32Array(particleCount);
+        const alphaArr = new Float32Array(particleCount);
 
         const initParticles = () => {
             for (let i = 0; i < particleCount; i++) {
@@ -52,39 +52,37 @@ export default function FlowFieldBackground({
         };
 
         const init = () => {
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for perf
             canvas.width = width * dpr;
             canvas.height = height * dpr;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // More efficient reset
+            ctx.scale(dpr, dpr);
             canvas.style.width = `${width}px`;
             canvas.style.height = `${height}px`;
             initParticles();
         };
 
-        const animate = (time: number) => {
-            const deltaTime = (time - lastTime) / 16.67 || 1;
-            lastTime = time;
-
-            // Trail fade
+        const animate = () => {
+            // Trail fade - exactly like original
             ctx.fillStyle = `rgba(0, 0, 0, ${trailOpacity})`;
             ctx.fillRect(0, 0, width, height);
 
+            // Set the particle colour ONCE per frame (original colour, no change)
             ctx.fillStyle = color;
 
+            // Update all particles and store their alphas
             for (let i = 0; i < particleCount; i++) {
                 const angle = (Math.cos(px[i] * 0.005) + Math.sin(py[i] * 0.005)) * Math.PI;
 
-                // Move with delta time
-                vx[i] += Math.cos(angle) * 0.2 * speed * deltaTime;
-                vy[i] += Math.sin(angle) * 0.2 * speed * deltaTime;
+                vx[i] += Math.cos(angle) * 0.2 * speed;
+                vy[i] += Math.sin(angle) * 0.2 * speed;
 
-                px[i] += vx[i] * deltaTime;
-                py[i] += vy[i] * deltaTime;
+                px[i] += vx[i];
+                py[i] += vy[i];
 
                 vx[i] *= 0.95;
                 vy[i] *= 0.95;
 
-                age[i] += deltaTime;
+                age[i]++;
                 if (age[i] > life[i]) {
                     px[i] = Math.random() * width;
                     py[i] = Math.random() * height;
@@ -99,10 +97,23 @@ export default function FlowFieldBackground({
                 if (py[i] < 0) py[i] = height;
                 if (py[i] > height) py[i] = 0;
 
-                const alpha = 1 - Math.abs((age[i] / life[i]) - 0.5) * 2;
-                ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+                alphaArr[i] = 1 - Math.abs((age[i] / life[i]) - 0.5) * 2;
+            }
+
+            // Draw particles — only change globalAlpha when it actually differs
+            // Round to 2 decimal places to avoid micro-changes triggering state updates
+            let lastAlpha = -1;
+            for (let i = 0; i < particleCount; i++) {
+                const a = Math.round(alphaArr[i] * 20) / 20; // Quantise to 0.05 steps
+                if (a !== lastAlpha) {
+                    ctx.globalAlpha = a;
+                    lastAlpha = a;
+                }
                 ctx.fillRect(px[i], py[i], 1.5, 1.5);
             }
+
+            // Reset globalAlpha
+            ctx.globalAlpha = 1;
 
             animationFrameId = requestAnimationFrame(animate);
         };

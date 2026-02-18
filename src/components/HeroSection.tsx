@@ -2,8 +2,46 @@ import Hero from './ui/animated-shader-hero';
 import FlowFieldBackground from './ui/flow-field-background';
 import { ArrowDown } from 'lucide-react';
 import RejouiceText from './ui/RejouiceText';
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 export default function HeroSection() {
+  const [triggerLogo, setTriggerLogo] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const delayedCallRef = useRef<gsap.core.Tween | null>(null);
+  const hasPlayed = useRef(false); // Ensures animation only fires once per page load
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasPlayed.current) {
+          // Only trigger if it hasn't played yet
+          if (delayedCallRef.current) {
+            delayedCallRef.current.kill();
+          }
+
+          delayedCallRef.current = gsap.delayedCall(2, () => {
+            setTriggerLogo(true);
+            hasPlayed.current = true; // Mark as played — never replay
+          });
+        }
+        // No reset on exit — animation stays visible after playing
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (delayedCallRef.current) {
+        delayedCallRef.current.kill();
+      }
+    };
+  }, []);
+
   const scrollToContent = () => {
     const element = document.getElementById('what-is-launchpad');
     if (element) {
@@ -19,8 +57,13 @@ export default function HeroSection() {
   };
 
   return (
-    <div id="home" className="relative min-h-screen lp-dual-energy" style={{ backgroundColor: 'var(--lp-bg-solid)' }}>
-      {/* Flow Field Particle Background - dashboard/control-room feel */}
+    <div
+      ref={sectionRef}
+      id="home"
+      className="relative min-h-screen lp-dual-energy"
+      style={{ backgroundColor: 'var(--lp-bg-solid)' }}
+    >
+      {/* Flow Field Particle Background */}
       <div className="absolute inset-0 w-full h-full z-0">
         <FlowFieldBackground
           color="#00A9FF"
@@ -32,6 +75,7 @@ export default function HeroSection() {
 
       {/* Hero Content Layer */}
       <Hero
+        triggerAnimation={triggerLogo}
         headline={{
           lines: [
             {
@@ -73,6 +117,7 @@ export default function HeroSection() {
             {
               text: <RejouiceText text="Launchpad" />,
               colorClass: "",
+              isCustomAnimated: true,
               style: {
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 900,
@@ -108,4 +153,3 @@ export default function HeroSection() {
     </div>
   );
 }
-
