@@ -185,7 +185,7 @@ function OutcomePanel() {
                         <strong>It is the real world.</strong>
                     </p>
                     <button
-                        className={styles.ctaButton}
+                        className={`${styles.ctaButton} btn-sweep`}
                         onClick={() => document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' })}
                     >
                         Apply to Launchpad →

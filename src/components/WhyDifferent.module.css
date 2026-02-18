@@ -276,6 +276,8 @@
 }
 
 .ctaButton {
+    position: relative;
+    overflow: hidden;
     margin-top: 40px;
     padding: 20px 40px;
     border-radius: 999px;

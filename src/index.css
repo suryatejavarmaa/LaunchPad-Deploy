@@ -5888,3 +5888,47 @@ html {
 .bg-gradient-radial {
   background-image: radial-gradient(var(--tw-gradient-stops));
 }
+
+/* ============================================================
+   CTA Button Sweep Animation
+   Diagonal sweep from bottom-left to top-right on hover
+   ============================================================ */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sweep::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  bottom: 0;
+  left: 0;
+  transform: rotate(-40deg) translate(-100%, 100%);
+  transform-origin: bottom left;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    margin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 36px;
+  margin-left: 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-sweep:hover::before {
+  transform: rotate(-40deg) translate(0, 0);
+  margin-bottom: 128px;
+  margin-left: 0;
+}
+
+.btn-sweep>* {
+  position: relative;
+  z-index: 2;
+}
+
+/* Variant: stronger sweep for dark gradient buttons */
+.btn-sweep-strong::before {
+  background: rgba(255, 255, 255, 0.25);
+}

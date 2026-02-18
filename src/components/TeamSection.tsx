@@ -369,15 +369,9 @@ export function TeamSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <button className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-lg overflow-hidden shadow-2xl shadow-violet-500/25">
-                  {/* Gradient background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500" />
-
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-
-                  <span className="relative z-10 text-white">Join the Team</span>
-                  <ArrowRight className="relative z-10 w-5 h-5 text-white transition-transform group-hover:translate-x-1" />
+                <button className="btn-sweep btn-sweep-strong inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-lg shadow-2xl shadow-violet-500/25" style={{ background: 'linear-gradient(to right, #8b5cf6, #a855f7, #06b6d4)' }}>
+                  <span className="text-white">Join the Team</span>
+                  <ArrowRight className="w-5 h-5 text-white" />
                 </button>
 
                 <p className="mt-6 text-slate-500 text-sm">No commitment required • Start your journey today</p>

@@ -130,7 +130,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.primary && (
                 <button
                   onClick={buttons.primary.onClick}
-                  className="px-8 py-4 rounded-full text-lg font-bold text-white transition-all duration-300 hover:scale-105 backdrop-blur-xl"
+                  className="btn-sweep px-8 py-4 rounded-full text-lg font-bold text-white transition-all duration-300 hover:scale-105 backdrop-blur-xl"
                   style={{
                     background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.25)',
@@ -143,7 +143,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.secondary && (
                 <button
                   onClick={buttons.secondary.onClick}
-                  className="px-8 py-4 rounded-full text-lg font-medium text-slate-300 hover:text-white transition-all duration-300 hover:scale-105 backdrop-blur-xl"
+                  className="btn-sweep px-8 py-4 rounded-full text-lg font-medium text-slate-300 hover:text-white transition-all duration-300 hover:scale-105 backdrop-blur-xl"
                   style={{
                     background: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(255, 255, 255, 0.1)'
