@@ -43,13 +43,13 @@ export function CareerOverview() {
 
         <div className="mb-12 md:mb-24 text-center flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 px-4">
           <span
-            className="text-4xl sm:text-5xl md:text-7xl tracking-tight"
+            className="text-3xl sm:text-4xl md:text-6xl tracking-tight"
             style={{ color: 'var(--lp-red)', fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
           >
             Fear Nothing.
           </span>
           <span
-            className="text-4xl sm:text-5xl md:text-7xl tracking-tight"
+            className="text-3xl sm:text-4xl md:text-6xl tracking-tight"
             style={{ color: 'var(--lp-blue)', fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontStyle: 'italic' }}
           >
             Build Everything.
