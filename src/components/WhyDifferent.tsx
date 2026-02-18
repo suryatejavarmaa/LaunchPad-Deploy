@@ -51,15 +51,27 @@ function HeroPanel() {
         title.style.setProperty('font-family', FONTS[0].family, 'important');
         title.style.setProperty('font-style', FONTS[0].style, 'important');
 
-        let i = 0;
-        const interval = setInterval(() => {
-            i = (i + 1) % FONTS.length;
-            // Use setProperty with 'important' to override any CSS rules
-            title.style.setProperty('font-family', FONTS[i].family, 'important');
-            title.style.setProperty('font-style', FONTS[i].style, 'important');
-        }, 120);
+        let interval: NodeJS.Timeout;
 
-        return () => clearInterval(interval);
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                let i = 0;
+                interval = setInterval(() => {
+                    i = (i + 1) % FONTS.length;
+                    title.style.setProperty('font-family', FONTS[i].family, 'important');
+                    title.style.setProperty('font-style', FONTS[i].style, 'important');
+                }, 120);
+            } else {
+                if (interval) clearInterval(interval);
+            }
+        }, { threshold: 0.1 });
+
+        observer.observe(title);
+
+        return () => {
+            if (interval) clearInterval(interval);
+            observer.disconnect();
+        };
     }, []);
 
     return (
