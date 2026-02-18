@@ -14,26 +14,34 @@ export function GamificationSection() {
 
                     <div className={`${styles.gamiCard} ${styles.gold}`}>
                         <div className={styles.gamiIcon}>🏆</div>
-                        <h4>Leaderboards</h4>
-                        <p>See where you rank among peers in real-time</p>
+                        <div className={styles.gamiText}>
+                            <strong>Leaderboards</strong>
+                            <p>See where you rank among peers in real-time</p>
+                        </div>
                     </div>
 
                     <div className={`${styles.gamiCard} ${styles.red}`}>
                         <div className={styles.gamiIcon}>🎮</div>
-                        <h4>Games & Challenges</h4>
-                        <p>Level up through engaging weekly challenges</p>
+                        <div className={styles.gamiText}>
+                            <strong>Games & Challenges</strong>
+                            <p>Level up through engaging weekly challenges</p>
+                        </div>
                     </div>
 
                     <div className={`${styles.gamiCard} ${styles.blue}`}>
                         <div className={styles.gamiIcon}>📊</div>
-                        <h4>Performance Tracking</h4>
-                        <p>Data-driven insights on your progress</p>
+                        <div className={styles.gamiText}>
+                            <strong>Performance Tracking</strong>
+                            <p>Data-driven insights on your progress</p>
+                        </div>
                     </div>
 
                     <div className={`${styles.gamiCard} ${styles.purple}`}>
                         <div className={styles.gamiIcon}>🎖️</div>
-                        <h4>Rewards & Recognition</h4>
-                        <p>Earn badges and unlock achievements</p>
+                        <div className={styles.gamiText}>
+                            <strong>Rewards & Recognition</strong>
+                            <p>Earn badges and unlock achievements</p>
+                        </div>
                     </div>
 
                 </div>

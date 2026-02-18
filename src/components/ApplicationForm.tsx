@@ -50,28 +50,30 @@ export function ApplicationForm() {
           </motion.div>
 
           <div className={styles.topArea}>
-            {/* Robot Box - Using ElectricBorder for "Robot Preview Block" */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              style={{ width: '100%' }}
-            >
-              <div className={styles.robotBox}>
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  transform: 'scale(0.85) translateY(5%)', // Moved up slightly to reduce top space and show base
-                  transformOrigin: 'center center'
-                }}>
-                  <InteractiveRobotSpline
-                    scene={ROBOT_SCENE_URL}
-                    className="w-full h-full"
-                  />
+            {/* Robot Wrapper for mobile hiding */}
+            <div className={styles.robotWrapper}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                style={{ width: '100%' }}
+              >
+                <div className={styles.robotBox}>
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    transform: 'scale(0.85) translateY(5%)', // Moved up slightly to reduce top space and show base
+                    transformOrigin: 'center center'
+                  }}>
+                    <InteractiveRobotSpline
+                      scene={ROBOT_SCENE_URL}
+                      className="w-full h-full"
+                    />
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
             <div className={styles.sideCards}>
               {['Exclusive Founder Network', '12‑Week Intensive Program', '1‑on‑1 Mentorship', 'Investor Access', 'Lifetime Alumni Support'].map((text, i) => (

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ShieldAlert, BookOpen, TrendingUp, Zap, Target, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './WhyDifferent.module.css';
@@ -127,6 +127,14 @@ function OldWayPanel() {
 }
 
 function NewSystemPanel() {
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <div className={`${styles.system}`}>
             <div className={styles.systemContent}>
@@ -143,21 +151,21 @@ function NewSystemPanel() {
                                 <h3>BUILD</h3>
                                 <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Design, build, and ship real products.</p>
                                 <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
-                                    • Production code<br />• Real users<br />• Live feedback
+                                    • Production code<br />• Real users{!isMobile && <><br />• Live feedback</>}
                                 </p>
                             </div>
                             <div className={styles.card}>
                                 <h3>PRESSURE</h3>
                                 <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Operate under real startup conditions.</p>
                                 <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
-                                    • Daily reviews<br />• Deadlines<br />• Ownership mindset
+                                    • Daily reviews<br />• Deadlines{!isMobile && <><br />• Ownership mindset</>}
                                 </p>
                             </div>
                             <div className={styles.card}>
                                 <h3>PROOF</h3>
                                 <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Show outcomes, not certificates.</p>
                                 <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
-                                    • Portfolio<br />• Metrics<br />• Investor-ready demos
+                                    • Portfolio<br />• Metrics{!isMobile && <><br />• Investor-ready demos</>}
                                 </p>
                             </div>
                         </div>

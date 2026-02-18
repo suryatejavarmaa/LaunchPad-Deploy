@@ -68,7 +68,7 @@ export function Footer() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
-        <div className="grid md:grid-cols-4 gap-8 md:gap-10 mb-8 md:mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-8 md:mb-10">
           <div>
             {/* Logo - ONLY gradient text */}
             <h3 className="brand-name mb-4">

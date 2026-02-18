@@ -323,3 +323,160 @@
     margin-top: 4px;
     color: #94A3B8;
 }
+
+/* ==============================
+   MOBILE RESPONSIVE STYLES
+   Only affects screens ≤768px
+   Desktop layout is untouched
+   ============================== */
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        height: auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15em;
+    }
+
+    .heroLine {
+        position: relative;
+        left: auto;
+        transform: none;
+    }
+
+    .heroWhy,
+    .heroLaunchpad,
+    .heroDiff {
+        top: auto;
+    }
+
+    .heroContent {
+        padding: 0 16px;
+    }
+
+    .choose {
+        width: 100%;
+        max-width: 480px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin: 0 auto;
+        padding: 0 24px;
+        text-align: center;
+    }
+
+    .choose h2 {
+        font-size: clamp(28px, 7vw, 36px);
+        text-align: center;
+    }
+
+    .oldList {
+        font-size: 15px;
+        text-align: left;
+        display: inline-block;
+        margin: 24px auto 0 auto;
+    }
+
+    .features {
+        padding: 20px;
+        gap: 24px;
+    }
+
+    .feature {
+        gap: 16px;
+        text-align: left;
+    }
+
+    .icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .oldTitle {
+        font-size: 17px;
+    }
+
+    .stats {
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 24px;
+        gap: 24px;
+    }
+
+    .newSystemTitle {
+        font-size: clamp(32px, 8vw, 42px);
+    }
+
+    .newSystemDesc {
+        font-size: 16px;
+    }
+
+    .cardGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 24px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .card h3 {
+        font-size: 22px;
+    }
+
+    .cta {
+        padding: 32px 24px;
+        margin: 24px auto;
+        width: calc(100% - 48px);
+        max-width: 440px;
+        border-radius: 24px;
+    }
+
+    .cta h2 {
+        font-size: clamp(24px, 7vw, 32px);
+    }
+
+    .cta p {
+        font-size: 16px !important;
+        line-height: 1.5;
+        padding: 0 8px;
+    }
+
+    .ctaButton {
+        padding: 16px 28px;
+        font-size: 15px;
+        margin-top: 24px;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: clamp(1.75rem, 10vw, 2.5rem);
+    }
+
+    .choose {
+        width: 100%;
+        gap: 24px;
+    }
+
+    .choose h2 {
+        font-size: clamp(24px, 8vw, 30px);
+    }
+
+    .newSystemTitle {
+        font-size: clamp(26px, 9vw, 34px);
+    }
+
+    .cta {
+        padding: 20px 16px;
+    }
+
+    .cta h2 {
+        font-size: clamp(20px, 8vw, 28px);
+    }
+}

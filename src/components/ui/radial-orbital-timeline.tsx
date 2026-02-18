@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { ArrowRight, Link, Zap, Check } from "lucide-react";
+import { ArrowRight, Link, Zap, Check, ChevronDown } from "lucide-react";
 import { Badge } from "./badge";
 import { Button } from "./button";
 import { motion, AnimatePresence } from "motion/react";
@@ -39,7 +39,7 @@ export default function RadialOrbitalTimeline({
 
   // Detect mobile
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -47,7 +47,7 @@ export default function RadialOrbitalTimeline({
 
   // Orbit radius - smaller for left-side view
   const orbitRadius = useMemo(() => {
-    if (isMobile) return 140;
+    if (isMobile) return 120;
     return 200;
   }, [isMobile]);
 
@@ -107,7 +107,7 @@ export default function RadialOrbitalTimeline({
 
   // Get node at display position (right side of orbit = 0°)
   const getNodeAtDisplayPosition = useCallback(() => {
-    const displayAngle = 0; // Right side of the orbit faces the content
+    const displayAngle = isMobile ? 90 : 0; // Bottom for mobile, Right for desktop
     const threshold = 30;
 
     for (let i = 0; i < timelineData.length; i++) {
@@ -173,7 +173,7 @@ export default function RadialOrbitalTimeline({
     const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
     const totalNodes = timelineData.length;
     const targetAngle = (nodeIndex / totalNodes) * 360;
-    setRotationAngle(360 - targetAngle); // Bring to right side (0°)
+    setRotationAngle(isMobile ? 450 - targetAngle : 360 - targetAngle); // 90° for mobile, 0° for desktop
   };
 
   // Calculate node position on the orbit
@@ -229,7 +229,8 @@ export default function RadialOrbitalTimeline({
       className="w-full relative overflow-hidden flex"
       style={{
         backgroundColor: 'transparent',
-        minHeight: '600px' // Ensure enough height without forcing full screen
+        minHeight: '600px',
+        flexDirection: isMobile ? 'column' : 'row'
       }}
       ref={containerRef}
       onClick={handleContainerClick}
@@ -261,18 +262,18 @@ export default function RadialOrbitalTimeline({
         }}
       />
 
-      <div className="flex w-full">
+      <div className="flex w-full" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
         {/* ========== LEFT SIDE: ORBITAL SYSTEM ========== */}
         <div
           className="relative flex items-start justify-center pt-8 md:pt-16"
-          style={{ width: isMobile ? '100%' : '50%', minHeight: '600px' }}
+          style={{ width: isMobile ? '100%' : '50%', minHeight: isMobile ? '400px' : '600px' }}
         >
           <div
             className="relative"
             ref={orbitRef}
             style={{
-              width: `${orbitRadius * 2 + 120}px`,
-              height: `${orbitRadius * 2 + 120}px`,
+              width: isMobile ? `${orbitRadius * 2 + 80}px` : `${orbitRadius * 2 + 120}px`,
+              height: isMobile ? `${orbitRadius * 2 + 80}px` : `${orbitRadius * 2 + 120}px`,
             }}
           >
             {/* Central Sun/Core - Logo centered in orbit */}
@@ -353,23 +354,25 @@ export default function RadialOrbitalTimeline({
                   style={{
                     left: `calc(50% + ${activePos.x}px)`,
                     top: `calc(50% + ${activePos.y}px)`,
-                    width: isMobile ? '300px' : '500px',
-                    height: '80px',
-                    transform: 'translate(-20px, -50%)',
-                    background: `linear-gradient(90deg, ${statusColor.text}50 0%, ${statusColor.text}20 30%, transparent 70%)`,
+                    width: isMobile ? '60px' : '500px',
+                    height: isMobile ? '120px' : '80px',
+                    transform: isMobile ? 'translate(-50%, -10px)' : 'translate(-20px, -50%)',
+                    background: isMobile
+                      ? `linear-gradient(180deg, ${statusColor.text}50 0%, ${statusColor.text}20 30%, transparent 70%)`
+                      : `linear-gradient(90deg, ${statusColor.text}50 0%, ${statusColor.text}20 30%, transparent 70%)`,
                     filter: 'blur(20px)',
                     zIndex: 4,
                   }}
-                  initial={{ opacity: 0, scaleX: 0 }}
-                  animate={{ opacity: 0.6, scaleX: 1 }}
+                  initial={{ opacity: 0, scaleX: isMobile ? 1 : 0, scaleY: isMobile ? 0 : 1 }}
+                  animate={{ opacity: 0.6, scaleX: 1, scaleY: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 />
               );
             })()}
 
-            {/* Connection lines between related nodes */}
-            {activeNodeId && (
+            {/* Connection lines between related nodes - Desktop Only */}
+            {activeNodeId && !isMobile && (
               <svg
                 className="absolute inset-0 pointer-events-none"
                 style={{ width: '100%', height: '100%', zIndex: 5 }}
@@ -490,6 +493,22 @@ export default function RadialOrbitalTimeline({
                   >
                     {item.title}
                   </div>
+
+                  {/* Mobile-only pointer: Pulsing Chevron */}
+                  {isMobile && isExpanded && (
+                    <motion.div
+                      className="absolute -translate-x-1/2 flex flex-col items-center"
+                      style={{ top: '45px', left: '0' }}
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: [0, 5, 0] }}
+                      transition={{
+                        opacity: { duration: 0.3 },
+                        y: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                    >
+                      <ChevronDown size={20} style={{ color: statusColor.text }} />
+                    </motion.div>
+                  )}
                 </motion.div>
               );
             })}
@@ -518,8 +537,11 @@ export default function RadialOrbitalTimeline({
 
         {/* ========== RIGHT SIDE: CONTENT PANEL ========== */}
         <div
-          className="relative flex items-start justify-start px-4 lg:px-8 pt-8 md:pt-24"
-          style={{ width: isMobile ? '100%' : '50%', minHeight: '600px' }}
+          className={`relative flex items-start ${isMobile ? 'justify-center px-6 pt-4' : 'justify-start px-4 lg:px-8 pt-8'} pb-12 lg:pt-24`}
+          style={{
+            width: isMobile ? '100%' : '50%',
+            minHeight: '600px'
+          }}
         >
           {/* Watermark logic */}
           {activeItem && (
@@ -643,7 +665,7 @@ export default function RadialOrbitalTimeline({
                         {getStatusColor(activeItem.status).label}
                       </span>
                     </div>
-                    <h3 className="font-bold text-white leading-tight" style={{ fontSize: isMobile ? '20px' : '28px' }}>
+                    <h3 className="font-bold text-white leading-tight" style={{ fontSize: isMobile ? '24px' : '28px' }}>
                       {activeItem.title}
                     </h3>
                   </div>
@@ -723,7 +745,7 @@ export default function RadialOrbitalTimeline({
                         <div className="flex items-center gap-2 mb-3">
                           <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Suggested Connections</span>
                         </div>
-                        <div className="flex flex-nowrap overflow-x-auto pb-2 gap-2 scrollbar-none">
+                        <div className={`flex ${isMobile ? 'flex-col' : 'flex-nowrap overflow-x-auto'} pb-2 gap-2 scrollbar-none`}>
                           {activeItem.relatedIds.map((relatedId) => {
                             const relatedItem = timelineData.find(i => i.id === relatedId);
                             return relatedItem ? (
@@ -731,19 +753,22 @@ export default function RadialOrbitalTimeline({
                                 key={relatedId}
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="group flex items-center gap-2 px-3 py-2 text-xs rounded-lg transition-all"
+                                className={`group flex items-center ${isMobile ? 'justify-between' : 'gap-2'} px-3 py-2 text-xs rounded-lg transition-all`}
                                 style={{
                                   background: 'rgba(255,255,255,0.03)',
                                   border: '1px solid rgba(255,255,255,0.1)',
-                                  color: '#CBD5E1'
+                                  color: '#CBD5E1',
+                                  width: isMobile ? '100%' : 'auto'
                                 }}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   toggleItem(relatedId, true);
                                 }}
                               >
-                                <Link size={10} className="text-slate-500 group-hover:text-slate-400 transition-colors" />
-                                <span className="group-hover:text-white transition-colors">{relatedItem.title}</span>
+                                <div className="flex items-center gap-2">
+                                  <Link size={10} className="text-slate-500 group-hover:text-slate-400 transition-colors" />
+                                  <span className="group-hover:text-white transition-colors">{relatedItem.title}</span>
+                                </div>
                                 <ArrowRight size={10} style={{ color: getStatusColor(activeItem.status).text, opacity: 0.7 }} />
                               </motion.button>
                             ) : null;
@@ -758,7 +783,7 @@ export default function RadialOrbitalTimeline({
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center"
+                className="text-center w-full"
                 style={{ color: '#64748B' }}
               >
                 <p className="text-lg mb-2">Select a track to explore</p>

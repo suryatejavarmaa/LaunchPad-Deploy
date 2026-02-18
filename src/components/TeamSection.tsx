@@ -260,7 +260,7 @@ export function TeamSection() {
               </motion.div>
 
               {/* Team grid - compact for horizontal scroll */}
-              <div className="grid grid-cols-4 md:grid-cols-4 gap-4 md:gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
                 {TEAM_MEMBERS.map((member, index) => (
                   <motion.div
                     key={index}
@@ -328,7 +328,7 @@ export function TeamSection() {
                   <span className="text-fuchsia-300 font-mono text-sm tracking-wider uppercase">Join Us</span>
                 </div>
 
-                <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
                   Ready to scale <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400">
                     your potential?

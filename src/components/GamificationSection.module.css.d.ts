@@ -10,5 +10,6 @@ declare const styles: {
     readonly "purple": string;
     readonly "gamiIcon": string;
     readonly "gamiFooter": string;
+    readonly "gamiText": string;
 };
 export default styles;

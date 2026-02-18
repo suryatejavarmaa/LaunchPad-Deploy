@@ -262,34 +262,53 @@ export function NavigationBar() {
                             borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
                         }}
                     >
-                        <div className="px-4 pt-2 pb-6 space-y-3">
-                            {navLinks.map((link, index) => (
-                                <motion.a
-                                    key={link.href}
-                                    href={link.href}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.05 * index }}
-                                    className="block py-3 px-4 rounded-xl text-slate-300 hover:text-white transition-colors"
-                                    style={{
-                                        background: 'rgba(255, 255, 255, 0.03)',
-                                        border: '1px solid rgba(255, 255, 255, 0.05)'
-                                    }}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {link.label}
-                                </motion.a>
-                            ))}
+                        <div className="px-4 pt-2 pb-6 space-y-2">
+                            {dockItems.map((item, index) => {
+                                const IconComponent = item.icon;
+                                const isActive = activeSection === item.sectionId;
+                                return (
+                                    <motion.button
+                                        key={item.id}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.03 * index }}
+                                        className="w-full flex items-center gap-3 py-3 px-4 rounded-xl transition-colors text-left"
+                                        style={{
+                                            background: isActive
+                                                ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.1) 100%)'
+                                                : 'rgba(255, 255, 255, 0.03)',
+                                            border: isActive
+                                                ? '1px solid rgba(59, 130, 246, 0.3)'
+                                                : '1px solid rgba(255, 255, 255, 0.05)',
+                                            minHeight: '48px',
+                                        }}
+                                        onClick={() => {
+                                            setIsMobileMenuOpen(false);
+                                            item.onClick();
+                                        }}
+                                    >
+                                        <IconComponent
+                                            size={18}
+                                            style={{ color: isActive ? '#60a5fa' : 'rgba(255, 255, 255, 0.5)', flexShrink: 0 }}
+                                        />
+                                        <span style={{ color: isActive ? '#ffffff' : '#cbd5e1', fontWeight: isActive ? 600 : 400, fontSize: '15px' }}>
+                                            {item.label}
+                                        </span>
+                                    </motion.button>
+                                );
+                            })}
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
+                                transition={{ delay: 0.3 }}
+                                className="pt-2"
                             >
                                 <Button
                                     className="w-full py-3 font-medium text-white rounded-xl"
                                     style={{
                                         background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-                                        border: 'none'
+                                        border: 'none',
+                                        minHeight: '48px',
                                     }}
                                     onClick={() => {
                                         setIsMobileMenuOpen(false);

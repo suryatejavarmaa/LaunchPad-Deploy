@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Briefcase, Rocket, CheckCircle2 } from 'lucide-react';
 
@@ -13,6 +14,13 @@ interface CardStackProps {
 
 export function CardStack({ type, title, subtitle, description, features, flipped, onFlip }: CardStackProps) {
     const isEntrepreneur = type === 'entrepreneur';
+    const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+
+    React.useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const colors = isEntrepreneur
         ? {
@@ -45,21 +53,22 @@ export function CardStack({ type, title, subtitle, description, features, flippe
         };
 
     const stackCards = [
-        { rest: { rotate: -6, x: -18, opacity: 0.5, scale: 0.98 }, hover: { rotate: -15, x: -80, opacity: 0.6, scale: 0.96 } },
-        { rest: { rotate: -4, x: -12, opacity: 0.5, scale: 0.99 }, hover: { rotate: -10, x: -55, opacity: 0.6, scale: 0.97 } },
-        { rest: { rotate: -2, x: -6, opacity: 0.5, scale: 0.995 }, hover: { rotate: -5, x: -30, opacity: 0.65, scale: 0.98 } },
-        { rest: { rotate: 2, x: 6, opacity: 0.5, scale: 0.995 }, hover: { rotate: 5, x: 30, opacity: 0.65, scale: 0.98 } },
-        { rest: { rotate: 4, x: 12, opacity: 0.5, scale: 0.99 }, hover: { rotate: 10, x: 55, opacity: 0.6, scale: 0.97 } },
-        { rest: { rotate: 6, x: 18, opacity: 0.5, scale: 0.98 }, hover: { rotate: 15, x: 80, opacity: 0.6, scale: 0.96 } },
+        { rest: { rotate: -6, x: isMobile ? -12 : -18, opacity: 0.5, scale: 0.98 }, hover: { rotate: -15, x: -80, opacity: 0.6, scale: 0.96 } },
+        { rest: { rotate: -4, x: isMobile ? -8 : -12, opacity: 0.5, scale: 0.99 }, hover: { rotate: -10, x: -55, opacity: 0.6, scale: 0.97 } },
+        { rest: { rotate: -2, x: isMobile ? -4 : -6, opacity: 0.5, scale: 0.995 }, hover: { rotate: -5, x: -30, opacity: 0.65, scale: 0.98 } },
+        { rest: { rotate: 2, x: isMobile ? 4 : 6, opacity: 0.5, scale: 0.995 }, hover: { rotate: 5, x: 30, opacity: 0.65, scale: 0.98 } },
+        { rest: { rotate: 4, x: isMobile ? 8 : 12, opacity: 0.5, scale: 0.99 }, hover: { rotate: 10, x: 55, opacity: 0.6, scale: 0.97 } },
+        { rest: { rotate: 6, x: isMobile ? 12 : 18, opacity: 0.5, scale: 0.98 }, hover: { rotate: 15, x: 80, opacity: 0.6, scale: 0.96 } },
     ];
+
 
     // Shared card face styles
     const cardFaceStyle: React.CSSProperties = {
-        position: 'absolute',
+        position: isMobile ? 'relative' : 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
+        bottom: isMobile ? 'auto' : 0,
         width: '100%',
         height: '100%',
         borderRadius: '32px',
@@ -74,28 +83,29 @@ export function CardStack({ type, title, subtitle, description, features, flippe
     `,
         backfaceVisibility: 'hidden' as const,
         WebkitBackfaceVisibility: 'hidden' as const,
-        overflow: 'hidden',
+        overflow: isMobile ? 'visible' : 'hidden',
     };
 
     return (
         <motion.div
             style={{
                 position: 'relative',
-                width: '100%',
-                maxWidth: '480px',
-                height: '540px',
+                width: isMobile ? 'calc(100% - 12px)' : '100%',
+                maxWidth: isMobile ? '460px' : '480px',
+                height: isMobile ? 'auto' : 'clamp(420px, 70vw, 540px)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto',
                 cursor: 'pointer',
                 flexShrink: 0,
+                transform: isMobile ? 'scale(0.99)' : 'none',
             }}
             initial="rest"
-            whileHover="hover"
+            whileHover={isMobile ? undefined : "hover"}
             animate="rest"
         >
-            {/* Background stacked cards */}
+            {/* Background stacked cards - REST ONLY on mobile */}
             {stackCards.map((cardConfig, index) => (
                 <motion.div
                     key={index}
@@ -110,7 +120,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                     }}
                     variants={{
                         rest: cardConfig.rest,
-                        hover: cardConfig.hover,
+                        hover: isMobile ? cardConfig.rest : cardConfig.hover,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
@@ -121,7 +131,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             borderRadius: '32px',
                             background: colors.cardBg,
                             border: `2px solid ${colors.borderColor}`,
-                            boxShadow: `0 0 15px ${colors.glowColor}80`,
+                            boxShadow: isMobile ? `0 0 10px ${colors.glowColor}40` : `0 0 15px ${colors.glowColor}80`,
                             position: 'relative',
                             overflow: 'hidden',
                         }}
@@ -155,18 +165,20 @@ export function CardStack({ type, title, subtitle, description, features, flippe
             {/* Main card with 3D flip */}
             <motion.div
                 style={{
-                    position: 'absolute',
+                    position: isMobile ? 'relative' : 'absolute',
                     top: 0,
                     left: 0,
                     right: 0,
-                    bottom: 0,
+                    bottom: isMobile ? 'auto' : 0,
+                    width: '100%',
+                    height: isMobile ? 'auto' : '100%',
                     zIndex: 10,
                     perspective: '1000px',
                     willChange: 'transform',
                 }}
                 variants={{
                     rest: { y: 0, scale: 1 },
-                    hover: { y: -12, scale: 1.02 }
+                    hover: { y: isMobile ? 0 : -12, scale: isMobile ? 1 : 1.02 }
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
             >
@@ -191,8 +203,9 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             ...cardFaceStyle,
                             display: 'flex',
                             flexDirection: 'column',
-                            padding: '32px 40px',
+                            padding: isMobile ? '32px 24px' : '32px 40px',
                             pointerEvents: flipped ? 'none' : 'auto',
+                            position: isMobile ? 'relative' : 'absolute', // FRONT is relative on mobile to drive parent auto-height
                         }}
                         onClick={onFlip}
                     >
@@ -259,7 +272,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                                     {description}
                                 </p>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: isMobile ? '24px' : '32px', marginBottom: isMobile ? '16px' : '0' }}>
                                 {features.map((item, i) => (
                                     <div
                                         key={i}
@@ -275,13 +288,13 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                                         }}
                                     >
                                         <CheckCircle2 style={{ width: '20px', height: '20px', flexShrink: 0, color: colors.checkColor }} />
-                                        <span style={{ color: 'white', fontWeight: 500, letterSpacing: '0.025em' }}>{item}</span>
+                                        <span style={{ color: 'white', fontSize: isMobile ? '0.925rem' : '1rem', fontWeight: 500, letterSpacing: '0.025em' }}>{item}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
-
                     </div>
+
 
                     {/* BACK FACE */}
                     <div
@@ -292,8 +305,10 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '32px 40px',
+                            padding: isMobile ? '32px 24px' : '32px 40px',
                             pointerEvents: flipped ? 'auto' : 'none',
+                            position: 'absolute',
+                            inset: 0,
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >

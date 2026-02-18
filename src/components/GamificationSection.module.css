@@ -64,9 +64,10 @@
     font-size: 28px;
 }
 
-.gamiCard h4 {
+.gamiCard strong {
     font-size: 20px;
     margin-bottom: 12px;
+    display: block;
 }
 
 .gamiCard p {
@@ -110,6 +111,13 @@
     font-weight: 700;
 }
 
+.gamiText {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex: 1;
+}
+
 /* Responsive */
 @media(max-width: 1024px) {
     .gamiGrid {
@@ -118,7 +126,61 @@
 }
 
 @media(max-width: 640px) {
+    .gamificationSection {
+        padding: 48px 24px;
+    }
+
+    .gamiHeader {
+        margin-bottom: 32px;
+    }
+
+    .gamiHeader p {
+        font-size: 15px;
+    }
+
     .gamiGrid {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .gamiCard {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        padding: 16px;
+        border-radius: 14px;
+        gap: 12px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(24px);
+    }
+
+    .gamiIcon {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        font-size: 15px;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .gamiText {
+        text-align: left;
+    }
+
+    .gamiCard strong {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .gamiCard p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .gamiFooter {
+        margin-top: 32px;
+        font-size: 15px;
     }
 }

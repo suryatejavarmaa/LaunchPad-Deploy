@@ -16,5 +16,6 @@ declare const styles: {
     readonly "btn": string;
     readonly "link": string;
     readonly "tagline": string;
+    readonly "robotWrapper": string;
 };
 export default styles;

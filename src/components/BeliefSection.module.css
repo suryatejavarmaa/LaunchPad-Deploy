@@ -158,6 +158,51 @@
 
 @media (max-width: 640px) {
     .section {
-        padding: 64px 4vw;
+        padding: 48px 4vw;
+    }
+
+    .header {
+        margin: 0 auto 32px;
+    }
+
+    .header h1 {
+        font-size: clamp(24px, 6vw, 32px);
+    }
+
+    .header p {
+        font-size: 15px;
+    }
+
+    .whyContrast {
+        margin: 40px auto 36px;
+        gap: 24px;
+    }
+
+    .whyBlock {
+        padding: 24px 20px;
+        border-radius: 20px;
+    }
+
+    .whyBlock h3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .whyBlock ul {
+        font-size: 15px;
+        gap: 12px;
+    }
+
+    .lineMuted {
+        font-size: 14px;
+    }
+
+    .lineBold {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+
+    .whyStatement {
+        padding: 0 8px;
     }
 }

@@ -1,10 +1,17 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CardStack } from './ui/CardStack';
 import VariableProximity from './ui/variable-proximity';
 
 export function CareerOverview() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [flippedCard, setFlippedCard] = useState<'entrepreneur' | 'career' | null>(null);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section
@@ -34,31 +41,32 @@ export function CareerOverview() {
           </div>
         </div>
 
-        <div className="mb-16 text-center flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+        <div className="mb-8 md:mb-16 text-center flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 px-4">
           <span
-            className="text-4xl md:text-6xl tracking-tight"
+            className="text-3xl sm:text-4xl md:text-6xl tracking-tight"
             style={{ color: 'var(--lp-red)', fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
           >
             Fear Nothing.
           </span>
           <span
-            className="text-4xl md:text-6xl tracking-tight"
+            className="text-3xl sm:text-4xl md:text-6xl tracking-tight"
             style={{ color: 'var(--lp-blue)', fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontStyle: 'italic' }}
           >
             Build Everything.
           </span>
         </div>
 
-        {/* Cards - side by side */}
         <div
           style={{
             display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
+            flexDirection: isMobile ? 'column' : 'row',
             alignItems: 'center',
-            gap: '48px',
+            justifyContent: 'center',
+            gap: isMobile ? '48px' : '24px',
+            padding: isMobile ? '0 8px' : '0 16px',
+            width: '100%',
           }}
+          className="md:flex-row md:flex-wrap md:justify-center"
         >
           <CardStack
             type="entrepreneur"

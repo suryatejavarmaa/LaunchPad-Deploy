@@ -5932,3 +5932,49 @@ html {
 .btn-sweep-strong::before {
   background: rgba(255, 255, 255, 0.25);
 }
+
+/* ==============================
+   GLOBAL RESPONSIVE OVERRIDES
+   Mobile-only — no desktop impact
+   ============================== */
+
+@media (max-width: 768px) {
+
+  /* Prevent horizontal overflow on all mobile views */
+  html,
+  body {
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbars (standard and vendor-specific) */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  /* Scale down sections that might overflow */
+  section {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative;
+  }
+
+  /* Hide the decorative red/blue energy gradients on mobile —
+     they bleed past the viewport edge causing a visible red line */
+  .lp-dual-energy::before,
+  .lp-dual-energy::after {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Hide custom scrollbars on mobile — they can appear as partial 
+     red/blue lines (from the thumb gradient) and interfere with native scrolling */
+  ::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}

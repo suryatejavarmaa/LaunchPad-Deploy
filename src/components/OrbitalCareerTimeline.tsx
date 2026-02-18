@@ -81,7 +81,7 @@ export function OrbitalCareerTimeline() {
 
   return (
     <motion.section
-      className="bg-slate-950 py-12 md:py-14"
+      className="bg-slate-950 pt-12 pb-20 md:pt-14 md:pb-28"
       initial={{
         opacity: 0,
         scale: 0.9,
