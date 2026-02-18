@@ -65,14 +65,10 @@ export function ApplicationForm() {
                   transform: 'scale(0.85) translateY(5%)', // Moved up slightly to reduce top space and show base
                   transformOrigin: 'center center'
                 }}>
-                  {/* DIAGNOSTIC: Temporarily disabling Spline to check load times */}
-                  {/* <InteractiveRobotSpline
+                  <InteractiveRobotSpline
                     scene={ROBOT_SCENE_URL}
                     className="w-full h-full"
-                  /> */}
-                  <div className="w-full h-full flex items-center justify-center text-blue-400/50 text-sm italic">
-                    3D Scene Paused (Testing Load Speed...)
-                  </div>
+                  />
                 </div>
               </div>
             </motion.div>

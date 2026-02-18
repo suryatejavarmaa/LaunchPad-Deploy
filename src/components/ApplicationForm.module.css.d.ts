@@ -1,0 +1,20 @@
+declare const styles: {
+    readonly "section": string;
+    readonly "left": string;
+    readonly "right": string;
+    readonly "headline": string;
+    readonly "subheading": string;
+    readonly "topArea": string;
+    readonly "robotBox": string;
+    readonly "sideCards": string;
+    readonly "pill": string;
+    readonly "contentBlob": string;
+    readonly "stats": string;
+    readonly "stat": string;
+    readonly "qr": string;
+    readonly "applyText": string;
+    readonly "btn": string;
+    readonly "link": string;
+    readonly "tagline": string;
+};
+export default styles;
