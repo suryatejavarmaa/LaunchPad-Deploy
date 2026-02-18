@@ -2,15 +2,9 @@ import { lazy, Suspense } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { NavigationBar } from './components/NavigationBar';
 import { ChatAssistant } from './components/ChatAssistant';
-// import { ParticleTextSection } from './components/ParticleTextSection';
-import { CareerOverview } from './components/CareerOverview';
-import { ApplicationForm } from './components/ApplicationForm';
-import { Footer } from './components/Footer';
-// New Sections per CEO's Content
-// Lazy load heavy components to prevent timeout issues
 const HeroSection = lazy(() => import('./components/HeroSection'));
-const WhatIsLaunchpad = lazy(() => import('./components/WhatIsLaunchpad'));
-const CareerOverview = lazy(() => import('./components/CareerOverview'));
+const WhatIsLaunchpad = lazy(() => import('./components/WhatIsLaunchpad').then(m => ({ default: m.WhatIsLaunchpad })));
+const CareerOverview = lazy(() => import('./components/CareerOverview').then(m => ({ default: m.CareerOverview })));
 const WhyDifferent = lazy(() => import('./components/WhyDifferent').then(m => ({ default: m.WhyDifferent })));
 const SkillsSection = lazy(() => import('./components/SkillsSection').then(m => ({ default: m.SkillsSection })));
 const JourneySection = lazy(() => import('./components/JourneySection').then(m => ({ default: m.JourneySection })));
