@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import GlitterBackground from './ui/animated-hero-with-web-gl-glitter';
 
 export function WhatIsLaunchpad() {
     return (
@@ -7,15 +8,9 @@ export function WhatIsLaunchpad() {
             className="py-16 md:py-24 relative overflow-hidden"
             style={{ backgroundColor: 'var(--lp-bg-solid)' }}
         >
-            {/* Subtle background glow */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px]"
-                    style={{
-                        background: 'radial-gradient(ellipse, rgba(0, 169, 255, 0.08) 0%, transparent 70%)',
-                        filter: 'blur(60px)',
-                    }}
-                />
+            {/* WebGL Glitter Background */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+                <GlitterBackground speed={0.5} intensity={6.0} />
             </div>
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
