@@ -128,7 +128,7 @@ export function SkillsSection() {
                     </div>
 
                     <h2
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-8xl text-white mb-6 tracking-tight"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-tight"
                         style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
                     >
                         What Students <br />
