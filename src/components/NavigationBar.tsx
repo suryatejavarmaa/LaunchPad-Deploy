@@ -14,31 +14,49 @@ export function NavigationBar() {
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
+        };
 
-            const sections = ['home', 'what-is-launchpad', 'overview', 'why-different', 'curriculum', 'journey', 'outcomes', 'belief', 'gamification', 'application'];
-            const scrollPosition = window.scrollY + 200;
+        const sections = ['home', 'what-is-launchpad', 'overview', 'why-different', 'curriculum', 'journey', 'outcomes', 'belief', 'gamification', 'application'];
 
-            for (const sectionId of sections) {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    const offsetTop = element.offsetTop;
-                    const offsetBottom = offsetTop + element.offsetHeight;
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px', // Trigger when section is in upper-middle of viewport
+            threshold: 0
+        };
 
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                        setActiveSection(sectionId);
-                        return;
-                    }
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
                 }
-            }
+            });
+        };
 
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        sections.forEach((id) => {
+            const element = document.getElementById(id);
+            if (element) observer.observe(element);
+        });
+
+        // Special case for home section at the very top
+        const handleInitialPosition = () => {
             if (window.scrollY < 100) {
                 setActiveSection('home');
             }
         };
 
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleInitialPosition);
+
         handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+        handleInitialPosition();
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleInitialPosition);
+            observer.disconnect();
+        };
     }, []);
 
     const navLinks = [
