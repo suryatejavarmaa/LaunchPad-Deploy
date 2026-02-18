@@ -7,6 +7,7 @@ import HorizontalScrollSection from './HorizontalScrollSection';
 const FONTS = [
     { family: "'Syne', sans-serif", style: "normal" },
     { family: "'Italiana', serif", style: "normal" },
+    { family: "'Italiana', serif", style: "italic" },
     { family: "'Rubik Mono One', monospace", style: "normal" },
     { family: "'Cormorant Garamond', serif", style: "italic" },
     { family: "'Playfair Display', serif", style: "italic" },
@@ -19,7 +20,33 @@ const FONTS = [
     { family: "'Monoton', system-ui", style: "normal" },
     { family: "'Bungee', system-ui", style: "normal" },
     { family: "'Russo One', sans-serif", style: "normal" },
-    { family: "'Racing Sans One', system-ui", style: "normal" }
+    { family: "'Racing Sans One', system-ui", style: "normal" },
+    { family: "'Bungee Inline', cursive", style: "normal" },
+    { family: "'Press Start 2P', cursive", style: "normal" },
+    { family: "'Silkscreen', cursive", style: "normal" },
+    { family: "'DotGothic16', sans-serif", style: "normal" },
+    { family: "'Major Mono Display', monospace", style: "normal" },
+    { family: "'Kumar One', cursive", style: "normal" },
+    { family: "'Bungee Shade', cursive", style: "normal" },
+    { family: "'Permanent Marker', cursive", style: "normal" },
+    { family: "'Shadows Into Light', cursive", style: "normal" },
+    { family: "'Satisfy', cursive", style: "normal" },
+    { family: "'Great Vibes', cursive", style: "normal" },
+    { family: "'Sacramento', cursive", style: "normal" },
+    { family: "'Montez', cursive", style: "normal" },
+    { family: "'Ceviche One', cursive", style: "normal" },
+    { family: "'Bungee Outline', cursive", style: "normal" },
+    { family: "'Creepster', cursive", style: "normal" },
+    { family: "'Nosifer', cursive", style: "normal" },
+    { family: "'Ewert', cursive", style: "normal" },
+    { family: "'Special Elite', cursive", style: "normal" },
+    { family: "'Fredericka the Great', cursive", style: "normal" },
+    { family: "'Cabin Sketch', cursive", style: "normal" },
+    { family: "'Homemade Apple', cursive", style: "normal" },
+    { family: "'Reenie Beanie', cursive", style: "normal" },
+    { family: "'League Script', cursive", style: "normal" },
+    { family: "'Megrim', cursive", style: "normal" },
+    { family: "'Faster One', cursive", style: "normal" }
 ];
 
 // --- Sub-Components (Panels) ---
@@ -41,7 +68,7 @@ function HeroPanel() {
             // Use setProperty with 'important' to override any CSS rules
             title.style.setProperty('font-family', FONTS[i].family, 'important');
             title.style.setProperty('font-style', FONTS[i].style, 'important');
-        }, 800);
+        }, 120);
 
         return () => clearInterval(interval);
     }, []);
