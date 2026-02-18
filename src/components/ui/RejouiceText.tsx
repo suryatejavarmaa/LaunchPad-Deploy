@@ -58,6 +58,9 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
                     ? (100 / (totalLetters - 1)) * index
                     : 0;
 
+                // Special case for Launchpad: replace 'A' at index 7 with rocket
+                const isLaunchpadRocket = text.toLowerCase() === 'launchpad' && index === 7;
+
                 return (
                     <span
                         key={index}
@@ -65,19 +68,19 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
                         style={{ height: '1.2em' }}
                     >
                         <span
-                            className="letter-inner inline-block whitespace-pre"
+                            className={`letter-inner inline-block whitespace-pre ${isLaunchpadRocket ? 'rocket-icon' : ''}`}
                             style={{
-                                background: gradientString,
-                                backgroundSize: `${totalLetters * 100}% 100%`,
-                                backgroundPosition: `${backgroundPositionX}% 0%`,
-                                WebkitBackgroundClip: 'text',
-                                backgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                color: 'transparent',
+                                background: isLaunchpadRocket ? undefined : gradientString,
+                                backgroundSize: isLaunchpadRocket ? undefined : `${totalLetters * 100}% 100%`,
+                                backgroundPosition: isLaunchpadRocket ? undefined : `${backgroundPositionX}% 0%`,
+                                WebkitBackgroundClip: isLaunchpadRocket ? undefined : 'text',
+                                backgroundClip: isLaunchpadRocket ? undefined : 'text',
+                                WebkitTextFillColor: isLaunchpadRocket ? undefined : 'transparent',
+                                color: isLaunchpadRocket ? undefined : 'transparent',
                                 opacity: 0, // Hidden by default — GSAP animates to 1
                             }}
                         >
-                            {char === " " ? "\u00A0" : char}
+                            {isLaunchpadRocket ? "" : (char === " " ? "\u00A0" : char)}
                         </span>
                     </span>
                 );
