@@ -1,40 +1,45 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { ShieldAlert, BookOpen, TrendingUp, Zap, Target, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './WhyDifferent.module.css';
 import HorizontalScrollSection from './HorizontalScrollSection';
 
 const FONTS = [
+    // Original modern fonts (Keep)
     { family: "'Syne', sans-serif", style: "normal" },
-    { family: "'Italiana', serif", style: "normal" },
+    { family: "'Italiana', serif", style: "normal" }, // New Elegant
     { family: "'Rubik Mono One', monospace", style: "normal" },
-    { family: "'Cormorant Garamond', serif", style: "italic" },
-    { family: "'Exo 2', sans-serif", style: "italic" },
-    { family: "'Playfair Display', serif", style: "italic" },
-    { family: "'Kanit', sans-serif", style: "italic" },
+    { family: "'Cormorant Garamond', serif", style: "italic" }, // New Slanted
+    { family: "'Exo 2', sans-serif", style: "italic" }, // New Slanted Tech
+    { family: "'Playfair Display', serif", style: "italic" }, // Original Slanted
+    { family: "'Kanit', sans-serif", style: "italic" }, // New Slanted
     { family: "'Bebas Neue', sans-serif", style: "normal" },
-    { family: "'Teko', sans-serif", style: "normal" },
+    { family: "'Teko', sans-serif", style: "normal" }, // New Tech
     { family: "'Unbounded', sans-serif", style: "normal" },
-    { family: "'Chakra Petch', sans-serif", style: "normal" },
-    { family: "'Chakra Petch', sans-serif", style: "italic" },
+    { family: "'Chakra Petch', sans-serif", style: "normal" }, // New Tech
+    { family: "'Chakra Petch', sans-serif", style: "italic" }, // New Tech Slanted
     { family: "'Abril Fatface', serif", style: "normal" },
+
+    // Tech & Futuristic (Keep + New)
     { family: "'Righteous', system-ui", style: "normal" },
-    { family: "'Michroma', sans-serif", style: "normal" },
+    { family: "'Michroma', sans-serif", style: "normal" }, // New Futuristic
     { family: "'Orbitron', sans-serif", style: "normal" },
-    { family: "'Orbitron', sans-serif", style: "italic" },
-    { family: "'Gruppo', sans-serif", style: "normal" },
+    { family: "'Orbitron', sans-serif", style: "italic" }, // New Futuristic Slanted
+    { family: "'Gruppo', sans-serif", style: "normal" }, // New Stylish
     { family: "'Audiowide', system-ui", style: "normal" },
-    { family: "'Syncopate', sans-serif", style: "normal" },
+    { family: "'Syncopate', sans-serif", style: "normal" }, // New Modern
     { family: "'Monoton', system-ui", style: "normal" },
-    { family: "'Tilt Prism', system-ui", style: "normal" },
-    { family: "'Tenor Sans', sans-serif", style: "normal" },
+    { family: "'Tilt Prism', system-ui", style: "normal" }, // New Slanted 3D
+
+    // Bold Display (Keep + New)
+    { family: "'Tenor Sans', sans-serif", style: "normal" }, // New Humanist
     { family: "'Bungee', system-ui", style: "normal" },
-    { family: "'Prata', serif", style: "normal" },
+    { family: "'Prata', serif", style: "normal" }, // New Elegant
     { family: "'Russo One', sans-serif", style: "normal" },
-    { family: "'Racing Sans One', system-ui", style: "normal" },
-    { family: "'Philosopher', sans-serif", style: "italic" },
+    { family: "'Racing Sans One', system-ui", style: "normal" }, // New Slanted Speed
+    { family: "'Philosopher', sans-serif", style: "italic" }, // New Unique
     { family: "'Oswald', sans-serif", style: "normal" },
-    { family: "'Cinzel', serif", style: "normal" },
+    { family: "'Cinzel', serif", style: "normal" }, // New Classic
     { family: "'Raleway', sans-serif", style: "normal" }
 ];
 
@@ -45,11 +50,17 @@ function HeroPanel() {
 
     useEffect(() => {
         const title = titleRef.current;
-        if (!title) return;
+        if (!title) {
+            console.log('Γ¥î titleRef.current is null');
+            return;
+        }
+
+        console.log('Γ£à Font animation started');
 
         // Set initial font with !important to override CSS
         title.style.setProperty('font-family', FONTS[0].family, 'important');
         title.style.setProperty('font-style', FONTS[0].style, 'important');
+        console.log('Initial font set to:', FONTS[0].family);
 
         let i = 0;
         const interval = setInterval(() => {
@@ -57,9 +68,13 @@ function HeroPanel() {
             // Use setProperty with 'important' to override any CSS rules
             title.style.setProperty('font-family', FONTS[i].family, 'important');
             title.style.setProperty('font-style', FONTS[i].style, 'important');
+            console.log(`Font changed to [${i}]:`, FONTS[i].family, FONTS[i].style);
         }, 120);
 
-        return () => clearInterval(interval);
+        return () => {
+            console.log('Font animation cleanup');
+            clearInterval(interval);
+        };
     }, []);
 
     return (
@@ -86,9 +101,9 @@ function OldWayPanel() {
                         <h2>THE OLD WAY</h2>
                         <p className={styles.oldWarning}>WARNING: OBSOLETE</p>
                         <ul className={styles.oldList}>
-                            <li>❌ Theory-based exams</li>
-                            <li>❌ Just motivational talks</li>
-                            <li>❌ Generic placement training</li>
+                            <li>Γ¥î Theory-based exams</li>
+                            <li>Γ¥î Just motivational talks</li>
+                            <li>Γ¥î Generic placement training</li>
                         </ul>
                     </div>
 
@@ -104,7 +119,7 @@ function OldWayPanel() {
                             <BookOpen className={styles.icon} />
                             <div>
                                 <h4 className={styles.oldTitle}>Passive Learning</h4>
-                                <p className={styles.oldText}>Memorize → write → forget.</p>
+                                <p className={styles.oldText}>Memorize ΓåÆ write ΓåÆ forget.</p>
                             </div>
                         </div>
                     </div>
@@ -131,21 +146,21 @@ function NewSystemPanel() {
                                 <h3>BUILD</h3>
                                 <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Design, build, and ship real products.</p>
                                 <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
-                                    • Production code<br />• Real users<br />• Live feedback
+                                    ΓÇó Production code<br />ΓÇó Real users<br />ΓÇó Live feedback
                                 </p>
                             </div>
                             <div className={styles.card}>
                                 <h3>PRESSURE</h3>
                                 <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Operate under real startup conditions.</p>
                                 <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
-                                    • Daily reviews<br />• Deadlines<br />• Ownership mindset
+                                    ΓÇó Daily reviews<br />ΓÇó Deadlines<br />ΓÇó Ownership mindset
                                 </p>
                             </div>
                             <div className={styles.card}>
                                 <h3>PROOF</h3>
                                 <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Show outcomes, not certificates.</p>
                                 <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
-                                    • Portfolio<br />• Metrics<br />• Investor-ready demos
+                                    ΓÇó Portfolio<br />ΓÇó Metrics<br />ΓÇó Investor-ready demos
                                 </p>
                             </div>
                         </div>
@@ -176,7 +191,7 @@ function OutcomePanel() {
                         className={styles.ctaButton}
                         onClick={() => document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                        Apply to Launchpad →
+                        Apply to Launchpad ΓåÆ
                     </button>
                 </div>
             </div>
