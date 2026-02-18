@@ -12,7 +12,7 @@ export function JourneySection() {
         if (!isPaused) {
             interval = setInterval(() => {
                 setActiveIndex((current) => (current + 1) % 3);
-            }, 4000);
+            }, 2000);
         }
 
         return () => clearInterval(interval);
