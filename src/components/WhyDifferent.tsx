@@ -5,42 +5,21 @@ import styles from './WhyDifferent.module.css';
 import HorizontalScrollSection from './HorizontalScrollSection';
 
 const FONTS = [
-    // Original modern fonts (Keep)
     { family: "'Syne', sans-serif", style: "normal" },
-    { family: "'Italiana', serif", style: "normal" }, // New Elegant
+    { family: "'Italiana', serif", style: "normal" },
     { family: "'Rubik Mono One', monospace", style: "normal" },
-    { family: "'Cormorant Garamond', serif", style: "italic" }, // New Slanted
-    { family: "'Exo 2', sans-serif", style: "italic" }, // New Slanted Tech
-    { family: "'Playfair Display', serif", style: "italic" }, // Original Slanted
-    { family: "'Kanit', sans-serif", style: "italic" }, // New Slanted
+    { family: "'Cormorant Garamond', serif", style: "italic" },
+    { family: "'Playfair Display', serif", style: "italic" },
     { family: "'Bebas Neue', sans-serif", style: "normal" },
-    { family: "'Teko', sans-serif", style: "normal" }, // New Tech
     { family: "'Unbounded', sans-serif", style: "normal" },
-    { family: "'Chakra Petch', sans-serif", style: "normal" }, // New Tech
-    { family: "'Chakra Petch', sans-serif", style: "italic" }, // New Tech Slanted
-    { family: "'Abril Fatface', serif", style: "normal" },
-
-    // Tech & Futuristic (Keep + New)
+    { family: "'Chakra Petch', sans-serif", style: "normal" },
     { family: "'Righteous', system-ui", style: "normal" },
-    { family: "'Michroma', sans-serif", style: "normal" }, // New Futuristic
     { family: "'Orbitron', sans-serif", style: "normal" },
-    { family: "'Orbitron', sans-serif", style: "italic" }, // New Futuristic Slanted
-    { family: "'Gruppo', sans-serif", style: "normal" }, // New Stylish
     { family: "'Audiowide', system-ui", style: "normal" },
-    { family: "'Syncopate', sans-serif", style: "normal" }, // New Modern
     { family: "'Monoton', system-ui", style: "normal" },
-    { family: "'Tilt Prism', system-ui", style: "normal" }, // New Slanted 3D
-
-    // Bold Display (Keep + New)
-    { family: "'Tenor Sans', sans-serif", style: "normal" }, // New Humanist
     { family: "'Bungee', system-ui", style: "normal" },
-    { family: "'Prata', serif", style: "normal" }, // New Elegant
     { family: "'Russo One', sans-serif", style: "normal" },
-    { family: "'Racing Sans One', system-ui", style: "normal" }, // New Slanted Speed
-    { family: "'Philosopher', sans-serif", style: "italic" }, // New Unique
-    { family: "'Oswald', sans-serif", style: "normal" },
-    { family: "'Cinzel', serif", style: "normal" }, // New Classic
-    { family: "'Raleway', sans-serif", style: "normal" }
+    { family: "'Racing Sans One', system-ui", style: "normal" }
 ];
 
 // --- Sub-Components (Panels) ---
@@ -50,17 +29,11 @@ function HeroPanel() {
 
     useEffect(() => {
         const title = titleRef.current;
-        if (!title) {
-            console.log('❌ titleRef.current is null');
-            return;
-        }
-
-        console.log('✅ Font animation started');
+        if (!title) return;
 
         // Set initial font with !important to override CSS
         title.style.setProperty('font-family', FONTS[0].family, 'important');
         title.style.setProperty('font-style', FONTS[0].style, 'important');
-        console.log('Initial font set to:', FONTS[0].family);
 
         let i = 0;
         const interval = setInterval(() => {
@@ -68,13 +41,9 @@ function HeroPanel() {
             // Use setProperty with 'important' to override any CSS rules
             title.style.setProperty('font-family', FONTS[i].family, 'important');
             title.style.setProperty('font-style', FONTS[i].style, 'important');
-            console.log(`Font changed to [${i}]:`, FONTS[i].family, FONTS[i].style);
-        }, 120);
+        }, 800);
 
-        return () => {
-            console.log('Font animation cleanup');
-            clearInterval(interval);
-        };
+        return () => clearInterval(interval);
     }, []);
 
     return (

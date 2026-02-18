@@ -1,6 +1,7 @@
 import Hero from './ui/animated-shader-hero';
 import FlowFieldBackground from './ui/flow-field-background';
 import { ArrowDown } from 'lucide-react';
+import RejouiceText from './ui/RejouiceText';
 
 export default function HeroSection() {
   const scrollToContent = () => {
@@ -35,20 +36,24 @@ export default function HeroSection() {
           lines: [
             {
               text: "Not a course.",
-              colorClass: "",
+              colorClass: "opacity-60",
               style: {
                 color: '#FFFFFF',
                 fontStyle: 'italic',
-                opacity: 0.95
+                fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+                fontWeight: 300,
+                letterSpacing: '0.05em'
               }
             },
             {
               text: "Not a college.",
-              colorClass: "",
+              colorClass: "opacity-60",
               style: {
                 color: '#FFFFFF',
                 fontStyle: 'italic',
-                opacity: 0.95
+                fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+                fontWeight: 300,
+                letterSpacing: '0.05em'
               }
             },
             {
@@ -56,19 +61,24 @@ export default function HeroSection() {
               colorClass: "",
               style: {
                 color: '#CBD5E1',
-                fontWeight: 400,
-                fontSize: '1em'
+                fontWeight: 500,
+                fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                marginTop: '1.5rem',
+                marginBottom: '0.5rem'
               },
               isSmall: true
             },
             {
-              text: "Launchpad",
-              colorClass: "lp-text-gradient",
+              text: <RejouiceText text="Launchpad" />,
+              colorClass: "",
               style: {
                 fontFamily: "'Poppins', sans-serif",
-                fontWeight: 700,
-                letterSpacing: '-0.02em',
-                textShadow: '0 0 60px rgba(255, 58, 74, 0.4), 0 0 120px rgba(0, 169, 255, 0.3)'
+                fontWeight: 900,
+                fontSize: 'clamp(3.5rem, 12vw, 8.5rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 0.9
               }
             }
           ]

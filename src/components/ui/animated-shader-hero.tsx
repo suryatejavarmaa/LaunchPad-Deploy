@@ -2,7 +2,7 @@ import React from 'react';
 
 // Types for component props
 interface HeadlineLine {
-  text: string;
+  text: React.ReactNode;
   colorClass?: string; // CSS class for coloring
   style?: React.CSSProperties;
   isSmall?: boolean; // For smaller text like "This is"
