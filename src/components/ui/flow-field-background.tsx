@@ -13,7 +13,7 @@ export default function FlowFieldBackground({
     className,
     color = "#6366f1",
     trailOpacity = 0.15,
-    particleCount = 600,
+    particleCount = 450,
     speed = 1,
 }: FlowFieldBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,12 +24,13 @@ export default function FlowFieldBackground({
         const container = containerRef.current;
         if (!canvas || !container) return;
 
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { alpha: false }); // Optimization for non-transparent canvas
         if (!ctx) return;
 
         let width = container.clientWidth;
         let height = container.clientHeight;
         let animationFrameId: number;
+        let lastTime = 0;
 
         // Pre-allocated TypedArrays for smooth performance
         const px = new Float32Array(particleCount);
@@ -45,8 +46,8 @@ export default function FlowFieldBackground({
                 py[i] = Math.random() * height;
                 vx[i] = 0;
                 vy[i] = 0;
-                life[i] = Math.random() * 200 + 100; // Original: 100-300 frames
-                age[i] = Math.random() * life[i]; // Stagger to prevent mass respawn
+                life[i] = Math.random() * 200 + 100;
+                age[i] = Math.random() * life[i];
             }
         };
 
@@ -54,37 +55,36 @@ export default function FlowFieldBackground({
             const dpr = window.devicePixelRatio || 1;
             canvas.width = width * dpr;
             canvas.height = height * dpr;
-            ctx.scale(dpr, dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // More efficient reset
             canvas.style.width = `${width}px`;
             canvas.style.height = `${height}px`;
             initParticles();
         };
 
-        const animate = () => {
-            // Trail fade - exactly like original
+        const animate = (time: number) => {
+            const deltaTime = (time - lastTime) / 16.67 || 1;
+            lastTime = time;
+
+            // Trail fade
             ctx.fillStyle = `rgba(0, 0, 0, ${trailOpacity})`;
             ctx.fillRect(0, 0, width, height);
 
             ctx.fillStyle = color;
 
             for (let i = 0; i < particleCount; i++) {
-                // ORIGINAL FLOW FIELD MATH - exact same as your reference code
                 const angle = (Math.cos(px[i] * 0.005) + Math.sin(py[i] * 0.005)) * Math.PI;
 
-                // Original force application
-                vx[i] += Math.cos(angle) * 0.2 * speed;
-                vy[i] += Math.sin(angle) * 0.2 * speed;
+                // Move with delta time
+                vx[i] += Math.cos(angle) * 0.2 * speed * deltaTime;
+                vy[i] += Math.sin(angle) * 0.2 * speed * deltaTime;
 
-                // Move particle
-                px[i] += vx[i];
-                py[i] += vy[i];
+                px[i] += vx[i] * deltaTime;
+                py[i] += vy[i] * deltaTime;
 
-                // Original friction
                 vx[i] *= 0.95;
                 vy[i] *= 0.95;
 
-                // Aging with respawn - keeps particles distributed
-                age[i]++;
+                age[i] += deltaTime;
                 if (age[i] > life[i]) {
                     px[i] = Math.random() * width;
                     py[i] = Math.random() * height;
@@ -94,15 +94,13 @@ export default function FlowFieldBackground({
                     life[i] = Math.random() * 200 + 100;
                 }
 
-                // Wrap around screen - original behavior
                 if (px[i] < 0) px[i] = width;
                 if (px[i] > width) px[i] = 0;
                 if (py[i] < 0) py[i] = height;
                 if (py[i] > height) py[i] = 0;
 
-                // Original fade in/out based on age
                 const alpha = 1 - Math.abs((age[i] / life[i]) - 0.5) * 2;
-                ctx.globalAlpha = alpha;
+                ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
                 ctx.fillRect(px[i], py[i], 1.5, 1.5);
             }
 

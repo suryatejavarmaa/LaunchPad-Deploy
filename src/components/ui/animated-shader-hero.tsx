@@ -87,7 +87,7 @@ const Hero: React.FC<HeroProps> = ({
                   : 'text-4xl md:text-6xl lg:text-7xl font-bold'
                   } animate-fade-in-up ${line.colorClass || ''}`}
                 style={{
-                  animationDelay: `${200 + index * 150}ms`,
+                  animationDelay: `${600 + index * 200}ms`, // Pushed back and spaced out
                   ...line.style
                 }}
               >
@@ -98,7 +98,7 @@ const Hero: React.FC<HeroProps> = ({
 
           {/* Tagline - Neutral Color */}
           {tagline && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '500ms' }}>
+            <div className="animate-fade-in-up" style={{ animationDelay: '1200ms' }}>
               <p className="text-lg md:text-xl font-medium tracking-widest uppercase text-slate-400">
                 {tagline}
               </p>
@@ -106,7 +106,7 @@ const Hero: React.FC<HeroProps> = ({
           )}
 
           {/* Subtitle - Neutral Color */}
-          <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+          <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '1400ms' }}>
             <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-slate-300">
               {subtitle}
             </p>
@@ -114,7 +114,7 @@ const Hero: React.FC<HeroProps> = ({
 
           {/* CTA Buttons */}
           {buttons && (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 animate-fade-in-up" style={{ animationDelay: '800ms' }}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 animate-fade-in-up" style={{ animationDelay: '1600ms' }}>
               {buttons.primary && (
                 <button
                   onClick={buttons.primary.onClick}

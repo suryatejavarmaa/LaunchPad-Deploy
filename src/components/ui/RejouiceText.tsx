@@ -20,16 +20,17 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
 
         gsap.fromTo(letterElements,
             {
-                y: "-110%", // Falling from above
+                y: "-110%",
                 opacity: 0
             },
             {
                 y: "0%",
                 opacity: 1,
-                stagger: 0.08,
-                duration: 1.2,
+                stagger: 0.1, // Slightly slower stagger for more fluidity
+                duration: 1.5, // Increased duration for a smoother feel
                 ease: "power3.out",
-                delay: 0.2
+                delay: 0.4, // Initial delay to let the page settle
+                force3D: true // GPU acceleration
             }
         );
     }, []);
