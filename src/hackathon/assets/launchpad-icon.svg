@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simplified Launchpad icon SVG (derived from provided image for use in site) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-label="Launchpad logo">
+  <defs>
+    <linearGradient id="g1" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#B1122C" />
+      <stop offset="100%" stop-color="#00A9FF" />
+    </linearGradient>
+    <style>
+      .ring{fill:none;stroke:#111;stroke-width:6;stroke-linecap:round;opacity:0.95}
+      .mark{fill:url(#g1)}
+    </style>
+  </defs>
+  <!-- decorative ring (abstracted from original) -->
+  <g transform="translate(60,40) scale(0.9)">
+    <circle cx="60" cy="60" r="42" fill="none" stroke="black" stroke-width="3" opacity="0.06" />
+    <g stroke="black" stroke-width="4" fill="none" stroke-linecap="round">
+      <g transform="rotate(0 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(40 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(80 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(120 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(160 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(200 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(240 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(280 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+      <g transform="rotate(320 60 60)">
+        <path d="M60 18 A42 42 0 0 1 99 32" />
+      </g>
+    </g>
+    <!-- center rocket-ish mark -->
+    <path class="mark" d="M60 30 L68 72 L60 84 L52 72 Z" />
+  </g>
+
+  <!-- text -->
+  <g transform="translate(150,40)">
+    <text x="0" y="38" font-family="Poppins, sans-serif" font-weight="700" font-size="40" fill="#0f1724">BRISTLETECH'S</text>
+    <text x="0" y="86" font-family="Poppins, sans-serif" font-weight="800" font-size="48" fill="url(#g1)">LAUNCHPAD</text>
+    <text x="0" y="116" font-family="Poppins, sans-serif" font-weight="500" font-size="18" fill="#475569">ONE LIFE, ONE STORY.</text>
+  </g>
+</svg>

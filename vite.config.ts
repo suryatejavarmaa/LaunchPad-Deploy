@@ -4,7 +4,28 @@ import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'hackathon-routing',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url === '/hackathon' || req.url === '/hackathon/') {
+            req.url = '/src/hackathon/index.html';
+          } else if (req.url === '/admin' || req.url === '/admin/') {
+            req.url = '/src/hackathon/admin.html';
+          } else if (req.url?.startsWith('/hackathon/')) {
+            // This handles assets if they are still requested with /hackathon/ prefix
+            req.url = req.url.replace('/hackathon/', '/src/hackathon/');
+          } else if (req.url?.startsWith('/admin/')) {
+            // This handles assets if they are still requested with /admin/ prefix
+            req.url = req.url.replace('/admin/', '/src/hackathon/');
+          }
+          next();
+        });
+      },
+    }
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     dedupe: ['three'],
@@ -57,6 +78,13 @@ export default defineConfig({
   build: {
     target: 'esnext',
     outDir: 'build',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        hackathon: path.resolve(__dirname, 'src/hackathon/index.html'),
+        admin: path.resolve(__dirname, 'src/hackathon/admin.html'),
+      },
+    },
   },
   server: {
     port: 3000,
