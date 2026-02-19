@@ -629,6 +629,10 @@
     transform: rotate(-45deg) translateY(-5%);
   }
 
+  .hero-rocket {
+    margin: 0 -0.12em 0 -0.05em;
+  }
+
   .pointer-events-none {
     pointer-events: none;
   }

@@ -68,7 +68,7 @@ const RejouiceText: React.FC<RejouiceTextProps> = ({ text, className = "", color
                         style={{ height: '1.2em' }}
                     >
                         <span
-                            className={`letter-inner inline-block whitespace-pre ${isLaunchpadRocket ? 'rocket-icon' : ''}`}
+                            className={`letter-inner inline-block whitespace-pre ${isLaunchpadRocket ? 'rocket-icon hero-rocket' : ''}`}
                             style={{
                                 background: isLaunchpadRocket ? undefined : gradientString,
                                 backgroundSize: isLaunchpadRocket ? undefined : `${totalLetters * 100}% 100%`,
