@@ -124,7 +124,7 @@ export function SkillsSection() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                         </span>
-                        <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase">Interactive Curriculum</span>
+                        <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase">Interactive Curriculum - KSTV</span>
                     </div>
 
                     <h2

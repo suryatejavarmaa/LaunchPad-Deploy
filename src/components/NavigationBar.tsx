@@ -275,23 +275,23 @@ export function NavigationBar() {
                                         className="w-full flex items-center gap-3 py-3 px-4 rounded-xl transition-colors text-left"
                                         style={{
                                             background: isActive
-                                                ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.1) 100%)'
+                                                ? 'linear-gradient(rgba(10, 15, 30, 0.95), rgba(10, 15, 30, 0.95)) padding-box, linear-gradient(135deg, #B1122C 0%, #00A9FF 100%) border-box'
                                                 : 'rgba(255, 255, 255, 0.03)',
-                                            border: isActive
-                                                ? '1px solid rgba(59, 130, 246, 0.3)'
-                                                : '1px solid rgba(255, 255, 255, 0.05)',
+                                            border: '1px solid transparent',
                                             minHeight: '48px',
                                         }}
                                         onClick={() => {
                                             setIsMobileMenuOpen(false);
-                                            item.onClick();
+                                            setTimeout(() => {
+                                                item.onClick();
+                                            }, 100);
                                         }}
                                     >
                                         <IconComponent
                                             size={18}
-                                            style={{ color: isActive ? '#60a5fa' : 'rgba(255, 255, 255, 0.5)', flexShrink: 0 }}
+                                            style={{ color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)', flexShrink: 0 }}
                                         />
-                                        <span style={{ color: isActive ? '#ffffff' : '#cbd5e1', fontWeight: isActive ? 600 : 400, fontSize: '15px' }}>
+                                        <span style={{ color: isActive ? '#FFFFFF' : '#cbd5e1', fontWeight: isActive ? 600 : 400, fontSize: '15px' }}>
                                             {item.label}
                                         </span>
                                     </motion.button>
@@ -306,13 +306,15 @@ export function NavigationBar() {
                                 <Button
                                     className="w-full py-3 font-medium text-white rounded-xl"
                                     style={{
-                                        background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                                        background: 'linear-gradient(135deg, #B1122C 0%, #B1122C 30%, #FF3A4A 55%, #00A9FF 80%, #00A9FF 100%)',
                                         border: 'none',
                                         minHeight: '48px',
                                     }}
                                     onClick={() => {
                                         setIsMobileMenuOpen(false);
-                                        document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' });
+                                        setTimeout(() => {
+                                            document.getElementById('application')?.scrollIntoView({ behavior: 'smooth' });
+                                        }, 100);
                                     }}
                                 >
                                     Apply Now
