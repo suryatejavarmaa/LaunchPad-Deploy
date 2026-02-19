@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { NavigationBar } from './components/NavigationBar';
 import { ChatAssistant } from './components/ChatAssistant';
+
 const HeroSection = lazy(() => import('./components/HeroSection'));
 const WhatIsLaunchpad = lazy(() => import('./components/WhatIsLaunchpad').then(m => ({ default: m.WhatIsLaunchpad })));
 const CareerOverview = lazy(() => import('./components/CareerOverview').then(m => ({ default: m.CareerOverview })));
@@ -17,6 +18,7 @@ const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.
 import { RevealOnScroll } from './components/ui/RevealOnScroll';
 
 export default function App() {
+
   return (
     <ErrorBoundary>
       <div className="min-h-screen lp-bg" style={{ backgroundColor: 'var(--lp-bg-solid)' }}>
@@ -101,6 +103,8 @@ export default function App() {
 
         {/* Chat Assistant - Floating */}
         <ChatAssistant />
+
+
 
         {/* ===== Legacy Sections (Kept After Footer) ===== */}
         {/* <ParticleTextSection /> */}

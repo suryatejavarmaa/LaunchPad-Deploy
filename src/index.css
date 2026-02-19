@@ -797,6 +797,99 @@
     z-index: 0;
   }
 
+  .z-50 {
+    z-index: 50;
+  }
+
+  /* 🏆 Hackathon Modal Styles */
+  .hackathon-modal-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .hackathon-modal-container {
+    background: var(--lp-bg-solid);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(0, 169, 255, 0.15), 0 0 80px rgba(177, 18, 44, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hackathon-modal-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    /* Border thickness */
+    border-radius: inherit;
+    background: var(--lp-gradient-border-dual);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .pill-badge {
+    background: rgba(255, 58, 74, 0.15);
+    border: 1px solid rgba(255, 58, 74, 0.3);
+    color: var(--lp-primary-red);
+    text-shadow: 0 0 10px rgba(255, 58, 74, 0.5);
+    box-shadow: 0 0 15px rgba(255, 58, 74, 0.2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .modal-cta-button {
+    background: var(--lp-gradient-dual);
+    background-size: 200% auto;
+    transition: 0.5s ease;
+    color: white;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .modal-cta-button:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 169, 255, 0.4);
+  }
+
+  .modal-close-btn {
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.2s ease;
+  }
+
+  .modal-close-btn:hover {
+    color: white;
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .animate-modal-in {
+    animation: modalSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes modalSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
   .z-5 {
     z-index: 5;
   }
@@ -5970,14 +6063,6 @@ html {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-  }
-
-  /* Hide custom scrollbars on mobile — they can appear as partial 
-     red/blue lines (from the thumb gradient) and interfere with native scrolling */
-  ::-webkit-scrollbar {
-    display: none !important;
     width: 0 !important;
     height: 0 !important;
   }
