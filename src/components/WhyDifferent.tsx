@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ShieldAlert, BookOpen, TrendingUp, Zap, Target, Rocket } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ShieldAlert, BookOpen } from 'lucide-react';
 import styles from './WhyDifferent.module.css';
 import HorizontalScrollSection from './HorizontalScrollSection';
 

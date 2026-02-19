@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { motion } from "motion/react";
 import { Folder, HeartHandshakeIcon, SparklesIcon } from "lucide-react";
 import { cn } from "./utils";
@@ -326,46 +325,46 @@ const DatabaseWithRestApi = ({
             <stop offset="50%" stopColor={lightColor ? `${lightColor}80` : "#ec4899"} />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
-          
+
           {/* Path Gradient */}
           <linearGradient id="path-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#6366f1" />
             <stop offset="50%" stopColor="#a855f7" />
             <stop offset="100%" stopColor="#ec4899" />
           </linearGradient>
-          
+
           {/* Button Border Gradient */}
           <linearGradient id="button-border-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#a855f7" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#ec4899" stopOpacity="0.5" />
           </linearGradient>
-          
+
           {/* Button Background Gradients */}
           <linearGradient id="button-bg-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1e1b4b" />
             <stop offset="100%" stopColor="#312e81" />
           </linearGradient>
-          
+
           <linearGradient id="button-bg-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#581c87" />
             <stop offset="100%" stopColor="#6b21a8" />
           </linearGradient>
-          
+
           <linearGradient id="button-bg-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#701a75" />
             <stop offset="100%" stopColor="#9333ea" />
           </linearGradient>
-          
+
           <linearGradient id="button-bg-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#831843" />
             <stop offset="100%" stopColor="#ec4899" />
           </linearGradient>
-          
+
           <linearGradient id="button-bg-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#4c1d95" />
             <stop offset="100%" stopColor="#7c3aed" />
           </linearGradient>
-          
+
           <linearGradient id="button-bg-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1e3a8a" />
             <stop offset="100%" stopColor="#3b82f6" />
