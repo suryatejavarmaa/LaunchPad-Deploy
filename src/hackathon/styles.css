@@ -669,12 +669,13 @@ body {
 }
 
 .brand-mega {
-    background: var(--launchpad-gradient);
+    background: linear-gradient(135deg, #B1122C 0%, #FF3A4A 45%, #00A9FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: block;
     font-size: 0.9em;
+    font-weight: 800;
 }
 
 .brand-launch {

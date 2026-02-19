@@ -21,10 +21,7 @@ const HackathonModal: React.FC<HackathonModalProps> = ({ isOpen, onClose }) => {
 
     const handleRegister = () => {
         onClose();
-        const element = document.getElementById('application');
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
+        window.open('/hackathon/', '_blank');
     };
 
     return (
@@ -185,17 +182,39 @@ const HackathonModal: React.FC<HackathonModalProps> = ({ isOpen, onClose }) => {
                         {/* ── Headline ── */}
                         <h2
                             style={{
-                                fontSize: 'clamp(1.6rem, 5vw, 2.2rem)',
+                                fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
                                 fontWeight: 900,
-                                lineHeight: 1.2,
+                                lineHeight: 1.1,
                                 letterSpacing: '-0.02em',
                                 color: '#fff',
-                                margin: '0 0 16px',
+                                margin: '0 0 24px',
                             }}
                         >
-                            Participate in the{' '}
-                            <br />
-                            <span className="lp-text-gradient">Launchpad Hackathon</span>
+                            Participate in the
+                            <span
+                                className="lp-text-gradient"
+                                style={{
+                                    display: 'block',
+                                    fontSize: 'clamp(2rem, 9vw, 3.2rem)',
+                                    margin: '8px 0',
+                                    lineHeight: 1,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '-0.01em',
+                                }}
+                            >
+                                Launchpad
+                            </span>
+                            <span
+                                style={{
+                                    display: 'block',
+                                    color: '#FF3A4A',
+                                    fontSize: 'clamp(1.5rem, 6vw, 2.2rem)',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.15em',
+                                }}
+                            >
+                                Hackathon
+                            </span>
                         </h2>
 
                         {/* ── Subtext ── */}

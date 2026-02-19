@@ -4,10 +4,49 @@
 import { app, analytics, db, auth, storage, signInAnonymously } from './firebaseConfig.js';
 import { collection, addDoc, serverTimestamp, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import emailjs from '@emailjs/browser';
+
+// ===== EMAILJS INITIALIZATION =====
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+
+if (EMAILJS_PUBLIC_KEY) {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    console.log('✅ EmailJS initialized successfully');
+} else {
+    console.warn('⚠️ EmailJS public key not configured. Confirmation emails will not be sent.');
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeSplashScreen();
 });
+
+// ===== EMAIL CONFIRMATION =====
+async function sendConfirmationEmail(userData) {
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        console.warn('⚠️ EmailJS not configured. Skipping confirmation email.');
+        return { success: false, reason: 'not_configured' };
+    }
+
+    const templateParams = {
+        to_email: userData.email,
+        user_name: userData.fullName || 'Participant',
+        launchpad_id: userData.registrationId,
+        participation_type: userData.participationType === 'team' ? 'Team' : 'Individual',
+        college_name: userData.collegeName || '',
+        team_name: userData.teamName || 'N/A',
+    };
+
+    try {
+        const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+        console.log('✅ Confirmation email sent successfully:', response.status, response.text);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Failed to send confirmation email:', error);
+        return { success: false, reason: 'send_failed', error };
+    }
+}
 
 // ===== SPLASH SCREEN INITIALIZATION =====
 function initializeSplashScreen() {
@@ -629,28 +668,38 @@ async function handleSubmit(event) {
                 data.teamMembers = teamMembers;
             }
 
-            // Generate Unique ID
-            // NOTE: In a high-traffic production app, use distributed counters or transactions.
-            // For this hackathon scope, counting existing docs is acceptable.
+            // Generate Unique Registration ID (this IS the Launchpad ID)
             const querySnapshot = await getDocs(collection(db, 'registrations'));
             const currentCount = querySnapshot.size;
             const nextCount = currentCount + 1;
-            // Format ID: Launch-001, Launch-002, etc.
             const registrationId = `Launch-${String(nextCount).padStart(3, '0')}`;
 
             // Add ID to data object
             data.registrationId = registrationId;
+            data.emailSent = false; // Track email delivery
 
             // Save to Firestore
             const docRef = await addDoc(collection(db, 'registrations'), data);
 
             console.log('Registration saved successfully with ID:', docRef.id, 'RegID:', registrationId);
 
-            // Show success modal with ID
-            showSuccessModal(registrationId);
+            // Show success modal with Launchpad ID
+            showSuccessModal(registrationId, data.email);
 
             // Update button to final state
             submitBtn.innerHTML = '<span class="btn-text">Submitted</span>';
+
+            // Send confirmation email asynchronously (non-blocking)
+            sendConfirmationEmail({
+                email: data.email,
+                fullName: data.fullName,
+                registrationId: registrationId,
+                participationType: data.participationType,
+                collegeName: data.collegeName,
+                teamName: data.teamName || '',
+            }).catch(err => {
+                console.error('📧 Email sending error (non-blocking):', err);
+            });
 
         } catch (error) {
             console.error('Error saving registration:', error);

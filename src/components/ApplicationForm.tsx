@@ -7,7 +7,11 @@ import { InteractiveRobotSpline } from './ui/interactive-3d-robot';
 
 export function ApplicationForm() {
   // Placeholder Link - Replace with actual form URL
-  const registrationLink = "https://forms.gle/placeholder";
+  // Use the current origin for the absolute URL (important for QR code scanning in production)
+  const registrationLink = typeof window !== 'undefined'
+    ? `${window.location.origin}/hackathon/`
+    : '/hackathon/';
+
   const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
 
   return (
@@ -153,10 +157,6 @@ export function ApplicationForm() {
           >
             Apply Now <ArrowRight size={18} className="ml-2" />
           </motion.a>
-
-          <a href={registrationLink} target="_blank" rel="noopener noreferrer" className={styles.link}>
-            Open in Browser
-          </a>
 
           <div className={styles.tagline}>One Life. One Story.</div>
         </div>
