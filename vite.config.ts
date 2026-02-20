@@ -11,12 +11,9 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
           if (req.url === '/hackathon' || req.url === '/hackathon/') {
-            req.url = '/src/hackathon/index.html';
-          } else if (req.url === '/admin' || req.url === '/admin/') {
-            req.url = '/src/hackathon/admin.html';
-          } else if (req.url?.startsWith('/hackathon/')) {
-            // This handles assets if they are still requested with /hackathon/ prefix
-            req.url = req.url.replace('/hackathon/', '/src/hackathon/');
+            req.url = '/hackathon/index.html';
+          } else if (req.url === '/hackathon/admin' || req.url === '/hackathon/admin/' || req.url === '/admin' || req.url === '/admin/') {
+            req.url = '/hackathon/admin/index.html';
           } else if (req.url?.startsWith('/admin/')) {
             // This handles assets if they are still requested with /admin/ prefix
             req.url = req.url.replace('/admin/', '/src/hackathon/');
@@ -81,8 +78,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        hackathon: path.resolve(__dirname, 'src/hackathon/index.html'),
-        admin: path.resolve(__dirname, 'src/hackathon/admin.html'),
+        hackathon: path.resolve(__dirname, 'hackathon/index.html'),
+        admin: path.resolve(__dirname, 'hackathon/admin/index.html'),
       },
     },
   },

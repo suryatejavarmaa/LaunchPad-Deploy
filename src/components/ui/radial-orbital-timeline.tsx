@@ -4,6 +4,7 @@ import { ArrowRight, Link, Zap, Check, ChevronDown } from "lucide-react";
 import { Badge } from "./badge";
 import { Button } from "./button";
 import { motion, AnimatePresence } from "motion/react";
+import launchpadLogo from "../figma/4_cropped_processed_by_imagy.png";
 
 interface TimelineItem {
   id: number;
@@ -318,7 +319,7 @@ export default function RadialOrbitalTimeline({
             >
               {/* Logo image - fills entire space */}
               <img
-                src="/src/components/figma/4_cropped_processed_by_imagy.png"
+                src={launchpadLogo}
                 alt="Launchpad Logo"
                 className="object-cover rounded-full"
                 style={{
