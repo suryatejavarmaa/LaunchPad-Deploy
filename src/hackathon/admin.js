@@ -374,6 +374,7 @@ function convertToCSV(data) {
         'Parent Name', 'Parent Mobile',
         'College', 'Location', 'University', 'Department', 'Year',
         'Type', 'Team Name', 'Team Size', 'Leader Name', 'Leader Email',
+        'Team Member Details',
         'LinkedIn', 'Portfolio', 'GitHub', 'Hear About', 'Special Requirements'
     ];
 
@@ -396,6 +397,7 @@ function convertToCSV(data) {
         reg.teamSize || '',
         reg.leaderName || '',
         reg.leaderEmail || '',
+        reg.teamMembers ? reg.teamMembers.map(m => `${m.name} (${m.email || 'No Email'}, ${m.mobile || 'No Mobile'}, ${m.linkedin || 'No LinkedIn'})`).join(' | ') : '',
         reg.linkedin || '',
         reg.portfolio || '',
         reg.github || '',
@@ -581,6 +583,7 @@ window.viewDetails = function (id) {
                     <div class="pc-team-member-details">
                         ${member.email ? `📧 ${escapeHtml(member.email)}` : ''}
                         ${member.mobile ? ` • 📱 ${escapeHtml(member.mobile)}` : ''}
+                        ${member.linkedin ? ` • 💼 <a href="${escapeHtml(member.linkedin)}" target="_blank" style="color: var(--electric-blue); text-decoration: none; border-bottom: 1px solid rgba(0, 169, 255, 0.3);">LinkedIn →</a>` : ''}
                     </div>
                 </div>
             `;
