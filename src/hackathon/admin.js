@@ -688,6 +688,17 @@ window.closeDetailsModal = function () {
     document.body.style.overflow = '';
 };
 
+// Close details modal when clicking outside the card
+const detailsModal = document.getElementById('detailsModal');
+if (detailsModal) {
+    detailsModal.addEventListener('click', (e) => {
+        // Close if clicking the background or the wrapper (not the card itself)
+        if (e.target === detailsModal || e.target.id === 'pcCardWrapper') {
+            closeDetailsModal();
+        }
+    });
+}
+
 // ===== DELETE FUNCTIONALITY =====
 
 let deleteTargetId = null;
