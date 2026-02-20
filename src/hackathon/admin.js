@@ -371,6 +371,7 @@ function convertToCSV(data) {
 
     const headers = [
         'Reg ID', 'Timestamp', 'Name', 'Email', 'Mobile', 'Alt Mobile',
+        'Parent Name', 'Parent Mobile',
         'College', 'Location', 'University', 'Department', 'Year',
         'Type', 'Team Name', 'Team Size', 'Leader Name', 'Leader Email',
         'LinkedIn', 'Portfolio', 'GitHub', 'Hear About', 'Special Requirements'
@@ -383,6 +384,8 @@ function convertToCSV(data) {
         reg.email || '',
         reg.mobile || '',
         reg.altMobile || '',
+        reg.parentName || '',
+        reg.parentMobile || '',
         reg.collegeName || '',
         reg.collegeLocation || '',
         reg.university || '',
@@ -523,6 +526,8 @@ window.viewDetails = function (id) {
         { label: '📅 Registered', value: formatDate(reg.timestamp) },
         { label: '📧 Email', value: reg.email },
         { label: '📱 Mobile', value: reg.mobile },
+        { label: '👨‍👩‍👦 Parent Name', value: reg.parentName },
+        { label: '📞 Parent WhatsApp', value: reg.parentMobile },
         { label: '🎓 Institution', value: reg.collegeName },
         { label: '🏛️ Inst. Type', value: reg.institutionType ? (reg.institutionType === 'university' ? 'University' : 'Autonomous College') : null },
         { label: '🎯 Department', value: reg.department },
