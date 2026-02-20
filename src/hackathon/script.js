@@ -610,6 +610,8 @@ async function handleSubmit(event) {
                 email: form.querySelector('#email')?.value || '',
                 mobile: form.querySelector('#mobile')?.value || '',
                 altMobile: form.querySelector('#altMobile')?.value || '',
+                parentName: form.querySelector('#parentName')?.value || '',
+                parentMobile: form.querySelector('#parentMobile')?.value || '',
 
                 // College Information
                 collegeName: form.querySelector('#collegeName')?.value || '',

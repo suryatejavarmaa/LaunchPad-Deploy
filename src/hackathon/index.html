@@ -67,7 +67,8 @@
             </div>
 
             <!-- Loading Logo (for splash) -->
-            <img src="./assets/launchpad-icon.svg" class="splash-logo-icon" alt="Launchpad logo" aria-hidden="true">
+            <img src="/src/hackathon/assets/launchpad-icon.svg" class="splash-logo-icon" alt="Launchpad logo"
+                aria-hidden="true">
 
             <!-- Loading Text -->
             <p class="splash-loading-text">INITIALIZING YOUR JOURNEY</p>
@@ -76,7 +77,7 @@
 
     <!-- Fixed corner logo -->
     <div class="corner-logo" aria-hidden="true">
-        <img src="./assets/launchpad-icon.svg" alt="Launchpad" />
+        <img src="/src/hackathon/assets/launchpad-icon.svg" alt="Launchpad" />
     </div>
 
     <!-- Animated Background -->
@@ -96,9 +97,9 @@
                 <div class="logo-glow"></div>
                 <h1 class="brand-name">
                     <span class="brand-mega">ZERO TO ONE</span>
-                    <span class="brand-launch">L<img src="./assets/space-rocket-launch.png" class="rocket-icon-img"
-                            alt="A"
-                            style="height: 0.65em; vertical-align: 0em; margin: 0 -0.02em; filter: brightness(0) invert(1); transform: rotate(-45deg);">UNCHPAD</span>
+                    <span class="brand-launch">LAUNCHP<img src="/src/hackathon/assets/space-rocket-launch.png"
+                            class="rocket-icon-img" alt="A"
+                            style="height: 0.75em; vertical-align: -0.02em; margin: 0 -0.02em; filter: brightness(0) invert(1); transform: rotate(-45deg); display: inline-block;">D</span>
                 </h1>
                 <p class="brand-tagline">HACKATHON 2026</p>
             </div>
@@ -139,6 +140,19 @@
                         <label for="altMobile" class="form-label">Alternate Mobile Number</label>
                         <input type="tel" id="altMobile" name="altMobile" class="form-input"
                             placeholder="+91 XXXXX XXXXX" maxlength="10" inputmode="numeric">
+                    </div>
+                    <div class="form-group">
+                        <label for="parentMobile" class="form-label">Parent's WhatsApp Number <span
+                                class="required">*</span></label>
+                        <input type="tel" id="parentMobile" name="parentMobile" class="form-input"
+                            placeholder="+91 XXXXX XXXXX" required maxlength="10" inputmode="numeric">
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentName" class="form-label">Parent's Name <span
+                                class="optional-badge">Optional</span></label>
+                        <input type="text" id="parentName" name="parentName" class="form-input"
+                            placeholder="Enter parent's name">
                     </div>
                 </div>
             </section>
@@ -527,8 +541,8 @@
             <!-- Message -->
             <p class="success-message">
                 Welcome to ZERO TO ONE HACKATHON 2026!<br>
-                <strong style="display: block; margin-top: 10px; font-size: 1.1em;">👉 Date will be Announced
-                    Soon</strong>
+                <strong style="display: block; margin-top: 10px; font-size: 1.1em;">🎯 Mark The Date -
+                    07/03/2026</strong>
                 <br>
                 <span style="display: block; margin-bottom: 5px;">📲 For updates, join Whatsapp:</span>
                 <a href="https://chat.whatsapp.com/FbM1SLB5gqj5GMhfNHkRnW" target="_blank"
