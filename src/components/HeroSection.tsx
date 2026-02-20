@@ -88,7 +88,7 @@ export default function HeroSection() {
           headline={{
             lines: [
               {
-                text: "Not a course.",
+                text: "Not a Course.",
                 colorClass: "opacity-60",
                 style: {
                   color: '#FFFFFF',
@@ -99,7 +99,7 @@ export default function HeroSection() {
                 }
               },
               {
-                text: "Not a college.",
+                text: "Not a College.",
                 colorClass: "opacity-60",
                 style: {
                   color: '#FFFFFF',

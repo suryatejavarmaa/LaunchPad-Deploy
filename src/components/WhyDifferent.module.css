@@ -251,6 +251,18 @@
     -webkit-text-fill-color: transparent;
 }
 
+.cardDesc {
+    margin-top: 12px;
+    color: #CBD5E1;
+}
+
+.cardDetail {
+    margin-top: 8px;
+    color: #94A3B8;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
 .cta {
     position: relative;
     z-index: 20;
@@ -295,6 +307,20 @@
 
 .cta strong {
     color: #FFFFFF;
+}
+
+.ctaTextMain {
+    margin-top: 32px;
+    font-size: 22px;
+    line-height: 1.6;
+    color: #CBD5E1;
+}
+
+.ctaTextSub {
+    margin-top: 24px;
+    font-size: 18px;
+    opacity: 0.75;
+    color: #CBD5E1;
 }
 
 .oldWarning {
@@ -407,11 +433,13 @@
     }
 
     .newSystemTitle {
-        font-size: clamp(32px, 8vw, 42px);
+        font-size: clamp(24px, 7.5vw, 32px);
+        margin-bottom: 8px;
     }
 
     .newSystemDesc {
-        font-size: 16px;
+        font-size: 14px;
+        margin-bottom: 12px;
     }
 
     .cardGrid {
@@ -421,35 +449,59 @@
     }
 
     .card {
-        padding: 24px;
+        padding: 16px 20px;
     }
 
     .card h3 {
-        font-size: 22px;
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 13px !important;
+        margin-top: 4px !important;
     }
 
     .cta {
-        padding: 32px 24px;
-        margin: 24px auto;
-        width: calc(100% - 48px);
+        padding: 24px 20px;
+        margin: 12px auto;
+        width: calc(100% - 40px);
         max-width: 440px;
-        border-radius: 24px;
+        border-radius: 20px;
     }
 
     .cta h2 {
-        font-size: clamp(24px, 7vw, 32px);
+        font-size: clamp(22px, 7.5vw, 28px);
     }
 
     .cta p {
-        font-size: 16px !important;
-        line-height: 1.5;
-        padding: 0 8px;
+        font-size: 14px !important;
+        line-height: 1.4;
+        padding: 0 4px;
+        margin-top: 16px !important;
+    }
+
+    .ctaTextMain {
+        margin-top: 16px !important;
+        font-size: 16px;
+    }
+
+    .ctaTextSub {
+        margin-top: 12px !important;
+        font-size: 14px;
+    }
+
+    .cardDesc {
+        margin-top: 6px;
+    }
+
+    .cardDetail {
+        margin-top: 4px;
     }
 
     .ctaButton {
-        padding: 16px 28px;
-        font-size: 15px;
-        margin-top: 24px;
+        padding: 14px 24px;
+        font-size: 14px;
+        margin-top: 16px;
         width: auto;
     }
 }

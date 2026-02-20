@@ -148,22 +148,22 @@ function NewSystemPanel() {
                         <div className={styles.cardGrid}>
                             <div className={styles.card}>
                                 <h3>BUILD</h3>
-                                <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Design, build, and ship real products.</p>
-                                <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
+                                <p className={styles.cardDesc}>Design, build, and ship real products.</p>
+                                <p className={styles.cardDetail}>
                                     • Production code<br />• Real users{!isMobile && <><br />• Live feedback</>}
                                 </p>
                             </div>
                             <div className={styles.card}>
                                 <h3>PRESSURE</h3>
-                                <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Operate under real startup conditions.</p>
-                                <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
+                                <p className={styles.cardDesc}>Operate under real startup conditions.</p>
+                                <p className={styles.cardDetail}>
                                     • Daily reviews<br />• Deadlines{!isMobile && <><br />• Ownership mindset</>}
                                 </p>
                             </div>
                             <div className={styles.card}>
                                 <h3>PROOF</h3>
-                                <p style={{ marginTop: '12px', color: '#CBD5E1' }}>Show outcomes, not certificates.</p>
-                                <p style={{ marginTop: '8px', color: '#94A3B8', fontSize: '15px', lineHeight: 1.6 }}>
+                                <p className={styles.cardDesc}>Show outcomes, not certificates.</p>
+                                <p className={styles.cardDetail}>
                                     • Portfolio<br />• Metrics{!isMobile && <><br />• Investor-ready demos</>}
                                 </p>
                             </div>
@@ -183,11 +183,11 @@ function OutcomePanel() {
             <div className={styles.outcomeContent}>
                 <div className={styles.cta}>
                     <h2>REAL PRESSURE.<br />REAL OUTCOMES.</h2>
-                    <p style={{ marginTop: '32px', fontSize: '22px', lineHeight: 1.6 }}>
+                    <p className={styles.ctaTextMain}>
                         Students enter as learners.<br />
                         <strong>They leave as Leaders & Founders.</strong>
                     </p>
-                    <p style={{ marginTop: '24px', fontSize: '18px', opacity: 0.75 }}>
+                    <p className={styles.ctaTextSub}>
                         Launchpad is not preparation for the real world.<br />
                         <strong>It is the real world.</strong>
                     </p>

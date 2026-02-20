@@ -68,9 +68,9 @@ export function CardStack({ type, title, subtitle, description, features, flippe
         top: 0,
         left: 0,
         right: 0,
-        bottom: isMobile ? 'auto' : 0,
         width: '100%',
-        height: '100%',
+        height: isMobile ? 'auto' : '100%',
+        minHeight: isMobile ? '400px' : 'auto',
         borderRadius: '32px',
         background: colors.cardBg,
         border: `2px solid ${colors.borderColor}`,
@@ -84,6 +84,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
         backfaceVisibility: 'hidden' as const,
         WebkitBackfaceVisibility: 'hidden' as const,
         overflow: isMobile ? 'visible' : 'hidden',
+        transition: 'opacity 0.3s ease, visibility 0.3s ease',
     };
 
     return (
@@ -92,7 +93,8 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                 position: 'relative',
                 width: isMobile ? 'calc(100% - 12px)' : '100%',
                 maxWidth: isMobile ? '460px' : '480px',
-                height: isMobile ? 'auto' : 'clamp(420px, 70vw, 540px)',
+                minHeight: isMobile ? '480px' : 'clamp(420px, 70vw, 540px)',
+                height: 'auto',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -181,6 +183,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                     hover: { y: isMobile ? 0 : -12, scale: isMobile ? 1 : 1.02 }
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                animate={isMobile ? undefined : "rest"}
             >
                 <motion.div
                     style={{
@@ -205,7 +208,10 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             flexDirection: 'column',
                             padding: isMobile ? '32px 24px' : '32px 40px',
                             pointerEvents: flipped ? 'none' : 'auto',
-                            position: isMobile ? 'relative' : 'absolute', // FRONT is relative on mobile to drive parent auto-height
+                            opacity: flipped ? 0 : 1,
+                            visibility: flipped ? 'hidden' : 'visible',
+                            zIndex: flipped ? 1 : 2,
+                            transform: `rotateY(0deg) ${!flipped ? 'translateZ(1px)' : ''}`,
                         }}
                         onClick={onFlip}
                     >
@@ -300,15 +306,17 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                     <div
                         style={{
                             ...cardFaceStyle,
-                            transform: 'rotateY(180deg)',
+                            transform: `rotateY(180deg) ${flipped ? 'translateZ(1px)' : ''}`,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
                             padding: isMobile ? '32px 24px' : '32px 40px',
                             pointerEvents: flipped ? 'auto' : 'none',
-                            position: 'absolute',
                             inset: 0,
+                            opacity: flipped ? 1 : 0,
+                            visibility: flipped ? 'visible' : 'hidden',
+                            zIndex: flipped ? 2 : 1,
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >

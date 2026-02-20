@@ -278,57 +278,68 @@ export default function RadialOrbitalTimeline({
             }}
           >
             {/* Central Sun/Core - Logo centered in orbit */}
-            <motion.div
-              className="absolute rounded-full flex items-center justify-center overflow-hidden cursor-pointer"
+            <div
               style={{
+                position: 'absolute',
                 left: '50%',
                 top: '50%',
-                marginLeft: isMobile ? '-40px' : '-55px',
-                marginTop: isMobile ? '-40px' : '-55px',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10,
                 width: isMobile ? '80px' : '110px',
                 height: isMobile ? '80px' : '110px',
-                background: activeItem ? 'rgba(10, 15, 28, 0.9)' : 'rgba(10, 15, 28, 0.9)',
-                border: activeItem
-                  ? 'none'
-                  : '2px solid rgba(74, 212, 255, 0.4)',
-                zIndex: 10,
-              }}
-              animate={{
-                boxShadow: activeItem
-                  ? [
-                    `0 0 20px ${getStatusColor(activeItem.status).text}40, 0 0 40px ${getStatusColor(activeItem.status).text}20`,
-                    `0 0 35px ${getStatusColor(activeItem.status).text}60, 0 0 70px ${getStatusColor(activeItem.status).text}30`,
-                    `0 0 20px ${getStatusColor(activeItem.status).text}40, 0 0 40px ${getStatusColor(activeItem.status).text}20`,
-                  ]
-                  : [
-                    '0 0 30px rgba(0, 169, 255, 0.4), 0 0 60px rgba(0, 169, 255, 0.2)',
-                    '0 0 50px rgba(0, 169, 255, 0.6), 0 0 100px rgba(0, 169, 255, 0.3)',
-                    '0 0 30px rgba(0, 169, 255, 0.4), 0 0 60px rgba(0, 169, 255, 0.2)',
-                  ],
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              whileTap={{ scale: 0.98 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setExpandedItems({});
-                setActiveNodeId(null);
-                setPulseEffect({});
-                setAutoRotate(true);
-                setUserInteracted(false);
               }}
             >
-              {/* Logo image - fills entire space */}
-              <img
-                src={launchpadLogo}
-                alt="Launchpad Logo"
-                className="object-cover rounded-full"
+              {/* Outer Glow Wrapper (Separated from clipping container) */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  filter: 'drop-shadow(0 0 15px rgba(74, 212, 255, 0.5))',
+                  background: activeItem
+                    ? `${getStatusColor(activeItem.status).text}15`
+                    : 'rgba(74, 212, 255, 0.1)',
                 }}
+                animate={{
+                  boxShadow: activeItem
+                    ? [
+                      `0 0 20px ${getStatusColor(activeItem.status).text}40, 0 0 40px ${getStatusColor(activeItem.status).text}20`,
+                      `0 0 35px ${getStatusColor(activeItem.status).text}60, 0 0 70px ${getStatusColor(activeItem.status).text}30`,
+                      `0 0 20px ${getStatusColor(activeItem.status).text}40, 0 0 40px ${getStatusColor(activeItem.status).text}20`,
+                    ]
+                    : [
+                      '0 0 30px rgba(0, 169, 255, 0.4), 0 0 60px rgba(0, 169, 255, 0.2)',
+                      '0 0 50px rgba(0, 169, 255, 0.6), 0 0 100px rgba(0, 169, 255, 0.3)',
+                      '0 0 30px rgba(0, 169, 255, 0.4), 0 0 60px rgba(0, 169, 255, 0.2)',
+                    ],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
-            </motion.div>
+
+              {/* Inner Logo Container (Enforced clipping) */}
+              <motion.div
+                className="absolute inset-0 rounded-full overflow-hidden flex items-center justify-center cursor-pointer border"
+                style={{
+                  background: 'rgba(10, 15, 28, 1)',
+                  borderColor: activeItem
+                    ? getStatusColor(activeItem.status).text + '40'
+                    : 'rgba(74, 212, 255, 0.4)',
+                  aspectRatio: '1/1',
+                }}
+                whileTap={{ scale: 0.96 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setExpandedItems({});
+                  setActiveNodeId(null);
+                  setPulseEffect({});
+                  setAutoRotate(true);
+                  setUserInteracted(false);
+                }}
+              >
+                <img
+                  src={launchpadLogo}
+                  alt="Launchpad Logo"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            </div>
 
             {/* Orbit Path Ring */}
             <div
