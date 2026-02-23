@@ -424,6 +424,53 @@
                 </div>
             </section>
 
+            <!-- Payment Section -->
+            <section class="form-section payment-section" data-section="payment">
+                <div class="section-header">
+                    <div class="section-icon">💳</div>
+                    <h2 class="section-title">Payment Details</h2>
+                </div>
+                <div class="payment-container">
+                    <div class="payment-info">
+                        <p class="payment-amount">Registration Fee: <span class="amount">₹499</span></p>
+                        <p class="payment-instruction">Scan the QR code below using any UPI app (GPay, PhonePe, Paytm)
+                            to complete the payment.</p>
+
+                        <div class="qr-wrapper">
+                            <div class="qr-frame">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9052588816@hdfc%26pn=Launchpad%26am=499%26cu=INR"
+                                    alt="UPI QR Code" class="qr-code-img">
+                                <div class="qr-glow"></div>
+                            </div>
+                            <div class="upi-copy-wrapper">
+                                <p class="upi-id" id="upiIdText">9052588816@hdfc</p>
+                                <button type="button" class="copy-upi-btn" onclick="copyUPIId()" title="Copy UPI ID">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                                <span class="copy-tooltip" id="copyTooltip">Copied!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid payment-validation">
+                        <div class="form-group full-width">
+                            <label for="transactionId" class="form-label">Transaction ID / UTR Number <span
+                                    class="required">*</span></label>
+                            <input type="text" id="transactionId" name="transactionId" class="form-input"
+                                placeholder="Enter the 12-digit Transaction ID after payment" required maxlength="12"
+                                inputmode="numeric">
+                            <span class="error-message"></span>
+                            <p class="form-hint">Only after successful payment should you enter the transaction ID. This
+                                will be verified manually.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Submit Button -->
             <div class="submit-container">
                 <div class="simplified-consent">

@@ -456,6 +456,15 @@ function validateField(field) {
             isValid = false;
             message = 'Please enter a valid URL (include http:// or https://)';
         }
+    } else if (field.id === 'transactionId') {
+        const txnRegex = /^\d{12}$/;
+        if (!value) {
+            isValid = false;
+            message = 'Transaction ID is required';
+        } else if (!txnRegex.test(value)) {
+            isValid = false;
+            message = 'Please enter a valid 12-digit UTR/Transaction ID';
+        }
     }
 
     if (!isValid) {
@@ -474,6 +483,32 @@ function validateField(field) {
 
     return isValid;
 }
+
+// Global function to copy UPI ID
+window.copyUPIId = function () {
+    const upiId = document.getElementById('upiIdText').innerText.trim();
+    const tooltip = document.getElementById('copyTooltip');
+
+    navigator.clipboard.writeText(upiId).then(() => {
+        // Show tooltip
+        tooltip.classList.add('show');
+
+        // Hide tooltip after 2 seconds
+        setTimeout(() => {
+            tooltip.classList.remove('show');
+        }, 2000);
+
+        // Optional: show toast for mobile
+        if (typeof showToast === 'function') {
+            showToast('UPI ID copied to clipboard!', 'success');
+        }
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        if (typeof showToast === 'function') {
+            showToast('Failed to copy UPI ID', 'error');
+        }
+    });
+};
 
 async function handleSubmit(event) {
     event.preventDefault();
@@ -527,6 +562,12 @@ async function handleSubmit(event) {
         }
     }
 
+    // Validate Transaction ID
+    const transactionIdInput = document.getElementById('transactionId');
+    if (!validateField(transactionIdInput)) {
+        isValid = false;
+    }
+
     if (isValid) {
         // Show loading state
         const submitBtn = form.querySelector('.submit-btn');
@@ -559,6 +600,20 @@ async function handleSubmit(event) {
                 submitBtn.innerHTML = originalText;
                 showDuplicateModal('mobile', mobileInput);
                 return;
+            }
+
+            // Query for existing Transaction ID
+            const transactionIdInput = form.querySelector('#transactionId').value;
+            if (transactionIdInput) {
+                const txnQuery = query(collection(db, 'registrations'), where('transactionId', '==', transactionIdInput));
+                const txnSnapshot = await getDocs(txnQuery);
+
+                if (!txnSnapshot.empty) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    showDuplicateModal('transactionId', transactionIdInput);
+                    return;
+                }
             }
 
             // Update loading text
@@ -642,7 +697,10 @@ async function handleSubmit(event) {
 
                 // College ID file info - now with download URL
                 collegeIdFileName: collegeIdFileName,
-                collegeIdUrl: collegeIdUrl
+                collegeIdUrl: collegeIdUrl,
+
+                // Payment Information
+                transactionId: form.querySelector('#transactionId')?.value || ''
             };
 
             // Add team-specific data if team participation
@@ -843,7 +901,7 @@ function showDuplicateModal(type, value) {
                     font-size: 1rem;
                     color: rgba(255, 255, 255, 0.8);
                     margin-bottom: 0.5rem;
-                ">This ${type === 'email' ? 'email address' : 'phone number'} is already registered:</p>
+                ">This ${type === 'email' ? 'email address' : type === 'mobile' ? 'phone number' : 'Transaction ID'} is already registered:</p>
                 <p style="
                     font-size: 1.1rem;
                     font-weight: 600;
@@ -854,7 +912,7 @@ function showDuplicateModal(type, value) {
                     font-size: 0.9rem;
                     color: rgba(255, 255, 255, 0.6);
                     margin-bottom: 2rem;
-                ">Please use a different ${type === 'email' ? 'email address' : 'phone number'} or contact support if you believe this is an error.</p>
+                ">Please use a unique ${type === 'email' ? 'email address' : type === 'mobile' ? 'phone number' : 'Transaction ID'}. Contact support if you believe this is an error.</p>
                 <button onclick="closeDuplicateModal()" style="
                     background: linear-gradient(135deg, var(--bright-red), var(--electric-blue));
                     border: none;

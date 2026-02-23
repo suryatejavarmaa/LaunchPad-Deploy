@@ -272,6 +272,7 @@ function renderTable() {
             <td>${escapeHtml(reg.fullName || 'N/A')}</td>
             <td>${escapeHtml(reg.email || 'N/A')}</td>
             <td>${escapeHtml(reg.mobile || 'N/A')}</td>
+            <td style="font-family: monospace; font-weight: 600; color: var(--bright-red);">${escapeHtml(reg.transactionId || '-')}</td>
             <td>${escapeHtml(reg.collegeName || 'N/A')}</td>
             <td>
                 <span class="type-badge type-${reg.participationType}">
@@ -371,7 +372,7 @@ function convertToCSV(data) {
 
     const headers = [
         'Reg ID', 'Timestamp', 'Name', 'Email', 'Mobile', 'Alt Mobile',
-        'Parent Name', 'Parent Mobile',
+        'Transaction ID', 'Parent Name', 'Parent Mobile',
         'College', 'Location', 'University', 'Department', 'Year',
         'Type', 'Team Name', 'Team Size', 'Leader Name', 'Leader Email',
         'Team Member Details',
@@ -385,6 +386,7 @@ function convertToCSV(data) {
         reg.email || '',
         reg.mobile || '',
         reg.altMobile || '',
+        reg.transactionId || '',
         reg.parentName || '',
         reg.parentMobile || '',
         reg.collegeName || '',
@@ -526,6 +528,7 @@ window.viewDetails = function (id) {
 
     const details = [
         { label: '📅 Registered', value: formatDate(reg.timestamp) },
+        { label: '🎫 Transaction ID', value: reg.transactionId || 'NOT PAID' },
         { label: '📧 Email', value: reg.email },
         { label: '📱 Mobile', value: reg.mobile },
         { label: '👨‍👩‍👦 Parent Name', value: reg.parentName },
