@@ -68,14 +68,12 @@ function initializeSplashScreen() {
     // 4.5s - Progress completes
     // 5.0s - Transition to form (500ms fade out)
 
-    // Hide splash screen and show form after 5.5s
+    // Splash Screen timeout - Reduced to 2s for better mobile UX
     setTimeout(() => {
         splashScreen.classList.add('hidden');
-        // add highlight state to corner logo once splash completes
-        const corner = document.querySelector('.corner-logo');
-        if (corner) {
-            corner.classList.add('highlight');
-        }
+        // Add a class to handle any "post-splash" highlights
+        const cornerLogo = document.querySelector('.corner-logo');
+        if (cornerLogo) cornerLogo.classList.add('highlight');
         if (mainContainer) {
             mainContainer.style.display = 'block';
             // Trigger form initialization

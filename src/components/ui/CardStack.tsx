@@ -64,13 +64,12 @@ export function CardStack({ type, title, subtitle, description, features, flippe
 
     // Shared card face styles
     const cardFaceStyle: React.CSSProperties = {
-        position: isMobile ? 'relative' : 'absolute',
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         width: '100%',
-        height: isMobile ? 'auto' : '100%',
-        minHeight: isMobile ? '400px' : 'auto',
+        height: '100%',
         borderRadius: '32px',
         background: colors.cardBg,
         border: `2px solid ${colors.borderColor}`,
@@ -83,7 +82,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
     `,
         backfaceVisibility: 'hidden' as const,
         WebkitBackfaceVisibility: 'hidden' as const,
-        overflow: isMobile ? 'visible' : 'hidden',
+        overflow: 'hidden',
         transition: 'opacity 0.3s ease, visibility 0.3s ease',
     };
 
@@ -167,15 +166,12 @@ export function CardStack({ type, title, subtitle, description, features, flippe
             {/* Main card with 3D flip */}
             <motion.div
                 style={{
-                    position: isMobile ? 'relative' : 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: isMobile ? 'auto' : 0,
+                    position: 'absolute',
+                    inset: 0,
                     width: '100%',
-                    height: isMobile ? 'auto' : '100%',
+                    height: '100%',
                     zIndex: 10,
-                    perspective: '1000px',
+                    perspective: '1200px',
                     willChange: 'transform',
                 }}
                 variants={{

@@ -19,6 +19,12 @@ export default function FlowFieldBackground({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
+    // Optimize count for mobile
+    const effectiveParticleCount = React.useMemo(() => {
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        return isMobile ? Math.min(particleCount, 200) : particleCount;
+    }, [particleCount]);
+
     useEffect(() => {
         const canvas = canvasRef.current;
         const container = containerRef.current;
@@ -31,17 +37,17 @@ export default function FlowFieldBackground({
         let height = container.clientHeight;
         let animationFrameId: number;
 
-        // Pre-allocated TypedArrays for smooth performance
-        const px = new Float32Array(particleCount);
-        const py = new Float32Array(particleCount);
-        const vx = new Float32Array(particleCount);
-        const vy = new Float32Array(particleCount);
-        const age = new Float32Array(particleCount);
-        const life = new Float32Array(particleCount);
-        const alphaArr = new Float32Array(particleCount);
+        // Pre-allocated TypedArrays for smooth performance - using effectiveParticleCount
+        const px = new Float32Array(effectiveParticleCount);
+        const py = new Float32Array(effectiveParticleCount);
+        const vx = new Float32Array(effectiveParticleCount);
+        const vy = new Float32Array(effectiveParticleCount);
+        const age = new Float32Array(effectiveParticleCount);
+        const life = new Float32Array(effectiveParticleCount);
+        const alphaArr = new Float32Array(effectiveParticleCount);
 
         const initParticles = () => {
-            for (let i = 0; i < particleCount; i++) {
+            for (let i = 0; i < effectiveParticleCount; i++) {
                 px[i] = Math.random() * width;
                 py[i] = Math.random() * height;
                 vx[i] = 0;
@@ -70,7 +76,7 @@ export default function FlowFieldBackground({
             ctx.fillStyle = color;
 
             // Update all particles and store their alphas
-            for (let i = 0; i < particleCount; i++) {
+            for (let i = 0; i < effectiveParticleCount; i++) {
                 const angle = (Math.cos(px[i] * 0.005) + Math.sin(py[i] * 0.005)) * Math.PI;
 
                 vx[i] += Math.cos(angle) * 0.2 * speed;
@@ -103,7 +109,7 @@ export default function FlowFieldBackground({
             // Draw particles — only change globalAlpha when it actually differs
             // Round to 2 decimal places to avoid micro-changes triggering state updates
             let lastAlpha = -1;
-            for (let i = 0; i < particleCount; i++) {
+            for (let i = 0; i < effectiveParticleCount; i++) {
                 const a = Math.round(alphaArr[i] * 20) / 20; // Quantise to 0.05 steps
                 if (a !== lastAlpha) {
                     ctx.globalAlpha = a;

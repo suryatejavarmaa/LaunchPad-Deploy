@@ -3006,4 +3006,29 @@ a {
         width: 100%;
         justify-content: center;
     }
+
+    /* Mobile Performance Optimizations */
+    .orb {
+        display: none !important;
+        /* Disable orbs on mobile to save GPU */
+    }
+
+    .form-section {
+        backdrop-filter: blur(8px) !important;
+        /* Reduced blur */
+        -webkit-backdrop-filter: blur(8px) !important;
+    }
+
+    .doodle-overlay {
+        animation: none !important;
+        /* Stop animation on mobile */
+        opacity: 0.05 !important;
+    }
+
+    .splash-gradient-red,
+    .splash-gradient-blue,
+    .splash-gradient-center {
+        filter: blur(30px) !important;
+        /* Half blur for faster rendering */
+    }
 }
