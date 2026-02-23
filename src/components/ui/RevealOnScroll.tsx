@@ -32,7 +32,7 @@ export function RevealOnScroll({
         <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, margin: "0%" }}
             variants={variants}
             className={className}
         >

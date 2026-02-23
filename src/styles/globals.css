@@ -199,9 +199,10 @@
   }
 }
 
-html {
-  font-size: var(--font-size);
-  scroll-behavior: smooth;
+@media (min-width: 769px) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Optimize scroll performance */
