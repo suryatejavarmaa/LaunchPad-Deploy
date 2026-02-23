@@ -72,7 +72,7 @@ export function CareerOverview() {
             type="entrepreneur"
             title="Create Your Empire"
             subtitle="Entrepreneur Path"
-            description="Launch and scale your own startup with expert guidance and proven frameworks."
+            description="Transform your vision into reality. Launch and scale your own startup with expert-led guidance, proven growth frameworks, and a community of builders."
             features={[
               "Startup toolkit & resources",
               "Mentor network access",
@@ -86,7 +86,7 @@ export function CareerOverview() {
             type="career"
             title="Build Your Future"
             subtitle="Career Path"
-            description="Master skills and land your dream job in tech with industry-ready training."
+            description="Fast-track your career in high-growth tech. Master in-demand skills and land your dream role with hands-on, industry-ready training and mentorship."
             features={[
               "Industry-grade projects",
               "Technical interview prep",

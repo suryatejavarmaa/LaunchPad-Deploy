@@ -92,7 +92,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                 position: 'relative',
                 width: isMobile ? 'calc(100% - 12px)' : '100%',
                 maxWidth: isMobile ? '460px' : '480px',
-                minHeight: isMobile ? '480px' : 'clamp(420px, 70vw, 540px)',
+                minHeight: isMobile ? '560px' : 'clamp(420px, 70vw, 540px)',
                 height: 'auto',
                 display: 'flex',
                 alignItems: 'center',
@@ -202,7 +202,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             ...cardFaceStyle,
                             display: 'flex',
                             flexDirection: 'column',
-                            padding: isMobile ? '32px 24px' : '32px 40px',
+                            padding: isMobile ? '24px 20px' : '32px 40px',
                             pointerEvents: flipped ? 'none' : 'auto',
                             opacity: flipped ? 0 : 1,
                             visibility: flipped ? 'hidden' : 'visible',
@@ -223,9 +223,9 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                             }}
                         />
 
-                        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', flex: 1 }}>
-                            <div style={{ marginBottom: 'auto' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', flex: 1, gap: isMobile ? '24px' : '32px' }}>
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: isMobile ? '16px' : '24px' }}>
                                     <div
                                         style={{
                                             width: '48px',
@@ -263,7 +263,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                                     style={{
                                         fontSize: 'clamp(1.875rem, 2vw, 2.25rem)',
                                         fontWeight: 900,
-                                        marginBottom: '16px',
+                                        marginBottom: isMobile ? '12px' : '16px',
                                         letterSpacing: '-0.025em',
                                         color: colors.titleColor,
                                     }}
@@ -274,7 +274,19 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                                     {description}
                                 </p>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: isMobile ? '24px' : '32px', marginBottom: isMobile ? '16px' : '0' }}>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                <div style={{
+                                    fontSize: '11px',
+                                    fontWeight: 700,
+                                    color: colors.titleColor,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.1em',
+                                    opacity: 0.8,
+                                    marginBottom: '-4px'
+                                }}>
+                                    Key Milestones:
+                                </div>
                                 {features.map((item, i) => (
                                     <div
                                         key={i}
@@ -384,7 +396,7 @@ export function CardStack({ type, title, subtitle, description, features, flippe
                         </div>
                     </div>
                 </motion.div>
-            </motion.div>
-        </motion.div>
+            </motion.div >
+        </motion.div >
     );
 }
