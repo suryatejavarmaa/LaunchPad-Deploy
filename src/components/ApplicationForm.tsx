@@ -109,7 +109,7 @@ export function ApplicationForm() {
                 <span>Alumni</span>
               </div>
               <div className={styles.stat}>
-                <strong>$50M+</strong>
+                <strong>₹50M+</strong>
                 <span>Raised</span>
               </div>
             </div>
