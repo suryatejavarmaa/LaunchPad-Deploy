@@ -16,7 +16,7 @@ export function ParticleTextSection() {
         className="relative z-10 w-full"
       >
         <ParticleTextEffect
-          words={["LAUNCHPAD", "ZERO TO ONE", "Your career is your launchpad"]}
+          words={["LAUNCHPAD"]}
         />
       </motion.div>
 

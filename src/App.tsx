@@ -14,6 +14,7 @@ const BeliefSection = lazy(() => import('./components/BeliefSection').then(m => 
 const GamificationSection = lazy(() => import('./components/GamificationSection').then(m => ({ default: m.GamificationSection })));
 const ApplicationForm = lazy(() => import('./components/ApplicationForm').then(m => ({ default: m.ApplicationForm })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
+const ParticleTextSection = lazy(() => import('./components/ParticleTextSection').then(m => ({ default: m.ParticleTextSection })));
 
 import { RevealOnScroll } from './components/ui/RevealOnScroll';
 
