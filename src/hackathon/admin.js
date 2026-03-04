@@ -376,7 +376,7 @@ function convertToCSV(data) {
         'College', 'Location', 'University', 'Department', 'Year',
         'Type', 'Team Name', 'Team Size', 'Leader Name', 'Leader Email',
         'Team Member Details',
-        'LinkedIn', 'Portfolio', 'GitHub', 'Hear About', 'Special Requirements'
+        'LinkedIn', 'Portfolio', 'GitHub', 'Resume URL', 'Hear About', 'Special Requirements'
     ];
 
     const rows = data.map(reg => [
@@ -403,6 +403,7 @@ function convertToCSV(data) {
         reg.linkedin || '',
         reg.portfolio || '',
         reg.github || '',
+        reg.resumeUrl || '',
         reg.hearAbout || '',
         reg.specialRequirements || ''
     ].map(field => `"${String(field).replace(/"/g, '""')}"`));
@@ -633,6 +634,49 @@ window.viewDetails = function (id) {
         }
     } else {
         collegeIdSection.classList.add('hidden');
+    }
+    // Resume section
+    const pcCardContent = document.querySelector('.pc-card-content');
+    let resumeSection = document.getElementById('pcResumeSection');
+
+    // Add resume section if it doesn't exist
+    if (!resumeSection) {
+        resumeSection = document.createElement('div');
+        resumeSection.id = 'pcResumeSection';
+        resumeSection.className = 'pc-college-id-section';
+        resumeSection.innerHTML = `
+            <h4 class="pc-college-id-title">📄 Resume</h4>
+            <div class="pc-college-id-content" id="pcResumeContent"></div>
+        `;
+        pcCardContent.insertBefore(resumeSection, collegeIdSection.nextSibling);
+    }
+
+    const resumeContent = document.getElementById('pcResumeContent');
+
+    if (reg.resumeUrl) {
+        resumeSection.classList.remove('hidden');
+        const resumeFileName = reg.resumeFileName || 'Resume';
+        const isPdf = resumeFileName.match(/\.pdf$/i);
+
+        if (isPdf) {
+            resumeContent.innerHTML = `
+                <div class="pc-college-id-pdf-wrapper">
+                    <span class="pc-college-id-pdf-icon">📄</span>
+                    <p class="pc-college-id-filename">${escapeHtml(resumeFileName)}</p>
+                    <a href="${escapeHtml(reg.resumeUrl)}" target="_blank" class="pc-college-id-link">📥 Download PDF</a>
+                </div>
+            `;
+        } else {
+            resumeContent.innerHTML = `
+                <div class="pc-college-id-file-wrapper">
+                    <span class="pc-college-id-file-icon">📎</span>
+                    <p class="pc-college-id-filename">${escapeHtml(resumeFileName)}</p>
+                    <a href="${escapeHtml(reg.resumeUrl)}" target="_blank" class="pc-college-id-link">📥 Download File</a>
+                </div>
+            `;
+        }
+    } else {
+        resumeSection.classList.add('hidden');
     }
 
     // Show modal

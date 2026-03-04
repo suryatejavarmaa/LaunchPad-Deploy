@@ -87,6 +87,7 @@ function initializeForm() {
     setupParticipationToggle();
     setupTeamMembers();
     setupFileUpload();
+    setupResumeUpload();
     setupFormValidation();
     setupAnimations();
     setupCamera();
@@ -358,7 +359,94 @@ function handleFileSelect(event) {
 function clearFileInput() {
     const fileInput = document.getElementById('collegeId');
     const filePreview = document.getElementById('filePreview');
-    const uploadBox = document.querySelector('.file-upload-box');
+    const uploadBox = fileInput ? fileInput.nextElementSibling : document.querySelector('.file-upload-box');
+
+    if (fileInput) fileInput.value = '';
+    if (filePreview) {
+        filePreview.classList.remove('active');
+        filePreview.innerHTML = '';
+    }
+    if (uploadBox && uploadBox.classList.contains('file-upload-box')) uploadBox.style.display = 'block';
+}
+
+window.clearFileInput = clearFileInput;
+
+function setupResumeUpload() {
+    const fileInput = document.getElementById('resume');
+    const filePreview = document.getElementById('resumePreview');
+    const uploadBox = document.getElementById('resumeUploadBox');
+
+    if (!fileInput || !filePreview) return;
+
+    fileInput.addEventListener('change', handleResumeSelect);
+
+    if (uploadBox) {
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = 'var(--electric-blue)';
+            uploadBox.style.background = 'rgba(0, 169, 255, 0.1)';
+        });
+
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            uploadBox.style.background = 'rgba(255, 255, 255, 0.03)';
+        });
+
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            uploadBox.style.background = 'rgba(255, 255, 255, 0.03)';
+
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleResumeSelect({ target: fileInput });
+            }
+        });
+    }
+}
+
+function handleResumeSelect(event) {
+    const file = event.target.files[0];
+    const filePreview = document.getElementById('resumePreview');
+    const uploadBox = document.getElementById('resumeUploadBox');
+
+    if (!file) {
+        filePreview.classList.remove('active');
+        filePreview.innerHTML = '';
+        if (uploadBox) uploadBox.style.display = 'block';
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        showToast('File size must be less than 5MB', 'error');
+        event.target.value = '';
+        return;
+    }
+
+    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (!validTypes.includes(file.type)) {
+        showToast('Please upload a valid PDF, DOC, or DOCX file', 'error');
+        event.target.value = '';
+        return;
+    }
+
+    const fileSize = formatFileSize(file.size);
+    filePreview.innerHTML = `
+        <span style="font-size: 2rem;">📄</span>
+        <div class="file-info">
+            <span class="file-name">${file.name}</span>
+            <span class="file-size">${fileSize}</span>
+        </div>
+        <span class="remove-file" onclick="clearResumeInput()">✕</span>
+    `;
+    filePreview.classList.add('active');
+    if (uploadBox) uploadBox.style.display = 'none';
+}
+
+function clearResumeInput() {
+    const fileInput = document.getElementById('resume');
+    const filePreview = document.getElementById('resumePreview');
+    const uploadBox = document.getElementById('resumeUploadBox');
 
     if (fileInput) fileInput.value = '';
     if (filePreview) {
@@ -368,7 +456,7 @@ function clearFileInput() {
     if (uploadBox) uploadBox.style.display = 'block';
 }
 
-window.clearFileInput = clearFileInput;
+window.clearResumeInput = clearResumeInput;
 
 function formatFileSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
@@ -560,6 +648,19 @@ async function handleSubmit(event) {
         }
     }
 
+    // Validate Resume upload (mandatory)
+    const resumeInput = document.getElementById('resume');
+    if (!resumeInput || !resumeInput.files || resumeInput.files.length === 0) {
+        isValid = false;
+        showToast('Please upload your Resume', 'error');
+        // Show error on the field
+        const resumeError = resumeInput?.parentElement?.parentElement?.querySelector('.error-message');
+        if (resumeError) {
+            resumeError.textContent = 'Resume is required';
+            resumeError.classList.add('visible');
+        }
+    }
+
     // Validate Transaction ID
     const transactionIdInput = document.getElementById('transactionId');
     if (!validateField(transactionIdInput)) {
@@ -615,14 +716,18 @@ async function handleSubmit(event) {
             }
 
             // Update loading text
-            submitBtn.innerHTML = '<span class="btn-text">Uploading ID...</span>';
+            submitBtn.innerHTML = '<span class="btn-text">Uploading Files...</span>';
 
             // Get collegeId element for file info
             const collegeId = document.getElementById('collegeId');
             const file = collegeId?.files[0];
+            const resumeInput = document.getElementById('resume');
+            const resumeFile = resumeInput?.files[0];
 
             let collegeIdUrl = '';
             let collegeIdFileName = '';
+            let resumeUrl = '';
+            let resumeFileName = '';
 
             // Upload file to Firebase Storage if present
             if (file) {
@@ -647,6 +752,28 @@ async function handleSubmit(event) {
                 } catch (uploadError) {
                     console.error('Error uploading file:', uploadError);
                     showToast('Failed to upload ID card. Please try again.', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    return;
+                }
+            }
+
+            if (resumeFile) {
+                try {
+                    const timestamp = Date.now();
+                    const sanitizedFileName = resumeFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
+                    const storagePath = `resumes/${timestamp}_${sanitizedFileName}`;
+
+                    const storageRef = ref(storage, storagePath);
+                    const uploadResult = await uploadBytes(storageRef, resumeFile);
+
+                    resumeUrl = await getDownloadURL(uploadResult.ref);
+                    resumeFileName = resumeFile.name;
+
+                    console.log('Resume uploaded successfully:', resumeUrl);
+                } catch (uploadError) {
+                    console.error('Error uploading resume:', uploadError);
+                    showToast('Failed to upload Resume. Please try again.', 'error');
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
                     return;
@@ -696,6 +823,8 @@ async function handleSubmit(event) {
                 // College ID file info - now with download URL
                 collegeIdFileName: collegeIdFileName,
                 collegeIdUrl: collegeIdUrl,
+                resumeFileName: resumeFileName,
+                resumeUrl: resumeUrl,
 
                 // Payment Information
                 transactionId: form.querySelector('#transactionId')?.value || ''
@@ -864,6 +993,7 @@ function closeModal() {
 
         // Clear file preview
         clearFileInput();
+        clearResumeInput();
     }
 }
 
