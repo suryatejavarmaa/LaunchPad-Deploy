@@ -337,7 +337,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="github" class="form-label">GitHub Profile</label>
+                        <label for="github" class="form-label">GitHub Profile <span class="required">*</span></label>
                         <div class="input-with-icon">
                             <span class="input-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -346,7 +346,8 @@
                                 </svg>
                             </span>
                             <input type="url" id="github" name="github" class="form-input with-icon"
-                                placeholder="https://github.com/username">
+                                placeholder="https://github.com/username" required>
+                            <span class="error-message"></span>
                         </div>
                     </div>
                     <div class="form-group full-width">

@@ -538,6 +538,15 @@ function validateField(field) {
                     message = 'Please enter a valid LinkedIn profile URL (e.g., https://linkedin.com/in/username)';
                 }
             }
+
+            // GitHub-specific validation
+            if (field.id === 'github' || field.name?.includes('github')) {
+                const githubPattern = /^https?:\/\/(www\.)?github\.com\/.+/i;
+                if (!githubPattern.test(value)) {
+                    isValid = false;
+                    message = 'Please enter a valid GitHub profile URL (e.g., https://github.com/username)';
+                }
+            }
         } catch {
             isValid = false;
             message = 'Please enter a valid URL (include http:// or https://)';
